@@ -28,8 +28,11 @@ public class MainView extends VerticalLayout {
 	private MenuBar menuBar;
 	private Tabs tabs;
 	private PersonView personView;
+	private LoginView loginView;
 	
     public MainView() {
+    	loginView = new LoginView();
+    	//add(loginView);
     	personView = new PersonView();
     	
     	configureMenuBar();

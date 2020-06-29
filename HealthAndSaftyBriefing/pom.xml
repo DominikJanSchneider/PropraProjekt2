@@ -109,8 +109,14 @@
       		<artifactId>sqlite-jdbc</artifactId>
       		<version>3.7.2</version>
     	</dependency>
+    	
+    	<dependency>
+    		<groupId>org.webjars.bowergithub.polymerelements</groupId>
+    		<artifactId>iron-form</artifactId>
+    		<version>3.0.1</version>
+		</dependency>
     </dependencies>
-
+    
     <build>
         <defaultGoal>jetty:run</defaultGoal>
         <plugins>
