@@ -72,7 +72,7 @@ public class PersonView extends VerticalLayout {
 	}
 	
 	private void updatePersonGrid() {
-		List<Person> persons = personM.getPersons();
+		List<Person> persons = personM.getPersonsData();
         personGrid.setItems(persons);
 	}
 }

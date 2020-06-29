@@ -11,7 +11,7 @@ import com.propra.HealthAndSaftyBriefing.database.DBConnector;
 
 public class PersonManager {
 	
-	public List<Person> getPersons() {
+	public List<Person> getPersonsData() {
 		String tableName = "Personen";
 		Connection con = DBConnector.connectCore();
 		PreparedStatement pstmt = null;

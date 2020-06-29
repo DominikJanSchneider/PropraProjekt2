@@ -10,7 +10,7 @@ import java.util.List;
 import com.propra.HealthAndSaftyBriefing.database.DBConnector;
 
 public class DeviceManager {
-	public List<Device> getDevices() {
+	public List<Device> getDevicesData() {
 		String tableName = "Ger\u00e4te";
 		Connection con = DBConnector.connectCore();
 		PreparedStatement pstmt = null;

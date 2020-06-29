@@ -44,7 +44,7 @@ public class DeviceView extends VerticalLayout {
 	}
 	
 	private void updateDeviceGrid() {
-		List<Device> devices = deviceM.getDevices();
+		List<Device> devices = deviceM.getDevicesData();
         deviceGrid.setItems(devices);
 	}
 }

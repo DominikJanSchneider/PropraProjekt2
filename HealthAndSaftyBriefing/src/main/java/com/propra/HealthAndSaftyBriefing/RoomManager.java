@@ -9,21 +9,22 @@ import java.util.List;
 
 import com.propra.HealthAndSaftyBriefing.database.DBConnector;
 
-public class DangerSubstManager {
-	public List<DangerSubst> getDangerSubstsData() {
-		String tableName = "Gefahrstoffe";
+public class RoomManager {
+	public List<Room> getRoomsData() {
+		String tableName = "R\u00e4ume";
 		Connection con = DBConnector.connectCore();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<DangerSubst> list = new LinkedList<DangerSubst>();
+		List<Room> list = new LinkedList<Room>();
 		try {
 			pstmt = con.prepareStatement("SELECT * FROM "+tableName);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				DangerSubst dangerSubst = new DangerSubst(
-							rs.getString("Name")
+				Room room = new Room(
+							rs.getString("Name"),
+							rs.getString("Beschreibung")
 						);
-				list.add(dangerSubst);
+				list.add(room);
 			}
 			return list;
 		} catch (SQLException e) {

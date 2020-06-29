@@ -31,7 +31,7 @@ public class DangerSubstView extends  VerticalLayout {
 	}
 	
 	private void updateDangerSubstGrid() {
-		List<DangerSubst> dangerSubst = dangerSubstM.getDangerSubsts();
+		List<DangerSubst> dangerSubst = dangerSubstM.getDangerSubstsData();
         dangerSubstGrid.setItems(dangerSubst);
 	}
 }
