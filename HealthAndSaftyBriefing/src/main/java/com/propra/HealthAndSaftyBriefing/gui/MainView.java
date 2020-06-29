@@ -28,12 +28,21 @@ public class MainView extends VerticalLayout {
 	private MenuBar menuBar;
 	private Tabs tabs;
 	private PersonView personView;
+	private DeviceView deviceView;
+	private Div pages;
 	
     public MainView() {
     	personView = new PersonView();
+    	deviceView = new DeviceView();
     	
+    	//MenuBar
     	configureMenuBar();
+    	add(menuBar);
+    	
+    	//Tabs
     	configureTabs();
+    	add(tabs);
+		add(pages);
     }
     
 	private void configureTabs() {
@@ -44,8 +53,7 @@ public class MainView extends VerticalLayout {
 		
 		//deviceTab
 		Tab deviceTab = new Tab("Ger\u00e4te");
-		Div devicePage = new Div();
-		devicePage.setText("Geräte-Tab");
+		Div devicePage = new Div(deviceView);
 		devicePage.setVisible(false);
 		
 		//roomsTab
@@ -66,7 +74,7 @@ public class MainView extends VerticalLayout {
 		tabsToPages.put(roomsTab, roomsPage);
 		tabsToPages.put(dangerSubstTab, dangerSubstPage);
 		tabs = new Tabs(personTab, deviceTab, roomsTab, dangerSubstTab);
-		Div pages = new Div(personPage, devicePage, roomsPage, dangerSubstPage);
+		pages = new Div(personPage, devicePage, roomsPage, dangerSubstPage);
 		pages.setSizeFull();
 		Set<Component> pagesShown = Stream.of(personPage).collect(Collectors.toSet());
 		
@@ -77,8 +85,6 @@ public class MainView extends VerticalLayout {
 		    selectedPage.setVisible(true);
 		    pagesShown.add(selectedPage);
 		});
-		add(tabs);
-		add(pages);
 	}
 
 	private void configureMenuBar() {
@@ -91,7 +97,6 @@ public class MainView extends VerticalLayout {
 		MenuItem saveMenu = fileSubMenu.addItem("Datenbank Speichern");
 		MenuItem importMenu = fileSubMenu.addItem("Datenbank Importieren");
 		MenuItem exportMenu = fileSubMenu.addItem("Datenbank als CSV exportieren");
-		add(menuBar);
 	}
 
 	private void editDataPressed() {

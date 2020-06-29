@@ -16,7 +16,7 @@ public class PersonView extends VerticalLayout {
 	PersonView() {
 		personM = new PersonManager();
 		
-		//Bulding the personGrid
+		//Building the personGrid
 		configurePersonGrid();
         add(personGrid);
         updatePersonGrid();
