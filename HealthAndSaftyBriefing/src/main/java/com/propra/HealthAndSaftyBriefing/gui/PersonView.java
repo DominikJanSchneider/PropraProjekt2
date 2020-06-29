@@ -24,7 +24,6 @@ public class PersonView extends VerticalLayout {
 	
 	private void configurePersonGrid() {
 		personGrid = new Grid<>();
-		
 		personGrid.addColumn(Person::getId)
         			.setHeader("ID")
         			.setKey("id")
@@ -74,5 +73,9 @@ public class PersonView extends VerticalLayout {
 	private void updatePersonGrid() {
 		List<Person> persons = personM.getPersonsData();
         personGrid.setItems(persons);
+	}
+	
+	public Grid<Person> getPersonGrid() {
+		return personGrid;
 	}
 }
