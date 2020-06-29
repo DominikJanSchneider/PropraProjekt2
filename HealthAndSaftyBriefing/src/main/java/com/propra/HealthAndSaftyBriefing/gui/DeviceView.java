@@ -30,16 +30,16 @@ public class DeviceView extends VerticalLayout {
         			.setKey("id")
         			.setSortable(true);
         deviceGrid.addColumn(Device::getName)
-        			.setHeader("Vorname")
-        			.setKey("fName")
+        			.setHeader("Name")
+        			.setKey("name")
         			.setSortable(true);
         deviceGrid.addColumn(Device::getDescription)
-        			.setHeader("Name")
-        			.setKey("lName")
+        			.setHeader("Beschreibung")
+        			.setKey("description")
         			.setSortable(true);
         deviceGrid.addColumn(Device::getRoom)
-					.setHeader("Datum")
-					.setKey("date")
+					.setHeader("Raum")
+					.setKey("room")
 					.setSortable(true);
 	}
 	

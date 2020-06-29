@@ -29,11 +29,13 @@ public class MainView extends VerticalLayout {
 	private Tabs tabs;
 	private PersonView personView;
 	private DeviceView deviceView;
+	private DangerSubstView dangerSubstView;
 	private Div pages;
 	
     public MainView() {
     	personView = new PersonView();
     	deviceView = new DeviceView();
+    	dangerSubstView = new DangerSubstView();
     	
     	//MenuBar
     	configureMenuBar();
@@ -49,7 +51,6 @@ public class MainView extends VerticalLayout {
 		//personTab
 		Tab personTab = new Tab("Personen");
 		Div personPage = new Div(personView);
-		personPage.setSizeFull();
 		
 		//deviceTab
 		Tab deviceTab = new Tab("Ger\u00e4te");
@@ -57,15 +58,15 @@ public class MainView extends VerticalLayout {
 		devicePage.setVisible(false);
 		
 		//roomsTab
-		Tab roomsTab = new Tab("Räume");
+		Tab roomsTab = new Tab("R\u00e4ume");
 		Div roomsPage = new Div();
 		roomsPage.setText("Räume-Tab");
 		roomsPage.setVisible(false);
 		
 		//dangerSubstTab
 		Tab dangerSubstTab = new Tab("Gefahrstoffe");
-		Div dangerSubstPage = new Div();
-		dangerSubstPage.setText("Gefahrstoff-Tab");
+		Div dangerSubstPage = new Div(dangerSubstView);
+		//dangerSubstPage.setText("Gefahrstoff-Tab");
 		dangerSubstPage.setVisible(false);
 
 		Map<Tab, Component> tabsToPages = new HashMap<>();
