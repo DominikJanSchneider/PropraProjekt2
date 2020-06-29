@@ -24,8 +24,8 @@ public class MainView extends VerticalLayout {
     	loginView = new LoginView();
     	add(loginView);
     	
-    	adminView = new AdminView();
-		add(adminView);
+//    	adminView = new AdminView();
+//		add(adminView);
     	
 		UI.getCurrent().navigate("Login");
     }
