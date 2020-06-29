@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.html.Div;
@@ -36,20 +37,23 @@ public class MainView extends VerticalLayout {
 	
     public MainView() {
     	loginView = new LoginView();
-    	//add(loginView);
-    	personView = new PersonView();
-    	deviceView = new DeviceView();
-    	dangerSubstView = new DangerSubstView();
-    	roomsView = new RoomsView();
+    	add(loginView);
     	
-    	//MenuBar
-    	configureMenuBar();
-    	add(menuBar);
-    	
-    	//Tabs
-    	configureTabs();
-    	add(tabs);
-		add(pages);
+//    	personView = new PersonView();
+//    	deviceView = new DeviceView();
+//    	dangerSubstView = new DangerSubstView();
+//    	roomsView = new RoomsView();
+//    	
+//    	//MenuBar
+//    	configureMenuBar();
+//    	add(menuBar);
+//    	
+//    	//Tabs
+//    	configureTabs();
+//    	add(tabs);
+//		add(pages);
+		
+		UI.getCurrent().navigate("Login");
     }
     
 	private void configureTabs() {
