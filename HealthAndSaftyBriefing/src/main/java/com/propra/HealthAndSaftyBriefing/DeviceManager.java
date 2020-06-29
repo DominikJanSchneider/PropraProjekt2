@@ -9,33 +9,24 @@ import java.util.List;
 
 import com.propra.HealthAndSaftyBriefing.database.DBConnector;
 
-public class PersonManager {
-	
-	public List<Person> getPersonsData() {
-		String tableName = "Personen";
+public class DeviceManager {
+	public List<Device> getDevicesData() {
+		String tableName = "Ger\u00e4te";
 		Connection con = DBConnector.connectCore();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<Person> list = new LinkedList<Person>();
+		List<Device> list = new LinkedList<Device>();
 		try {
 			pstmt = con.prepareStatement("SELECT * FROM "+tableName);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				Person person = new Person(
-							rs.getInt("ID"),
+				Device device = new Device(
+							rs.getInt("Ger\u00e4teID"),
 							rs.getString("Name"),
-							rs.getString("Vorname"),
-							rs.getString("Datum"),
-							rs.getString("Ifwt"),
-							rs.getString("MNaF"),
-							rs.getString("Intern"),
-							rs.getString("Beschaeftigungsverhaeltnis"),
-							rs.getString("Beginn"),
-							rs.getString("Ende"),
-							rs.getString("Extern"),
-							rs.getString("E-Mail Adresse")
+							rs.getString("Beschreibung"),
+							rs.getString("Raum")
 						);
-				list.add(person);
+				list.add(device);
 			}
 			return list;
 		} catch (SQLException e) {

@@ -29,38 +29,48 @@ public class MainView extends VerticalLayout {
 	private Tabs tabs;
 	private PersonView personView;
 	private LoginView loginView;
+	private DeviceView deviceView;
+	private RoomsView roomsView;
+	private DangerSubstView dangerSubstView;
+	private Div pages;
 	
     public MainView() {
     	loginView = new LoginView();
     	//add(loginView);
     	personView = new PersonView();
+    	deviceView = new DeviceView();
+    	dangerSubstView = new DangerSubstView();
+    	roomsView = new RoomsView();
     	
+    	//MenuBar
     	configureMenuBar();
+    	add(menuBar);
+    	
+    	//Tabs
     	configureTabs();
+    	add(tabs);
+		add(pages);
     }
     
 	private void configureTabs() {
 		//personTab
 		Tab personTab = new Tab("Personen");
 		Div personPage = new Div(personView);
-		personPage.setSizeFull();
 		
 		//deviceTab
 		Tab deviceTab = new Tab("Ger\u00e4te");
-		Div devicePage = new Div();
-		devicePage.setText("Geräte-Tab");
+		Div devicePage = new Div(deviceView);
 		devicePage.setVisible(false);
 		
 		//roomsTab
-		Tab roomsTab = new Tab("Räume");
-		Div roomsPage = new Div();
-		roomsPage.setText("Räume-Tab");
+		Tab roomsTab = new Tab("R\u00e4ume");
+		Div roomsPage = new Div(roomsView);
+		//roomsPage.setText("Räume-Tab");
 		roomsPage.setVisible(false);
 		
 		//dangerSubstTab
 		Tab dangerSubstTab = new Tab("Gefahrstoffe");
-		Div dangerSubstPage = new Div();
-		dangerSubstPage.setText("Gefahrstoff-Tab");
+		Div dangerSubstPage = new Div(dangerSubstView);
 		dangerSubstPage.setVisible(false);
 
 		Map<Tab, Component> tabsToPages = new HashMap<>();
@@ -69,7 +79,7 @@ public class MainView extends VerticalLayout {
 		tabsToPages.put(roomsTab, roomsPage);
 		tabsToPages.put(dangerSubstTab, dangerSubstPage);
 		tabs = new Tabs(personTab, deviceTab, roomsTab, dangerSubstTab);
-		Div pages = new Div(personPage, devicePage, roomsPage, dangerSubstPage);
+		pages = new Div(personPage, devicePage, roomsPage, dangerSubstPage);
 		pages.setSizeFull();
 		Set<Component> pagesShown = Stream.of(personPage).collect(Collectors.toSet());
 		
@@ -80,8 +90,6 @@ public class MainView extends VerticalLayout {
 		    selectedPage.setVisible(true);
 		    pagesShown.add(selectedPage);
 		});
-		add(tabs);
-		add(pages);
 	}
 
 	private void configureMenuBar() {
@@ -94,7 +102,6 @@ public class MainView extends VerticalLayout {
 		MenuItem saveMenu = fileSubMenu.addItem("Datenbank Speichern");
 		MenuItem importMenu = fileSubMenu.addItem("Datenbank Importieren");
 		MenuItem exportMenu = fileSubMenu.addItem("Datenbank als CSV exportieren");
-		add(menuBar);
 	}
 
 	private void editDataPressed() {

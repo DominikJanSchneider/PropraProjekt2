@@ -1,6 +1,5 @@
 package com.propra.HealthAndSaftyBriefing.database;
 
-import java.net.URL;
 import java.sql.*;
 
 public class DBConnector {
