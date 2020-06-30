@@ -23,6 +23,9 @@ public class UserManager {
 			rs = pstmt.executeQuery();
 //			usrn = rs.getString("Benutzername");
 //			pswd = rs.getString("Passwort");
+			if (rs.isAfterLast()) {
+				return false;
+			}
 			User user = new User(
 					rs.getInt("ID"),
 					rs.getString("Benutzername"),
