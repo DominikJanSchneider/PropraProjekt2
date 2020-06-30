@@ -9,7 +9,7 @@ import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@Route("Login")
+@Route("LoginView")
 @PageTitle("Login")
 @CssImport("./styles/shared-styles.css")
 public class LoginView extends FlexLayout {

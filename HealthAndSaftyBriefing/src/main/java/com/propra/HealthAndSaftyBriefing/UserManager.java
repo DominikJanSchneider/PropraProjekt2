@@ -55,7 +55,6 @@ public class UserManager {
 		}
 	}
 	
-	//TODO
 	public String getRole() {
 		if (user.getUserRole().equals("admin")) {
 			return user.getUserRole(); // returns the admin role
