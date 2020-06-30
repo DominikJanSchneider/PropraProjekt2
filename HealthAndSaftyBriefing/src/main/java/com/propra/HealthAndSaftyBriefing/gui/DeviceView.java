@@ -51,14 +51,17 @@ public class DeviceView extends VerticalLayout {
 		deviceGrid.addColumn(Device::getId)
         			.setHeader("ID")
         			.setKey("id")
+        			.setResizable(true)
         			.setSortable(true);
         deviceGrid.addColumn(Device::getName)
         			.setHeader("Name")
         			.setKey("name")
+        			.setResizable(true)
         			.setSortable(true);
         deviceGrid.addColumn(Device::getDescription)
         			.setHeader("Beschreibung")
         			.setKey("description")
+        			.setResizable(true)
         			.setSortable(true);
         deviceGrid.addColumn(Device::getRoom)
 					.setHeader("Raum")

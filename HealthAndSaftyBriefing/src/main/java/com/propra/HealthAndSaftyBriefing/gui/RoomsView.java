@@ -57,6 +57,7 @@ public class RoomsView extends VerticalLayout {
 		roomGrid.addColumn(Room::getName)
         			.setHeader("Name")
         			.setKey("name")
+        			.setResizable(true)
         			.setSortable(true);
         roomGrid.addColumn(Room::getDescription)
         			.setHeader("Beschreibung")

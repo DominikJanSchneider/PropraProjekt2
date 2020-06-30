@@ -58,50 +58,62 @@ public class PersonView extends VerticalLayout {
 		personGrid.addColumn(Person::getId)
         			.setHeader("ID")
         			.setKey("id")
+        			.setResizable(true)
         			.setSortable(true);
         personGrid.addColumn(Person::getFName)
         			.setHeader("Vorname")
         			.setKey("fName")
+        			.setResizable(true)
         			.setSortable(true);
         personGrid.addColumn(Person::getLName)
         			.setHeader("Name")
         			.setKey("lName")
+        			.setResizable(true)
         			.setSortable(true);
         personGrid.addColumn(Person::getDate)
 					.setHeader("Datum")
 					.setKey("date")
+					.setResizable(true)
 					.setSortable(true);
         personGrid.addColumn(Person::getIfwt)
 					.setHeader("Ifwt")
 					.setKey("ifwt")
+					.setResizable(true)
 					.setSortable(true);
         personGrid.addColumn(Person::getMNaF)
 					.setHeader("MNaF")
 					.setKey("mnaf")
+					.setResizable(true)
 					.setSortable(true);
         personGrid.addColumn(Person::getIntern)
 					.setHeader("Intern")
 					.setKey("intern")
+					.setResizable(true)
 					.setSortable(true);
         personGrid.addColumn(Person::getExtern)
         			.setHeader("Extern")
         			.setKey("extern")
+        			.setResizable(true)
         			.setSortable(true);
         personGrid.addColumn(Person::getEmployment)
 					.setHeader("Beschaeftigungsverh\u00e4ltnis")
 					.setKey("employment")
+					.setResizable(true)
 					.setSortable(true);
         personGrid.addColumn(Person::getBegin)
 					.setHeader("Beginn")
 					.setKey("begin")
+					.setResizable(true)
 					.setSortable(true);
         personGrid.addColumn(Person::getEnd)
 					.setHeader("Ende")
 					.setKey("end")
+					.setResizable(true)
 					.setSortable(true);
         personGrid.addColumn(Person::getEMail)
 					.setHeader("E-Mail Adresse")
 					.setKey("eMail")
+					//.setResizable(true)
 					.setSortable(true);
 	}
 	
