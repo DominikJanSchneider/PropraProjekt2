@@ -1,9 +1,12 @@
 package com.propra.HealthAndSaftyBriefing.authentication;
 
+import com.propra.HealthAndSaftyBriefing.UserManager;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.server.VaadinSession;
 
 public class BasicAccessControl implements AccessControl {
+	
+	private UserManager userM = new UserManager();
 	
 	@Override
 	public boolean signIn(String username, String password) {
@@ -11,12 +14,16 @@ public class BasicAccessControl implements AccessControl {
 			return false;
 		}
 		
-		if (!username.equals(password)) {
-			return false;
+//		if (!username.equals(password)) {
+//			return false;
+//		}
+		
+		if (userM.checkUser(username, password)) {
+			CurrentUser.set(username);
+			return true;
 		}
 		
-		CurrentUser.set(username);
-		return true;
+		return false;
 	}
 	
 	@Override

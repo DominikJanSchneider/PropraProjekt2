@@ -18,15 +18,9 @@ import com.vaadin.flow.server.PWA;
 public class MainView extends VerticalLayout {
 
 	private LoginView loginView;
-	private AdminView adminView;
 	
     public MainView() {
     	loginView = new LoginView();
     	add(loginView);
-    	
-//    	adminView = new AdminView();
-//		add(adminView);
-    	
-		UI.getCurrent().navigate("Login");
     }
 }
