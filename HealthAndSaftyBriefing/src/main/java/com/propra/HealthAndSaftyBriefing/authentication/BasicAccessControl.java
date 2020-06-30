@@ -10,13 +10,10 @@ public class BasicAccessControl implements AccessControl {
 	
 	@Override
 	public boolean signIn(String username, String password) {
+		
 		if (username == null || username.isEmpty()) {
 			return false;
 		}
-		
-//		if (!username.equals(password)) {
-//			return false;
-//		}
 		
 		if (userM.checkUser(username, password)) {
 			CurrentUser.set(username);

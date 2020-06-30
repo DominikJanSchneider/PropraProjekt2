@@ -11,25 +11,24 @@ import com.propra.HealthAndSaftyBriefing.security.pwEncrypt;
 
 public class UserManager {
 	
+	User user;
+	
 	public boolean checkUser(String username, String password) {
 		String tableName = "Benutzer";
-		String usrn;
-		String pswd;
 		Connection con = DBConnector.connectLogin();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try  {
 			pstmt = con.prepareStatement("SELECT * FROM "+tableName+" WHERE Benutzername='"+username+"';");
 			rs = pstmt.executeQuery();
-//			usrn = rs.getString("Benutzername");
-//			pswd = rs.getString("Passwort");
 			if (rs.isAfterLast()) {
 				return false;
 			}
-			User user = new User(
+			user = new User(
 					rs.getInt("ID"),
 					rs.getString("Benutzername"),
-					rs.getString("Passwort")
+					rs.getString("Passwort"),
+					rs.getString("Rolle")
 					);
 			
 			if (username.equals(user.getUserName()) && pwEncrypt.toHexString(pwEncrypt.getSHA(password)).equals(user.getUserPassword())) {
@@ -54,5 +53,13 @@ public class UserManager {
 			}
 			DBConnector.deconnect();
 		}
+	}
+	
+	//TODO
+	public boolean isAdmin(String role) {
+		if (user.getUserRole().equals("admin")) {
+			return true;
+		}
+		return false;
 	}
 }
