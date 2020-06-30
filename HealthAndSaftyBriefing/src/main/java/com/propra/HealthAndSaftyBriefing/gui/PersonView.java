@@ -1,6 +1,7 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.util.List;
+import java.util.Set;
 
 import com.propra.HealthAndSaftyBriefing.Person;
 import com.propra.HealthAndSaftyBriefing.PersonManager;
@@ -109,7 +110,8 @@ public class PersonView extends VerticalLayout {
         personGrid.setItems(persons);
 	}
 	
-	public Grid<Person> getPersonGrid() {
-		return personGrid;
+	public Set<Person> getSelectedPerson() {
+		Set<Person> personSet = personGrid.getSelectedItems();
+		return personSet;
 	}
 }

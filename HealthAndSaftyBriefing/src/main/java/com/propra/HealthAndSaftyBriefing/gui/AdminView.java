@@ -117,8 +117,7 @@ public class AdminView extends VerticalLayout {
 		page.executeJavaScript("print();");
 			//TODO Auto-generated method stub
 			System.out.println("Drucken gedrückt");
-//			Grid<Person> personGrid = personView.getPersonGrid();
-//			Set<Person> personSet = personGrid.getSelectedItems();
+//			Set<Person> personSet = personView.getSelectedPerson();
 //			Iterator<Person> it = personSet.iterator();
 //			Person person = it.next();
 //			
