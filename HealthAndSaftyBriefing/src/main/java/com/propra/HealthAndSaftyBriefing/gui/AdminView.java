@@ -1,5 +1,8 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -17,6 +20,7 @@ import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.StreamResource;
 
 @Route("AdminView")
 @SuppressWarnings("serial")
@@ -59,7 +63,6 @@ public class AdminView extends VerticalLayout {
 		//roomsTab
 		Tab roomsTab = new Tab("R\u00e4ume");
 		Div roomsPage = new Div(roomsView);
-		//roomsPage.setText("Räume-Tab");
 		roomsPage.setVisible(false);
 			
 		//dangerSubstTab
@@ -152,5 +155,7 @@ public class AdminView extends VerticalLayout {
 //			} catch(PrinterException e) {
 //				e.printStackTrace();
 //			}
+			
 		}
+	
 }
