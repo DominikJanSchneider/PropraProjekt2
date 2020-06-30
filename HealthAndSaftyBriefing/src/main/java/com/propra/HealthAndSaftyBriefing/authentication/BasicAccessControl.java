@@ -29,14 +29,14 @@ public class BasicAccessControl implements AccessControl {
 	}
 	
 	@Override
-	public boolean isUserInRole(String role) {
-		if ("admin".equals(role)) {
+	public boolean isUserAdmin() {
+		if (userM.getRole().equals("admin")) {
 			//Only the admin user is in the admin role
-			return getPrincipalName().equals("admin");
+			return true;
 		}
 		
 		// All users are in all non-admin roles
-		return true;
+		return false;
 	}
 	
 	@Override

@@ -56,10 +56,11 @@ public class UserManager {
 	}
 	
 	//TODO
-	public boolean isAdmin(String role) {
+	public String getRole() {
 		if (user.getUserRole().equals("admin")) {
-			return true;
+			return user.getUserRole(); // returns the admin role
+		} else {
+			return user.getUserRole(); // if user isn't admin, so he will be a benutzer (user)
 		}
-		return false;
 	}
 }

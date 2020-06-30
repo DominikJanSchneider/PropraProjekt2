@@ -44,10 +44,10 @@ public class LoginView extends FlexLayout {
 	}
 	
 	private void login(LoginForm.LoginEvent event) {
-		if (accessControl.signIn(event.getUsername(), event.getPassword())) {
+		if (accessControl.signIn(event.getUsername(), event.getPassword()) && accessControl.isUserAdmin()) {
 			getUI().get().navigate("AdminView");
 		} else {
-			event.getSource().setError(true);
+			getUI().get().navigate("UserView"); //TODO Change to UserView when is created
 		}
 	}
 }
