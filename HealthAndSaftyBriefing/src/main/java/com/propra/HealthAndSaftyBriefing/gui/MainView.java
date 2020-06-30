@@ -1,11 +1,6 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
-import java.awt.MenuBar;
-
-import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 
@@ -18,15 +13,9 @@ import com.vaadin.flow.server.PWA;
 public class MainView extends VerticalLayout {
 
 	private LoginView loginView;
-	private AdminView adminView;
 	
     public MainView() {
     	loginView = new LoginView();
     	add(loginView);
-    	
-//    	adminView = new AdminView();
-//		add(adminView);
-    	
-		UI.getCurrent().navigate("Login");
     }
 }
