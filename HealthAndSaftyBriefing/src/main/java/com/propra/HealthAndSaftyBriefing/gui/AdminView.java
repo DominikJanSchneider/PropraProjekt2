@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.html.Div;
@@ -30,11 +31,13 @@ public class AdminView extends VerticalLayout {
 	private Div pages;
 	//private FormDocPrinter fPrinter; TODO
 	
+	
 	public AdminView() {
 	    personView = new PersonView();
 	    deviceView = new DeviceView();
 	    dangerSubstView = new DangerSubstView();
 	    roomsView = new RoomsView();
+	    
 	    	
 	    //MenuBar
 	    configureMenuBar();
