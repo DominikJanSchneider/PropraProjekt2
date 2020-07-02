@@ -5,6 +5,12 @@ import java.util.List;
 import com.propra.HealthAndSaftyBriefing.DangerSubst;
 import com.propra.HealthAndSaftyBriefing.DangerSubstManager;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.FocusNotifier;
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.ShortcutRegistration;
+import com.vaadin.flow.component.BlurNotifier.BlurEvent;
+import com.vaadin.flow.component.FocusNotifier.FocusEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -14,8 +20,9 @@ import com.vaadin.flow.component.textfield.TextField;
 public class DangerSubstView extends  VerticalLayout {
 	private Grid<DangerSubst> dangerSubstGrid;
 	private DangerSubstManager dangerSubstM;
-	private TextField searchTF;
-	private Button searchButton;
+	private TextField tfSearch;
+	private Button btnSearch;
+	private ShortcutRegistration shortReg;
 	
 	DangerSubstView() {
 		dangerSubstM = new DangerSubstManager();
@@ -43,16 +50,39 @@ public class DangerSubstView extends  VerticalLayout {
         dangerSubstGrid.setItems(dangerSubst);
 	}
 	
+	private void updateDangerSubstGridByName(String name) {
+		List<DangerSubst> dangerSubst = dangerSubstM.getDangerSubstsByName(name);
+        dangerSubstGrid.setItems(dangerSubst);
+	}
+	
 	private Component configureSearchComponents() {
-		searchTF = new TextField();
-		searchButton = new Button("Suchen");
-		searchButton.addClickListener(e -> searchPressed());
-		searchTF.setWidth("200px");
-		searchTF.setPlaceholder("Suche");
-		return new VerticalLayout(searchTF, searchButton);
+		tfSearch = new TextField();
+		btnSearch = new Button("Suchen");
+		btnSearch.addClickListener(e -> searchPressed());
+		tfSearch.setWidth("200px");
+		tfSearch.setPlaceholder("Suche");
+		tfSearch.setAutoselect(true);
+		tfSearch.addFocusListener(new ComponentEventListener<FocusNotifier.FocusEvent<TextField>>() {
+
+			@Override
+			public void onComponentEvent(FocusEvent<TextField> event) {
+				shortReg = btnSearch.addClickShortcut(Key.ENTER);
+			}
+			
+		});
+		tfSearch.addBlurListener(new ComponentEventListener<BlurEvent<TextField>>() {
+
+			@Override
+			public void onComponentEvent(BlurEvent<TextField> event) {
+				shortReg.remove();
+			}
+			
+		});
+		return new VerticalLayout(tfSearch, btnSearch);
 	}
 
 	private void searchPressed() {
-		// TODO Auto-generated method stub
+		String searchTxt = tfSearch.getValue();
+		updateDangerSubstGridByName(searchTxt);
 	}
 }

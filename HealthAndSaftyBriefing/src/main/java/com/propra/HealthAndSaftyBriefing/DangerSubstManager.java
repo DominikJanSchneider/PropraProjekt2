@@ -42,4 +42,38 @@ public class DangerSubstManager {
 			DBConnector.deconnect();
       }
 	}
+	
+	public List<DangerSubst> getDangerSubstsByName(String name) {
+		
+		String tableName = "Gefahrstoffe";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<DangerSubst> list = new LinkedList<DangerSubst>();
+		try {
+			pstmt = con.prepareStatement("SELECT * FROM "+tableName + " WHERE Name LIKE '%" +name+"%'" );
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				DangerSubst dangerSubst = new DangerSubst(
+							rs.getString("Name")
+						);
+				list.add(dangerSubst);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return list;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
 }

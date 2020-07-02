@@ -43,4 +43,38 @@ public class RoomManager {
 			DBConnector.deconnect();
       }
 	}
+	
+	public List<Room> getRoomsByName(String name) {
+		String tableName = "R\u00e4ume";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Room> list = new LinkedList<Room>();
+		try {
+			pstmt = con.prepareStatement("SELECT * FROM "+tableName + " WHERE Name LIKE '%"+name+"%'");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Room room = new Room(
+							rs.getString("Name"),
+							rs.getString("Beschreibung")
+						);
+				list.add(room);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return list;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
 }

@@ -4,22 +4,24 @@ import java.util.List;
 import com.propra.HealthAndSaftyBriefing.Room;
 import com.propra.HealthAndSaftyBriefing.RoomManager;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.FocusNotifier;
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.ShortcutRegistration;
+import com.vaadin.flow.component.BlurNotifier.BlurEvent;
+import com.vaadin.flow.component.FocusNotifier.FocusEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.tabs.Tab;
-import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.textfield.TextField;
 
 @SuppressWarnings("serial")
 public class RoomsView extends VerticalLayout {
 	private Grid<Room> roomGrid;
 	private RoomManager roomM;
-	private TextField searchTF;
-	private Button searchButton;
-	private Tabs searchTabs;
+	private TextField tfSearch;
+	private Button btnSearch;
+	private ShortcutRegistration shortReg;
 	
 	RoomsView() {
 		roomM = new RoomManager();
@@ -34,21 +36,29 @@ public class RoomsView extends VerticalLayout {
 	}
 	
 	private Component configureSearchComponents() {
-		searchTF = new TextField();
-		searchButton = new Button("Suchen");
-		searchButton.addClickListener(e -> searchPressed());
-		searchTF.setWidth("200px");
-		searchTF.setPlaceholder("Suche");
-		Tab nameTab = new Tab("Name");
-		Tab descriptTab = new Tab("Beschreibung");
-		searchTabs = new Tabs(nameTab, descriptTab);
-		VerticalLayout searchComponent1 = new VerticalLayout(searchTF, searchButton);
-		VerticalLayout searchComponent2 = new VerticalLayout(new Label("Suchen nach:"), searchTabs);
-		return new HorizontalLayout(searchComponent1, searchComponent2);
-	}
+		tfSearch = new TextField();
+		btnSearch = new Button("Suchen");
+		btnSearch.addClickListener(e -> searchPressed());
+		tfSearch.setWidth("200px");
+		tfSearch.setPlaceholder("Suche");
+		tfSearch.setAutoselect(true);
+		tfSearch.addFocusListener(new ComponentEventListener<FocusNotifier.FocusEvent<TextField>>() {
 
-	private void searchPressed() {
-		// TODO Auto-generated method stub
+			@Override
+			public void onComponentEvent(FocusEvent<TextField> event) {
+				shortReg = btnSearch.addClickShortcut(Key.ENTER);
+			}
+			
+		});
+		tfSearch.addBlurListener(new ComponentEventListener<BlurEvent<TextField>>() {
+
+			@Override
+			public void onComponentEvent(BlurEvent<TextField> event) {
+				shortReg.remove();
+			}
+			
+		});
+		return new VerticalLayout(tfSearch, btnSearch);
 	}
 
 	private void configureRoomGrid() {
@@ -68,5 +78,15 @@ public class RoomsView extends VerticalLayout {
 	private void updateRoomGrid() {
 		List<Room> rooms = roomM.getRoomsData();
         roomGrid.setItems(rooms);
+	}
+	
+	private void updateRoomGridByName(String name) {
+		List<Room> rooms = roomM.getRoomsByName(name);
+        roomGrid.setItems(rooms);
+	}
+	
+	private void searchPressed() {
+		String searchTxt = tfSearch.getValue();
+		updateRoomGridByName(searchTxt);
 	}
 }
