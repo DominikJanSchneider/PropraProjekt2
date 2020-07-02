@@ -55,11 +55,91 @@ public class UserManager {
 		}
 	}
 	
+	
 	public String getRole() {
 		if (user.getUserRole().equals("admin")) {
 			return user.getUserRole(); // returns the admin role
 		} else {
 			return user.getUserRole(); // if user isn't admin, so he will be a benutzer (user)
+		}
+	}
+	
+	
+	public String getUsersName(String username) {
+		String tableName = "Benutzer";
+		String usersName;
+		Connection con = DBConnector.connectLogin();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con.prepareStatement("ATTACH DATABASE 'database/CoreDatabase.db' AS p").execute(); // Attach CoreDatabase to UserDatabase
+			pstmt = con.prepareStatement("SELECT * FROM "+tableName+" u join p.Personen on u.Benutzername = p.Personen.'E-Mail Adresse' WHERE Benutzername='"+username+"';"); //join user with his person data
+			rs = pstmt.executeQuery();
+			usersName = rs.getString("Vorname")+" "+rs.getString("Name");
+			return usersName;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return "";
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+		}
+	}
+	
+	
+	public String[] getUserData(String username) {
+		String tableName = "Benutzer";
+		String[] userData;
+		Connection con = DBConnector.connectLogin();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con.prepareStatement("ATTACH DATABASE 'database/CoreDatabase.db' AS p").execute(); // Attach CoreDatabase to UserDatabase
+			pstmt = con.prepareStatement("SELECT * FROM p.Personen WHERE 'E-Mail Adresse' = '"+username+"'");
+			rs = pstmt.executeQuery();
+			userData = new String[rs.getMetaData().getColumnCount()-1];
+			pstmt = con.prepareStatement("SELECT * FROM "+tableName+" u join p.Personen on u.Benutzername = p.Personen.'E-Mail Adresse' WHERE Benutzername='"+username+"';"); //join user with his person data
+			rs = pstmt.executeQuery();
+			
+			userData[0] = rs.getString("Name");
+			userData[1] = rs.getString("Vorname");
+			userData[2] = rs.getString("Datum");
+			userData[3] = rs.getString("Ifwt");
+			userData[4] = rs.getString("MNaF");
+			userData[5] = rs.getString("Intern");
+			userData[6] = rs.getString("Beschaeftigungsverhaeltnis");
+			userData[7] = rs.getString("Beginn");
+			userData[8] = rs.getString("Ende");
+			userData[9] = rs.getString("Extern");
+			userData[10] = rs.getString("E-Mail Adresse");
+			userData[11] = rs.getString("Allgemeine Unterweisung");
+			userData[12] = rs.getString("Laboreinrichtungen");
+			userData[13] = rs.getString("Gefahrstoffe");
+			userData[14] = rs.getString("LabKommentar");
+			userData[15] = rs.getString("GefKommentar");
+			
+			return userData;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
 		}
 	}
 }

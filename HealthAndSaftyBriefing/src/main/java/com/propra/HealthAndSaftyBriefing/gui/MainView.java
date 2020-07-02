@@ -15,7 +15,8 @@ public class MainView extends VerticalLayout {
 	private LoginView loginView;
 	
     public MainView() {
-    	loginView = new LoginView();
-    	add(loginView);
+    	//The ServiceInitListener makes this class / view useless
+//    	loginView = new LoginView();
+//    	add(loginView);
     }
 }
