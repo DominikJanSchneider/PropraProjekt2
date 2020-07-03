@@ -4,6 +4,9 @@ package com.propra.HealthAndSaftyBriefing.gui;
 import com.propra.HealthAndSaftyBriefing.UserManager;
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControl;
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
+import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -66,5 +69,18 @@ public class UserView extends VerticalLayout {
 		lblEmail.setWidth("250px");
 		userInfo.add(lblInstructionDate, lblIfwt, lblMnaf, lblIntern, lblEmploymentType, lblBegin, lblEnd, lblExtern, lblEmail);
 		add(userInfo);
+	}
+	
+	private void logout() {
+        AccessControlFactory.getInstance().createAccessControl().signOut();
+    }
+	
+	@Override 
+	protected void onAttach(AttachEvent attachEvent) {
+		super.onAttach(attachEvent);
+		
+		// User can quickly activate logout with Ctrl+L
+		attachEvent.getUI().addShortcutListener(() -> logout(), Key.KEY_L, KeyModifier.CONTROL);
+		
 	}
 }

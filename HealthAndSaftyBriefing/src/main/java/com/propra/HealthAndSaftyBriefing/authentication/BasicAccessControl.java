@@ -11,9 +11,10 @@ public class BasicAccessControl implements AccessControl {
 	@Override
 	public boolean signIn(String username, String password) {
 		
-		if (username == null || username.isEmpty()) {
-			return false;
-		}
+//		if (username == null || username.isEmpty()) {
+//			CurrentUser.set(username);
+//			return false;
+//		}
 		
 		if (userM.checkUser(username, password)) {
 			CurrentUser.set(username);
@@ -47,6 +48,6 @@ public class BasicAccessControl implements AccessControl {
 	@Override
 	public void signOut() {
 		VaadinSession.getCurrent().getSession().invalidate();
-		UI.getCurrent().navigate("");
+		UI.getCurrent().navigate("LoginView");
 	}
 }

@@ -1,15 +1,17 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.propra.HealthAndSaftyBriefing.authentication.AccessControl;
+import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
+import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
@@ -20,11 +22,14 @@ import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.StreamResource;
+import com.vaadin.flow.router.RouteConfiguration;
 
 @Route("AdminView")
 @SuppressWarnings("serial")
 public class AdminView extends VerticalLayout {
+	
+	private AccessControl accessControl; 
+	
 	private MenuBar menuBar;
 	private Tabs tabs;
 	private PersonView personView;
@@ -35,19 +40,21 @@ public class AdminView extends VerticalLayout {
 	//private FormDocPrinter fPrinter; TODO
 	
 	public AdminView() {
-	    personView = new PersonView();
-	    deviceView = new DeviceView();
-	    dangerSubstView = new DangerSubstView();
-	    roomsView = new RoomsView();
-	    	
-	    //MenuBar
-	    configureMenuBar();
-	    add(menuBar);
-	    	
-	   	//Tabs
-	   	configureTabs();
-	   	add(tabs);
+			
+		personView = new PersonView();
+		deviceView = new DeviceView();
+		dangerSubstView = new DangerSubstView();
+		roomsView = new RoomsView();
+		    	
+		//MenuBar
+		configureMenuBar();
+		add(menuBar);
+		    	
+		//Tabs
+		configureTabs();
+		add(tabs);
 		add(pages);
+			
 	}
 	    
 	private void configureTabs() {
@@ -109,6 +116,19 @@ public class AdminView extends VerticalLayout {
 	private void editUserPressed() {
 		// TODO Auto-generated method stub
 		System.out.println("Benutzer verwaltung gedrückt");
+	}
+	
+	private void logout() {
+        AccessControlFactory.getInstance().createAccessControl().signOut();
+    }
+	
+	@Override 
+	protected void onAttach(AttachEvent attachEvent) {
+		super.onAttach(attachEvent);
+		
+		// User can quickly activate logout with Ctrl+L
+		attachEvent.getUI().addShortcutListener(() -> logout(), Key.KEY_L, KeyModifier.CONTROL);
+		
 	}
 
 	@SuppressWarnings("deprecation")
