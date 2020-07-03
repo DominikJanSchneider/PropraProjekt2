@@ -16,6 +16,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.Page;
@@ -40,19 +41,23 @@ public class AdminView extends VerticalLayout {
 	//private FormDocPrinter fPrinter; TODO
 	
 	public AdminView() {
-			
-		personView = new PersonView();
-		deviceView = new DeviceView();
-		dangerSubstView = new DangerSubstView();
-		roomsView = new RoomsView();
-		    	
-		//MenuBar
-		configureMenuBar();
-		add(menuBar);
-		    	
-		//Tabs
-		configureTabs();
-		add(tabs);
+
+	    personView = new PersonView();
+	    deviceView = new DeviceView();
+	    dangerSubstView = new DangerSubstView();
+	    roomsView = new RoomsView();
+	    
+	    //Building header
+	  	Label header = new Label("Sicherheitsunterweisung am Institut für Werkstofftechnik und Ger\u00e4tezentrum MNaF");
+	  	add(header);
+	  	
+	    //MenuBar
+	    configureMenuBar();
+	    add(menuBar);
+	    	
+	   	//Tabs
+	   	configureTabs();
+	   	add(tabs);
 		add(pages);
 			
 	}
@@ -137,8 +142,7 @@ public class AdminView extends VerticalLayout {
 		page.executeJavaScript("print();");
 			//TODO Auto-generated method stub
 			System.out.println("Drucken gedrückt");
-//			Grid<Person> personGrid = personView.getPersonGrid();
-//			Set<Person> personSet = personGrid.getSelectedItems();
+//			Set<Person> personSet = personView.getSelectedPerson();
 //			Iterator<Person> it = personSet.iterator();
 //			Person person = it.next();
 //			
