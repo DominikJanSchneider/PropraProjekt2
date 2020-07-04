@@ -70,10 +70,13 @@ public class PersonView extends VerticalLayout {
         
         taGeneralInstruction.setHeight(height);
         taGeneralInstruction.setWidth(width);
+        taGeneralInstruction.setReadOnly(true);
         taLabSetup.setHeight(height);
         taLabSetup.setWidth(width);
+        taLabSetup.setReadOnly(true);
         taDangerSubst.setHeight(height);
         taDangerSubst.setWidth(width);
+        taDangerSubst.setReadOnly(true);
         VerticalLayout gInstrVL = new VerticalLayout(new Label("Allgemeine Unterweisung (Datum s.o.)"), taGeneralInstruction);
         VerticalLayout labSetupVL = new VerticalLayout(new Label("Laboreinrichtungen"), taLabSetup);
         VerticalLayout dangerSubstVL = new VerticalLayout(new Label("Gefahrstoffe"), taDangerSubst);
