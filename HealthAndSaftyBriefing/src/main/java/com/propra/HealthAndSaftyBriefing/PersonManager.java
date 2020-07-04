@@ -33,7 +33,12 @@ public class PersonManager {
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("E-Mail Adresse")
+							rs.getString("E-Mail Adresse"),
+							rs.getString("Allgemeine Unterweisung"),
+							rs.getString("Laboreinrichtungen"),
+							rs.getString("Gefahrstoffe"),
+							rs.getString("LabKommentar"),
+							rs.getString("GefKommentar")
 						);
 				list.add(person);
 			}
@@ -77,7 +82,12 @@ public class PersonManager {
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("E-Mail Adresse")
+							rs.getString("E-Mail Adresse"),
+							rs.getString("Allgemeine Unterweisung"),
+							rs.getString("Laboreinrichtungen"),
+							rs.getString("Gefahrstoffe"),
+							rs.getString("LabKommentar"),
+							rs.getString("GefKommentar")
 						);
 				list.add(person);
 			}
@@ -121,7 +131,12 @@ public class PersonManager {
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("E-Mail Adresse")
+							rs.getString("E-Mail Adresse"),
+							rs.getString("Allgemeine Unterweisung"),
+							rs.getString("Laboreinrichtungen"),
+							rs.getString("Gefahrstoffe"),
+							rs.getString("LabKommentar"),
+							rs.getString("GefKommentar")
 						);
 				list.add(person);
 			}
@@ -165,7 +180,12 @@ public class PersonManager {
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("E-Mail Adresse")
+							rs.getString("E-Mail Adresse"),
+							rs.getString("Allgemeine Unterweisung"),
+							rs.getString("Laboreinrichtungen"),
+							rs.getString("Gefahrstoffe"),
+							rs.getString("LabKommentar"),
+							rs.getString("GefKommentar")
 						);
 				list.add(person);
 			}
@@ -209,7 +229,12 @@ public class PersonManager {
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("E-Mail Adresse")
+							rs.getString("E-Mail Adresse"),
+							rs.getString("Allgemeine Unterweisung"),
+							rs.getString("Laboreinrichtungen"),
+							rs.getString("Gefahrstoffe"),
+							rs.getString("LabKommentar"),
+							rs.getString("GefKommentar")
 						);
 				list.add(person);
 			}
@@ -253,7 +278,12 @@ public class PersonManager {
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("E-Mail Adresse")
+							rs.getString("E-Mail Adresse"),
+							rs.getString("Allgemeine Unterweisung"),
+							rs.getString("Laboreinrichtungen"),
+							rs.getString("Gefahrstoffe"),
+							rs.getString("LabKommentar"),
+							rs.getString("GefKommentar")
 						);
 				list.add(person);
 			}
@@ -297,7 +327,12 @@ public class PersonManager {
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("E-Mail Adresse")
+							rs.getString("E-Mail Adresse"),
+							rs.getString("Allgemeine Unterweisung"),
+							rs.getString("Laboreinrichtungen"),
+							rs.getString("Gefahrstoffe"),
+							rs.getString("LabKommentar"),
+							rs.getString("GefKommentar")
 						);
 				list.add(person);
 			}
@@ -341,7 +376,12 @@ public class PersonManager {
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("E-Mail Adresse")
+							rs.getString("E-Mail Adresse"),
+							rs.getString("Allgemeine Unterweisung"),
+							rs.getString("Laboreinrichtungen"),
+							rs.getString("Gefahrstoffe"),
+							rs.getString("LabKommentar"),
+							rs.getString("GefKommentar")
 						);
 				list.add(person);
 			}
@@ -385,7 +425,12 @@ public class PersonManager {
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("E-Mail Adresse")
+							rs.getString("E-Mail Adresse"),
+							rs.getString("Allgemeine Unterweisung"),
+							rs.getString("Laboreinrichtungen"),
+							rs.getString("Gefahrstoffe"),
+							rs.getString("LabKommentar"),
+							rs.getString("GefKommentar")
 						);
 				list.add(person);
 			}
@@ -429,7 +474,12 @@ public class PersonManager {
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("E-Mail Adresse")
+							rs.getString("E-Mail Adresse"),
+							rs.getString("Allgemeine Unterweisung"),
+							rs.getString("Laboreinrichtungen"),
+							rs.getString("Gefahrstoffe"),
+							rs.getString("LabKommentar"),
+							rs.getString("GefKommentar")
 						);
 				list.add(person);
 			}

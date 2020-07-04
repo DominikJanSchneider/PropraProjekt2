@@ -183,5 +183,4 @@ public class AdminView extends VerticalLayout {
 //			}
 			
 		}
-	
 }

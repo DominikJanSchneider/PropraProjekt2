@@ -1,8 +1,10 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.propra.HealthAndSaftyBriefing.Device;
 import com.propra.HealthAndSaftyBriefing.Person;
 import com.propra.HealthAndSaftyBriefing.PersonManager;
 import com.vaadin.flow.component.Component;
@@ -19,6 +21,8 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.selection.SelectionEvent;
+import com.vaadin.flow.data.selection.SelectionListener;
 
 @SuppressWarnings("serial")
 public class PersonView extends VerticalLayout {
@@ -139,8 +143,30 @@ public class PersonView extends VerticalLayout {
 					.setHeader("E-Mail Adresse")
 					.setKey("eMail")
 					.setSortable(true);
+        personGrid.addSelectionListener(new SelectionListener<Grid<Person>,Person>() {
+
+			@Override
+			public void selectionChange(SelectionEvent<Grid<Person>,Person> event) {
+				updateTextAreas();
+			}
+        	
+        });
 	}
 	
+	protected void updateTextAreas() {
+		Set<Person> personSet = personGrid.getSelectedItems();
+		Iterator<Person> it = personSet.iterator();
+		if(it.hasNext()) {
+			Person person = it.next();
+			String genInstr = person.getGenInstr();
+			String labSetup = person.getLabSetup();
+			String dangerSubsts = person.getDangerSubsts();
+			taGeneralInstruction.setValue(genInstr);
+			taLabSetup.setValue(labSetup);
+			taDangerSubst.setValue(dangerSubsts);
+		}
+	}
+
 	private Component configureSearchComponents() {
 		tfSearch = new TextField();
 		btnSearch = new Button("Suchen");
