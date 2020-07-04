@@ -65,33 +65,33 @@ public class UserManager {
 	}
 	
 	
-	public String getUsersName(String username) {
-		String tableName = "Benutzer";
-		String usersName;
-		Connection con = DBConnector.connectLogin();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			con.prepareStatement("ATTACH DATABASE 'database/CoreDatabase.db' AS p").execute(); // Attach CoreDatabase to UserDatabase
-			pstmt = con.prepareStatement("SELECT * FROM "+tableName+" u join p.Personen on u.Benutzername = p.Personen.'E-Mail Adresse' WHERE Benutzername='"+username+"';"); //join user with his person data
-			rs = pstmt.executeQuery();
-			usersName = rs.getString("Vorname")+" "+rs.getString("Name");
-			return usersName;
-		} catch(SQLException e) {
-			e.printStackTrace();
-			return "";
-		}
-		finally {
-			try {
-				if(pstmt != null) {
-					pstmt.close();
-				}
-			} catch(SQLException e) {
-				e.printStackTrace();
-			}
-			DBConnector.deconnect();
-		}
-	}
+//	public String getUsersName(String username) {
+//		String tableName = "Benutzer";
+//		String usersName;
+//		Connection con = DBConnector.connectLogin();
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		try {
+//			con.prepareStatement("ATTACH DATABASE 'database/CoreDatabase.db' AS p").execute(); // Attach CoreDatabase to UserDatabase
+//			pstmt = con.prepareStatement("SELECT * FROM "+tableName+" u join p.Personen on u.Benutzername = p.Personen.'E-Mail Adresse' WHERE Benutzername='"+username+"';"); //join user with his person data
+//			rs = pstmt.executeQuery();
+//			usersName = rs.getString("Vorname")+" "+rs.getString("Name");
+//			return usersName;
+//		} catch(SQLException e) {
+//			e.printStackTrace();
+//			return "";
+//		}
+//		finally {
+//			try {
+//				if(pstmt != null) {
+//					pstmt.close();
+//				}
+//			} catch(SQLException e) {
+//				e.printStackTrace();
+//			}
+//			DBConnector.deconnect();
+//		}
+//	}
 	
 	
 	public String[] getUserData(String username) {
@@ -105,6 +105,7 @@ public class UserManager {
 			pstmt = con.prepareStatement("SELECT * FROM p.Personen WHERE 'E-Mail Adresse' = '"+username+"'");
 			rs = pstmt.executeQuery();
 			userData = new String[rs.getMetaData().getColumnCount()-1];
+			pstmt.close();
 			pstmt = con.prepareStatement("SELECT * FROM "+tableName+" u join p.Personen on u.Benutzername = p.Personen.'E-Mail Adresse' WHERE Benutzername='"+username+"';"); //join user with his person data
 			rs = pstmt.executeQuery();
 			

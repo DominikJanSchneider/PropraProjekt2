@@ -7,7 +7,9 @@ import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -18,13 +20,31 @@ import com.vaadin.flow.router.Route;
 @PageTitle("User | Sicherheitsunterweisungen")
 public class UserView extends VerticalLayout {
 	
+	private Label lblUser;
+	
 	private UserManager userM = new UserManager();
 	private AccessControl accessControl; 
 	
 	public UserView() {
+		
+		Button btnLogout = new Button("Logout");
+		btnLogout.setIcon(VaadinIcon.SIGN_OUT.create());
+		btnLogout.getElement().getStyle().set("margin-left", "auto");
+		btnLogout.addClickListener(e -> logout());
+		
+		add(btnLogout);
+		add(configureUserInfo());
+		
+	}
+	
+	private VerticalLayout configureUserInfo() {
 		accessControl = AccessControlFactory.getInstance().createAccessControl();
-		Label lblUser = new Label("Benutzer: "+ userM.getUsersName(accessControl.getPrincipalName()));
-		add(lblUser);
+		String[] userData = userM.getUserData(accessControl.getPrincipalName());
+		
+		VerticalLayout userInfo = new VerticalLayout();
+		
+		lblUser = new Label("Benutzer: "+ userData[1]+" "+userData[0]);
+		lblUser.setHeight("50px");
 		
 		// Creating horizontal layout where user informations are stored
 		HorizontalLayout userInfoHead = new HorizontalLayout();
@@ -47,29 +67,48 @@ public class UserView extends VerticalLayout {
 		Label lblEmail = new Label("E-Mail Adresse");
 		lblEmail.setWidth("250px");
 		userInfoHead.add(lblInstructionDate, lblIfwt, lblMnaf, lblIntern, lblEmploymentType, lblBegin, lblEnd, lblExtern, lblEmail);
-		add(userInfoHead);
 		
-		HorizontalLayout userInfo = new HorizontalLayout();
-		lblInstructionDate = new Label(userM.getUserData(accessControl.getPrincipalName())[2]);
+		HorizontalLayout userInfoContent = new HorizontalLayout();
+		lblInstructionDate = new Label(userData[2]);
 		lblInstructionDate.setWidth("200px");
-		lblIfwt = new Label(userM.getUserData(accessControl.getPrincipalName())[3]);
+		lblIfwt = new Label(userData[3]);
 		lblIfwt.setWidth("100px");
-		lblMnaf = new Label(userM.getUserData(accessControl.getPrincipalName())[4]);
+		lblMnaf = new Label(userData[4]);
 		lblMnaf.setWidth("100px");
-		lblIntern = new Label(userM.getUserData(accessControl.getPrincipalName())[5]);
+		lblIntern = new Label(userData[5]);
 		lblIntern.setWidth("100px");
-		lblEmploymentType = new Label(userM.getUserData(accessControl.getPrincipalName())[6]);
+		lblEmploymentType = new Label(userData[6]);
 		lblEmploymentType.setWidth("200px");
-		lblBegin = new Label(userM.getUserData(accessControl.getPrincipalName())[7]);
+		lblBegin = new Label(userData[7]);
 		lblBegin.setWidth("100px");
-		lblEnd = new Label(userM.getUserData(accessControl.getPrincipalName())[8]);
+		lblEnd = new Label(userData[8]);
 		lblEnd.setWidth("100px");
-		lblExtern = new Label(userM.getUserData(accessControl.getPrincipalName())[9]);
+		lblExtern = new Label(userData[9]);
 		lblExtern.setWidth("200px");
-		lblEmail = new Label(userM.getUserData(accessControl.getPrincipalName())[10]);
-		lblEmail.setWidth("250px");
-		userInfo.add(lblInstructionDate, lblIfwt, lblMnaf, lblIntern, lblEmploymentType, lblBegin, lblEnd, lblExtern, lblEmail);
-		add(userInfo);
+		lblEmail = new Label(userData[10]);
+		lblEmail.setWidth("300px");
+		userInfoContent.add(lblInstructionDate, lblIfwt, lblMnaf, lblIntern, lblEmploymentType, lblBegin, lblEnd, lblExtern, lblEmail);
+		
+		Label lblSpace = new Label("");
+		lblSpace.setHeight("50px");
+		
+		Label lblGeneralInstruction = new Label("Allgemeine Unterweisungen");
+		lblGeneralInstruction.setWidth("400px");
+		Label lblGeneralInstructionContent = new Label(userData[11]);
+		lblGeneralInstructionContent.setWidth("400px");
+		
+		userInfo.add(lblUser, userInfoHead, userInfoContent, lblSpace, lblGeneralInstruction, lblGeneralInstructionContent);
+		
+		return userInfo;
+	}
+	
+	public VerticalLayout configureUserDevices() {
+		VerticalLayout userDevices = new VerticalLayout();
+		accessControl = AccessControlFactory.getInstance().createAccessControl();
+		
+		
+		
+		return userDevices;
 	}
 	
 	private void logout() {
