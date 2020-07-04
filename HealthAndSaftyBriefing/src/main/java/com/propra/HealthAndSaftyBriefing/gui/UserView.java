@@ -22,7 +22,9 @@ public class UserView extends VerticalLayout {
 	
 	public UserView() {
 		accessControl = AccessControlFactory.getInstance().createAccessControl();
-		Label lblUser = new Label("Benutzer: "+ userM.getUsersName(accessControl.getPrincipalName()));
+		String[] userData = userM.getUserData(accessControl.getPrincipalName());
+		Label lblUser = new Label("Benutzer: "+ userData[1]+" "+userData[0]);
+		lblUser.setHeight("75px");
 		add(lblUser);
 		
 		// Creating horzintal layout where user informations are stored
@@ -49,26 +51,36 @@ public class UserView extends VerticalLayout {
 		add(userInfoHead);
 		
 		HorizontalLayout userInfo = new HorizontalLayout();
-		lblInstructionDate = new Label(userM.getUserData(accessControl.getPrincipalName())[2]);
+		lblInstructionDate = new Label(userData[2]);
 		lblInstructionDate.setWidth("200px");
-		lblIfwt = new Label(userM.getUserData(accessControl.getPrincipalName())[3]);
+		lblIfwt = new Label(userData[3]);
 		lblIfwt.setWidth("100px");
-		lblMnaf = new Label(userM.getUserData(accessControl.getPrincipalName())[4]);
+		lblMnaf = new Label(userData[4]);
 		lblMnaf.setWidth("100px");
-		lblIntern = new Label(userM.getUserData(accessControl.getPrincipalName())[5]);
+		lblIntern = new Label(userData[5]);
 		lblIntern.setWidth("100px");
-		lblEmploymentType = new Label(userM.getUserData(accessControl.getPrincipalName())[6]);
+		lblEmploymentType = new Label(userData[6]);
 		lblEmploymentType.setWidth("200px");
-		lblBegin = new Label(userM.getUserData(accessControl.getPrincipalName())[7]);
+		lblBegin = new Label(userData[7]);
 		lblBegin.setWidth("100px");
-		lblEnd = new Label(userM.getUserData(accessControl.getPrincipalName())[8]);
+		lblEnd = new Label(userData[8]);
 		lblEnd.setWidth("100px");
-		lblExtern = new Label(userM.getUserData(accessControl.getPrincipalName())[9]);
+		lblExtern = new Label(userData[9]);
 		lblExtern.setWidth("200px");
-		lblEmail = new Label(userM.getUserData(accessControl.getPrincipalName())[10]);
+		lblEmail = new Label(userData[10]);
 		lblEmail.setWidth("250px");
 		userInfo.add(lblInstructionDate, lblIfwt, lblMnaf, lblIntern, lblEmploymentType, lblBegin, lblEnd, lblExtern, lblEmail);
 		add(userInfo);
+		
+		Label lblSpace = new Label("");
+		lblSpace.setHeight("50px");
+		add(lblSpace);
+		
+		Label lblGeneralInstruction = new Label("Allgemeine Unterweisungen");
+		Label lblGeneralInstructionContent = new Label(userData[11]);
+		add(lblGeneralInstruction, lblGeneralInstructionContent);
+		
+		
 	}
 	
 	private void logout() {
