@@ -12,7 +12,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteConfiguration;
 
 @Route("LoginView")
-@PageTitle("Login")
+@PageTitle("Login | Sicherheitsunterweisungen")
 @CssImport("./styles/shared-styles.css")
 public class LoginView extends FlexLayout {
 	
