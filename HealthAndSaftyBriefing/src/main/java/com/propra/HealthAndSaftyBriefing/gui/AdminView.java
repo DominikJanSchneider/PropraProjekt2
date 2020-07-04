@@ -13,10 +13,12 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.Page;
@@ -46,6 +48,12 @@ public class AdminView extends VerticalLayout {
 	    deviceView = new DeviceView();
 	    dangerSubstView = new DangerSubstView();
 	    roomsView = new RoomsView();
+	    
+	    Button btnLogout = new Button("Logout");
+		btnLogout.setIcon(VaadinIcon.SIGN_OUT.create());
+		btnLogout.getElement().getStyle().set("margin-left", "auto");
+		btnLogout.addClickListener(e -> logout());
+	    add(btnLogout);
 	    
 	    //Building header
 	  	Label header = new Label("Sicherheitsunterweisung am Institut für Werkstofftechnik und Ger\u00e4tezentrum MNaF");

@@ -13,6 +13,7 @@ public class Device {
 		this.setDescription(description);
 		this.setRoom(room);
 	}
+	
 	//getter and setter
 	
 	public int getId() {

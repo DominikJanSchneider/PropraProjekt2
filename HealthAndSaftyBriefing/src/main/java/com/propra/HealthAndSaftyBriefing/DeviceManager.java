@@ -153,4 +153,42 @@ public class DeviceManager {
 			DBConnector.deconnect();
       }
 	}
+	
+	public List<AssignedDevice> getAssignedDevices(int pID) {
+		String tableName1 = "Ger\u00e4tezuordnung";
+		String tableName2 = "Ger\u00e4te";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null;
+		List<AssignedDevice> list = new LinkedList<AssignedDevice>();
+		try {
+			pstmt = con.prepareStatement("SELECT "+tableName1+".Ger\u00e4teID, Name, Beschreibung, Raum, Nutzungszeit FROM "+tableName1+" INNER JOIN "+tableName2+" ON "+tableName1+".Ger\u00e4teID = "+tableName2+".Ger\u00e4teID WHERE PersonenID='"+pID+"'");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				AssignedDevice device = new AssignedDevice(
+						rs.getInt("Ger\u00e4teID"),
+						rs.getString("Name"),
+						rs.getString("Beschreibung"),
+						rs.getString("Raum"),
+						rs.getDouble("Nutzungszeit")
+						);
+				list.add(device);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return list;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
 }
