@@ -50,7 +50,7 @@ public class DeviceStatsView extends VerticalLayout implements HasUrlParameter<S
 	}
 	
 	private void backButtonPressed() {
-		UI.getCurrent().navigate("AdminView");
+		UI.getCurrent().navigate("AdminView/DeviceTab");
 	}
 
 	private Component configureSearchComponents() {

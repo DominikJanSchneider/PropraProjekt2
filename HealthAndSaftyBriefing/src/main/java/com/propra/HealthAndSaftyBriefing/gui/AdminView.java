@@ -1,12 +1,13 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.propra.HealthAndSaftyBriefing.authentication.AccessControl;
+import com.propra.HealthAndSaftyBriefing.Person;
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
@@ -18,21 +19,21 @@ import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.menubar.MenuBar;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.router.BeforeEvent;
+import com.vaadin.flow.router.HasUrlParameter;
+import com.vaadin.flow.router.OptionalParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteConfiguration;
 
 @Route("AdminView")
 @PageTitle("Admin | Sicherheitsunterweisungen")
 @SuppressWarnings("serial")
-public class AdminView extends VerticalLayout {
-	
-	private AccessControl accessControl; 
-	
+public class AdminView extends VerticalLayout implements HasUrlParameter<String> {
 	private MenuBar menuBar;
 	private Tabs tabs;
 	private PersonView personView;
@@ -40,6 +41,7 @@ public class AdminView extends VerticalLayout {
 	private RoomsView roomsView;
 	private DangerSubstView dangerSubstView;
 	private Div pages;
+	
 	//private FormDocPrinter fPrinter; TODO
 	
 	public AdminView() {
@@ -103,6 +105,7 @@ public class AdminView extends VerticalLayout {
 		});
 	}
 
+	@SuppressWarnings("unused")
 	private void configureMenuBar() {
 		menuBar = new MenuBar();
 		MenuItem fileMenu = menuBar.addItem("Datei");
@@ -140,47 +143,66 @@ public class AdminView extends VerticalLayout {
 
 	@SuppressWarnings("deprecation")
 	private void printPressed() {
+		//TODO Implementierung der Druckfunktion
 		Page page = UI.getCurrent().getPage();
 		page.executeJavaScript("print();");
-			//TODO Auto-generated method stub
-			System.out.println("Drucken gedrückt");
-//			Set<Person> personSet = personView.getSelectedPerson();
-//			Iterator<Person> it = personSet.iterator();
-//			Person person = it.next();
-//			
-//			String lName = person.getLName();
-//			String fName = person.getFName();
-//			String date = person.getDate();
-//			String ifwt = person.getIfwt();
-//			String mnaf = person.getMNaF();
-//			String intern = person.getIntern();
-//			String extern = person.getExtern();
-//			//TODO 
-////			String genInstr = taGeneralInstruction.getText();
-////			String labSetup = taLabSetup.getText();
-////			String dangerSubst = taDangerSubst.getText();
-//			
-//			//setup of printData
-//			PrintData printData = new PrintData(
-//						lName,
-//						fName,
-//						date,
-//						ifwt,
-//						mnaf,
-//						intern,
-//						extern,
-//						"test",
-//						"test",
-//						"test"
-//					);
-//			//start printing process
-//			try {
-//				fPrinter.print(printData);
-//			} catch(IOException e) {
-//				e.printStackTrace();
-//			} catch(PrinterException e) {
-//				e.printStackTrace();
-//			}
-			
+			Set<Person> personSet = personView.getSelectedPerson();
+			Iterator<Person> it = personSet.iterator();
+			if(it.hasNext()) {
+//				Person person = it.next();
+//				String lName = person.getLName();
+//				String fName = person.getFName();
+//				String date = person.getDate();
+//				String ifwt = person.getIfwt();
+//				String mnaf = person.getMNaF();
+//				String intern = person.getIntern();
+//				String extern = person.getExtern();
+//				String genInstr = person.getGenInstr();
+//				String labSetup = person.getLabSetup();
+//				String dangerSubst = person.getDangerSubsts();
+//				
+//				//setup of printData
+//				PrintData printData = new PrintData(
+//							lName,
+//							fName,
+//							date,
+//							ifwt,
+//							mnaf,
+//							intern,
+//							extern,
+//							"test",
+//							"test",
+//							"test"
+//						);
+//				//start printing process
+//				try {
+//					fPrinter.print(printData);
+//				} catch(IOException e) {
+//					e.printStackTrace();
+//				} catch(PrinterException e) {
+//					e.printStackTrace();
+//				}
+			}
+			else {
+				Notification.show("Kein Eintrag Ausgewählt!");
+			}
 		}
+	
+	@Override
+	public void setParameter(BeforeEvent event, @OptionalParameter String parameter) {
+		if(parameter != null) {
+			if(parameter.equals("PersonTab")) {
+				tabs.setSelectedIndex(0);
+			}
+			else if(parameter.equals("DeviceTab")) {
+				tabs.setSelectedIndex(1);
+			}
+			else if(parameter.equals("RoomTab")) {
+				tabs.setSelectedIndex(2);
+			}
+			else if(parameter.equals("DangerSubstTab")) {
+				tabs.setSelectedIndex(3);
+			}
+		}
+	}
 }

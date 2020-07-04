@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.propra.HealthAndSaftyBriefing.Device;
 import com.propra.HealthAndSaftyBriefing.Person;
 import com.propra.HealthAndSaftyBriefing.PersonManager;
 import com.vaadin.flow.component.Component;

@@ -10,6 +10,7 @@ import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+@SuppressWarnings("serial")
 @Route("LoginView")
 @PageTitle("Login | Sicherheitsunterweisungen")
 @CssImport("./styles/shared-styles.css")
