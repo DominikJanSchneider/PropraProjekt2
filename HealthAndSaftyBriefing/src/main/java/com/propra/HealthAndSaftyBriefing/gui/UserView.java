@@ -19,6 +19,8 @@ import com.vaadin.flow.router.Route;
 @PageTitle("User")
 public class UserView extends VerticalLayout {
 	
+	private Label lblUser;
+	
 	private UserManager userM = new UserManager();
 	private AccessControl accessControl; 
 	
@@ -28,9 +30,8 @@ public class UserView extends VerticalLayout {
 		btnLogout.setIcon(VaadinIcon.SIGN_OUT.create());
 		btnLogout.getElement().getStyle().set("margin-left", "auto");
 		btnLogout.addClickListener(e -> logout());
-		add(btnLogout);
 		
-		VerticalLayout userInfo = configureUserInfo();
+		add(btnLogout);
 		add(configureUserInfo());
 		
 	}
@@ -41,7 +42,7 @@ public class UserView extends VerticalLayout {
 		
 		VerticalLayout userInfo = new VerticalLayout();
 		
-		Label lblUser = new Label("Benutzer: "+ userData[1]+" "+userData[0]);
+		lblUser = new Label("Benutzer: "+ userData[1]+" "+userData[0]);
 		lblUser.setHeight("50px");
 		
 		// Creating horzintal layout where user informations are stored
@@ -98,6 +99,15 @@ public class UserView extends VerticalLayout {
 		userInfo.add(lblUser, userInfoHead, userInfoContent, lblSpace, lblGeneralInstruction, lblGeneralInstructionContent);
 		
 		return userInfo;
+	}
+	
+	public VerticalLayout configureUserDevices() {
+		VerticalLayout userDevices = new VerticalLayout();
+		accessControl = AccessControlFactory.getInstance().createAccessControl();
+		
+		
+		
+		return userDevices;
 	}
 	
 	private void logout() {
