@@ -7,7 +7,9 @@ import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -21,11 +23,26 @@ public class UserView extends VerticalLayout {
 	private AccessControl accessControl; 
 	
 	public UserView() {
+		
+		Button btnLogout = new Button("Logout");
+		btnLogout.setIcon(VaadinIcon.SIGN_OUT.create());
+		btnLogout.getElement().getStyle().set("margin-left", "auto");
+		btnLogout.addClickListener(e -> logout());
+		add(btnLogout);
+		
+		VerticalLayout userInfo = configureUserInfo();
+		add(configureUserInfo());
+		
+	}
+	
+	private VerticalLayout configureUserInfo() {
 		accessControl = AccessControlFactory.getInstance().createAccessControl();
 		String[] userData = userM.getUserData(accessControl.getPrincipalName());
+		
+		VerticalLayout userInfo = new VerticalLayout();
+		
 		Label lblUser = new Label("Benutzer: "+ userData[1]+" "+userData[0]);
-		lblUser.setHeight("75px");
-		add(lblUser);
+		lblUser.setHeight("50px");
 		
 		// Creating horzintal layout where user informations are stored
 		HorizontalLayout userInfoHead = new HorizontalLayout();
@@ -48,9 +65,8 @@ public class UserView extends VerticalLayout {
 		Label lblEmail = new Label("E-Mail Adresse");
 		lblEmail.setWidth("250px");
 		userInfoHead.add(lblInstructionDate, lblIfwt, lblMnaf, lblIntern, lblEmploymentType, lblBegin, lblEnd, lblExtern, lblEmail);
-		add(userInfoHead);
 		
-		HorizontalLayout userInfo = new HorizontalLayout();
+		HorizontalLayout userInfoContent = new HorizontalLayout();
 		lblInstructionDate = new Label(userData[2]);
 		lblInstructionDate.setWidth("200px");
 		lblIfwt = new Label(userData[3]);
@@ -68,19 +84,20 @@ public class UserView extends VerticalLayout {
 		lblExtern = new Label(userData[9]);
 		lblExtern.setWidth("200px");
 		lblEmail = new Label(userData[10]);
-		lblEmail.setWidth("250px");
-		userInfo.add(lblInstructionDate, lblIfwt, lblMnaf, lblIntern, lblEmploymentType, lblBegin, lblEnd, lblExtern, lblEmail);
-		add(userInfo);
+		lblEmail.setWidth("300px");
+		userInfoContent.add(lblInstructionDate, lblIfwt, lblMnaf, lblIntern, lblEmploymentType, lblBegin, lblEnd, lblExtern, lblEmail);
 		
 		Label lblSpace = new Label("");
 		lblSpace.setHeight("50px");
-		add(lblSpace);
 		
 		Label lblGeneralInstruction = new Label("Allgemeine Unterweisungen");
+		lblGeneralInstruction.setWidth("400px");
 		Label lblGeneralInstructionContent = new Label(userData[11]);
-		add(lblGeneralInstruction, lblGeneralInstructionContent);
+		lblGeneralInstructionContent.setWidth("400px");
 		
+		userInfo.add(lblUser, userInfoHead, userInfoContent, lblSpace, lblGeneralInstruction, lblGeneralInstructionContent);
 		
+		return userInfo;
 	}
 	
 	private void logout() {
