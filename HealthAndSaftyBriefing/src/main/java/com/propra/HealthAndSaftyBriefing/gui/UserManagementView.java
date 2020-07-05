@@ -62,18 +62,21 @@ public class UserManagementView extends VerticalLayout{
 				addForm.setVisible(true);
 				addForm.tfUsername.setValue("");
 				addForm.tfPassword.setValue("");
+				addForm.tfRole.setValue("");
 
 				add(content);
 				
 			}
+			selectedUser = null;
 		    });
 		
 		//button delete User
 		btnDeleteUser =  new Button("Nutzer löschen", e -> {
 			try {
 			selectedUser = userGrid.asSingleSelect();
-			UserM.deleteUser(selectedUser.getValue().getId());
+			UserM.deleteUser(selectedUser.getValue().getUserID());
 			updateUserGrid();
+			selectedUser = null;
 			Notification.show("Nutzer wurde aus der Datenbank entfernt!");
 			}catch(Exception ex) {
 				Notification.show("Wähle einen Nutzer aus, um ihn zu löschen!");
@@ -85,7 +88,9 @@ public class UserManagementView extends VerticalLayout{
 		//button edit User
 		btnEditUser = new Button("Nutzer bearbeiten", e -> {
 			
+			
 			try {
+				
 				     if(addForm != null)
 				     addForm.setVisible(false);
 				     selectedUser = userGrid.asSingleSelect();
@@ -93,9 +98,10 @@ public class UserManagementView extends VerticalLayout{
 					if(editForm == null) {
 							
 				    editContent = new Div(userGrid, editForm = new ContactForm(1));
-				    editForm.tfUsername.setValue(selectedUser.getValue().getUsername());
+				    editForm.tfUsername.setValue(selectedUser.getValue().getUserName());
 				    editForm.tfPassword.setValue("");
-				    userId = selectedUser.getValue().getId();
+				    editForm.tfRole.setValue(selectedUser.getValue().getUserRole());
+				    userId = selectedUser.getValue().getUserID();
 			    	editContent.setSizeFull();
 			        add(editContent);
 			        updateUserGrid();
@@ -103,15 +109,17 @@ public class UserManagementView extends VerticalLayout{
 					}else {
 						
 						editForm.setVisible(true);
-						editForm.tfUsername.setValue(selectedUser.getValue().getUsername());
+						editForm.tfUsername.setValue(selectedUser.getValue().getUserName());
 						editForm.tfPassword.setValue("");
-						userId = selectedUser.getValue().getId();
+						editForm.tfRole.setValue(selectedUser.getValue().getUserRole());
+						userId = selectedUser.getValue().getUserID();
 						editContent.setSizeFull();
 						add(editContent);
 					}
 					
 				}catch(Exception ex) {
 				    add(userGrid);
+				    editForm.setVisible(false);;
 					Notification.show("Wähle einen Nutzer aus, um Daten bearbeiten zu können!");
 					
 		        }
@@ -131,18 +139,23 @@ public class UserManagementView extends VerticalLayout{
 	
 	public void configureUserGrid() {
 		userGrid = new Grid<>();
-		userGrid.addColumn(User::getId)
+		userGrid.addColumn(User::getUserID)
         			.setHeader("ID")
         			.setKey("id")
         			.setSortable(true);
-        userGrid.addColumn(User::getUsername)
+        userGrid.addColumn(User::getUserName)
         			.setHeader("Benutzername")
         			.setKey("username")
         			.setSortable(true);
-        userGrid.addColumn(User::getPassword)
+        userGrid.addColumn(User::getUserPassword)
         			.setHeader("Passwort")
         			.setKey("password")
         			.setSortable(true);
+        userGrid.addColumn(User::getUserRole)
+		.setHeader("Rolle")
+		.setKey("role")
+		.setSortable(true);
+        
 	}
 	
 	

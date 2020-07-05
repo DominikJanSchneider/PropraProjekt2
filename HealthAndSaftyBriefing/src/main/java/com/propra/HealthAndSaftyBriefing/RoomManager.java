@@ -45,14 +45,15 @@ public class RoomManager {
       }
 	}
 	
-	public List<Room> getRoomsByName() {
+
+	public List<Room> getRoomsByName(String name) {
 		String tableName = "R\u00e4ume";
 		Connection con = DBConnector.connectCore();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Room> list = new LinkedList<Room>();
 		try {
-			pstmt = con.prepareStatement("SELECT * FROM "+tableName + " WHERE Name LIKE '%" + RoomsView.getTfRoomName().getValue() + "%'");
+			pstmt = con.prepareStatement("SELECT * FROM "+tableName + " WHERE Name LIKE '%"+name+"%'");
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Room room = new Room(

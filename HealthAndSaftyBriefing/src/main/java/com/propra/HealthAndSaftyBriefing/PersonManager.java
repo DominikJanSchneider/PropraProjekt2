@@ -32,10 +32,10 @@ public class PersonManager {
 							rs.getString("Ifwt"),
 							rs.getString("MNaF"),
 							rs.getString("Intern"),
+							rs.getString("Extern"),
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("Extern"),
 							rs.getString("E-Mail Adresse")
 						);
 				list.add(person);
@@ -58,14 +58,14 @@ public class PersonManager {
       }
 	}
 	
-	public List<Person> getPersonsByName() {
+	public List<Person> getPersonsByName(String name) {
 		String tableName = "Personen";
 		Connection con = DBConnector.connectCore();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Person> list = new LinkedList<Person>();
 		try {
-			pstmt = con.prepareStatement("SELECT * FROM "+tableName+ " WHERE Name LIKE '%"+PersonView.getTfName().getValue()+"%' ;");
+			pstmt = con.prepareStatement("SELECT * FROM "+tableName+ " WHERE Name LIKE '%"+name+"%' ;");
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Person person = new Person(
@@ -76,10 +76,10 @@ public class PersonManager {
 							rs.getString("Ifwt"),
 							rs.getString("MNaF"),
 							rs.getString("Intern"),
+							rs.getString("Extern"),
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("Extern"),
 							rs.getString("E-Mail Adresse")
 						);
 				list.add(person);
@@ -120,10 +120,10 @@ public class PersonManager {
 							rs.getString("Ifwt"),
 							rs.getString("MNaF"),
 							rs.getString("Intern"),
+							rs.getString("Extern"),
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("Extern"),
 							rs.getString("E-Mail Adresse")
 						);
 				list.add(person);
@@ -164,10 +164,10 @@ public class PersonManager {
 							rs.getString("Ifwt"),
 							rs.getString("MNaF"),
 							rs.getString("Intern"),
+							rs.getString("Extern"),
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("Extern"),
 							rs.getString("E-Mail Adresse")
 						);
 				list.add(person);
@@ -208,10 +208,10 @@ public class PersonManager {
 							rs.getString("Ifwt"),
 							rs.getString("MNaF"),
 							rs.getString("Intern"),
+							rs.getString("Extern"),
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("Extern"),
 							rs.getString("E-Mail Adresse")
 						);
 				list.add(person);
@@ -252,10 +252,10 @@ public class PersonManager {
 							rs.getString("Ifwt"),
 							rs.getString("MNaF"),
 							rs.getString("Intern"),
+							rs.getString("Extern"),
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("Extern"),
 							rs.getString("E-Mail Adresse")
 						);
 				list.add(person);
@@ -296,10 +296,10 @@ public class PersonManager {
 							rs.getString("Ifwt"),
 							rs.getString("MNaF"),
 							rs.getString("Intern"),
+							rs.getString("Extern"),
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("Extern"),
 							rs.getString("E-Mail Adresse")
 						);
 				list.add(person);
@@ -340,10 +340,10 @@ public class PersonManager {
 							rs.getString("Ifwt"),
 							rs.getString("MNaF"),
 							rs.getString("Intern"),
+							rs.getString("Extern"),
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("Extern"),
 							rs.getString("E-Mail Adresse")
 						);
 				list.add(person);
@@ -384,10 +384,10 @@ public class PersonManager {
 							rs.getString("Ifwt"),
 							rs.getString("MNaF"),
 							rs.getString("Intern"),
+							rs.getString("Extern"),
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("Extern"),
 							rs.getString("E-Mail Adresse")
 						);
 				list.add(person);
@@ -428,10 +428,10 @@ public class PersonManager {
 							rs.getString("Ifwt"),
 							rs.getString("MNaF"),
 							rs.getString("Intern"),
+							rs.getString("Extern"),
 							rs.getString("Beschaeftigungsverhaeltnis"),
 							rs.getString("Beginn"),
 							rs.getString("Ende"),
-							rs.getString("Extern"),
 							rs.getString("E-Mail Adresse")
 						);
 				list.add(person);
@@ -453,5 +453,7 @@ public class PersonManager {
 			DBConnector.deconnect();
       }
 	}
+	
+	
 	
 }

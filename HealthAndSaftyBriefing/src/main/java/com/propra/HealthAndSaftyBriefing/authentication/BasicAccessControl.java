@@ -1,22 +1,22 @@
 package com.propra.HealthAndSaftyBriefing.authentication;
 
+import com.propra.HealthAndSaftyBriefing.UserManager;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.server.VaadinSession;
 
 public class BasicAccessControl implements AccessControl {
 	
+	private UserManager userM = new UserManager();
+	
 	@Override
 	public boolean signIn(String username, String password) {
-		if (username == null || username.isEmpty()) {
-			return false;
+		
+		if (userM.checkUser(username, password)) {
+			CurrentUser.set(username);
+			return true;
 		}
 		
-		if (!username.equals(password)) {
-			return false;
-		}
-		
-		CurrentUser.set(username);
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -25,14 +25,14 @@ public class BasicAccessControl implements AccessControl {
 	}
 	
 	@Override
-	public boolean isUserInRole(String role) {
-		if ("admin".equals(role)) {
+	public boolean isUserAdmin() {
+		if (userM.getRole().equals("admin")) {
 			//Only the admin user is in the admin role
-			return getPrincipalName().equals("admin");
+			return true;
 		}
 		
 		// All users are in all non-admin roles
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -43,6 +43,6 @@ public class BasicAccessControl implements AccessControl {
 	@Override
 	public void signOut() {
 		VaadinSession.getCurrent().getSession().invalidate();
-		UI.getCurrent().navigate("");
+		UI.getCurrent().navigate("LoginView");
 	}
 }

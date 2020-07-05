@@ -6,22 +6,33 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.propra.HealthAndSaftyBriefing.authentication.AccessControl;
+import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
+import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteConfiguration;
 
 @Route("AdminView")
 @SuppressWarnings("serial")
 public class AdminView extends VerticalLayout {
+	
+	private AccessControl accessControl; 
+	
 	private MenuBar menuBar;
 	private Tabs tabs;
 	private PersonView personView;
@@ -33,12 +44,24 @@ public class AdminView extends VerticalLayout {
 	
 	
 	public AdminView() {
+
 	    personView = new PersonView();
 	    deviceView = new DeviceView();
 	    dangerSubstView = new DangerSubstView();
 	    roomsView = new RoomsView();
 	    
-	    	
+
+	    Button btnLogout = new Button("Logout");
+		btnLogout.setIcon(VaadinIcon.SIGN_OUT.create());
+		btnLogout.getElement().getStyle().set("margin-left", "auto");
+		btnLogout.addClickListener(e -> logout());
+	    add(btnLogout);
+	    
+	    //Building header
+	  	Label header = new Label("Sicherheitsunterweisung am Institut für Werkstofftechnik und Ger\u00e4tezentrum MNaF");
+	  	add(header);
+	  	
+
 	    //MenuBar
 	    configureMenuBar();
 	    add(menuBar);
@@ -47,6 +70,7 @@ public class AdminView extends VerticalLayout {
 	   	configureTabs();
 	   	add(tabs);
 		add(pages);
+			
 	}
 	    
 	private void configureTabs() {
@@ -62,7 +86,6 @@ public class AdminView extends VerticalLayout {
 		//roomsTab
 		Tab roomsTab = new Tab("R\u00e4ume");
 		Div roomsPage = new Div(roomsView);
-		//roomsPage.setText("Räume-Tab");
 		roomsPage.setVisible(false);
 			
 		//dangerSubstTab
@@ -110,6 +133,19 @@ public class AdminView extends VerticalLayout {
 		// TODO Auto-generated method stub
 		System.out.println("Benutzer verwaltung gedrückt");
 	}
+	
+	private void logout() {
+        AccessControlFactory.getInstance().createAccessControl().signOut();
+    }
+	
+	@Override 
+	protected void onAttach(AttachEvent attachEvent) {
+		super.onAttach(attachEvent);
+		
+		// User can quickly activate logout with Ctrl+L
+		attachEvent.getUI().addShortcutListener(() -> logout(), Key.KEY_L, KeyModifier.CONTROL);
+		
+	}
 
 	@SuppressWarnings("deprecation")
 	private void printPressed() {
@@ -117,8 +153,7 @@ public class AdminView extends VerticalLayout {
 		page.executeJavaScript("print();");
 			//TODO Auto-generated method stub
 			System.out.println("Drucken gedrückt");
-//			Grid<Person> personGrid = personView.getPersonGrid();
-//			Set<Person> personSet = personGrid.getSelectedItems();
+//			Set<Person> personSet = personView.getSelectedPerson();
 //			Iterator<Person> it = personSet.iterator();
 //			Person person = it.next();
 //			
@@ -155,5 +190,7 @@ public class AdminView extends VerticalLayout {
 //			} catch(PrinterException e) {
 //				e.printStackTrace();
 //			}
+			
 		}
+	
 }

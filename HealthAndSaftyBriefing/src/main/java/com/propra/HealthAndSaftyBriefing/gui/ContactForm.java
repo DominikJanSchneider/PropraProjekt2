@@ -15,6 +15,7 @@ public class ContactForm extends FormLayout {
 
 	  TextField tfUsername = new TextField("Benutzername"); 
 	  TextField tfPassword = new TextField("Passwort");
+	  TextField tfRole = new TextField("Rolle");
 	  
 	  
 	  
@@ -34,7 +35,7 @@ public class ContactForm extends FormLayout {
 	    {
 	    	if(!(tfUsername.isEmpty()) && !(tfPassword.isEmpty())){
 	    		try {
-					UserManager.addUser(tfUsername.getValue(), tfPassword.getValue());
+					UserManager.addUser(tfUsername.getValue(), tfPassword.getValue(), tfRole.getValue());
 					Notification.show("Nutzer wurde hinzugefügt!");
 				} catch (NoSuchAlgorithmException e1) {
 					// TODO Auto-generated catch block
@@ -42,13 +43,13 @@ public class ContactForm extends FormLayout {
 				}
 	    		  UserManagementView.updateUserGrid();
 	    		  }else {
-	    			  Notification.show("Bitte geben Sie sowohl einen Benutzernamen als auch ein Passwort ein!");
+	    			  Notification.show("Bitte füllen Sie alle Felder aus!");
 	    		  }
 	    	}
 	  );
 	    
 	    close = new Button("Beenden", e -> this.setVisible(false));
-	    add(tfUsername, tfPassword, new HorizontalLayout(save, close));
+	    add(tfUsername, tfPassword, tfRole, new HorizontalLayout(save, close));
 	    
 	  }
 	  
@@ -65,7 +66,7 @@ public class ContactForm extends FormLayout {
 		    {
 		    	if(!(tfUsername.isEmpty()) && !(tfPassword.isEmpty())){
 		    		try {
-						UserManager.editUser(UserManagementView.userId, tfUsername.getValue(), tfPassword.getValue());
+						UserManager.editUser(UserManagementView.userId, tfUsername.getValue(), tfPassword.getValue(), tfRole.getValue());
 						Notification.show("Nutzerdaten wurden erfolgreich bearbeitet!");
 					} catch (NoSuchAlgorithmException e1) {
 						// TODO Auto-generated catch block
@@ -79,7 +80,7 @@ public class ContactForm extends FormLayout {
 		  );
 		    
 		    close = new Button("Beenden", e -> this.setVisible(false));
-		    add(tfUsername, tfPassword, new HorizontalLayout(save, close));
+		    add(tfUsername, tfPassword, tfRole, new HorizontalLayout(save, close));
 		    
 		  }
 	  
