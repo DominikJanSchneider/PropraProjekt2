@@ -104,27 +104,28 @@ public class UserManager {
 			con.prepareStatement("ATTACH DATABASE 'database/CoreDatabase.db' AS p").execute(); // Attach CoreDatabase to UserDatabase
 			pstmt = con.prepareStatement("SELECT * FROM p.Personen WHERE 'E-Mail Adresse' = '"+username+"'");
 			rs = pstmt.executeQuery();
-			userData = new String[rs.getMetaData().getColumnCount()-1];
+			userData = new String[rs.getMetaData().getColumnCount()];
 			pstmt.close();
 			pstmt = con.prepareStatement("SELECT * FROM "+tableName+" u join p.Personen on u.Benutzername = p.Personen.'E-Mail Adresse' WHERE Benutzername='"+username+"';"); //join user with his person data
 			rs = pstmt.executeQuery();
 			
-			userData[0] = rs.getString("Name");
-			userData[1] = rs.getString("Vorname");
-			userData[2] = rs.getString("Datum");
-			userData[3] = rs.getString("Ifwt");
-			userData[4] = rs.getString("MNaF");
-			userData[5] = rs.getString("Intern");
-			userData[6] = rs.getString("Beschaeftigungsverhaeltnis");
-			userData[7] = rs.getString("Beginn");
-			userData[8] = rs.getString("Ende");
-			userData[9] = rs.getString("Extern");
-			userData[10] = rs.getString("E-Mail Adresse");
-			userData[11] = rs.getString("Allgemeine Unterweisung");
-			userData[12] = rs.getString("Laboreinrichtungen");
-			userData[13] = rs.getString("Gefahrstoffe");
-			userData[14] = rs.getString("LabKommentar");
-			userData[15] = rs.getString("GefKommentar");
+			userData[0] = rs.getString("ID");
+			userData[1] = rs.getString("Name");
+			userData[2] = rs.getString("Vorname");
+			userData[3] = rs.getString("Datum");
+			userData[4] = rs.getString("Ifwt");
+			userData[5] = rs.getString("MNaF");
+			userData[6] = rs.getString("Intern");
+			userData[7] = rs.getString("Beschaeftigungsverhaeltnis");
+			userData[8] = rs.getString("Beginn");
+			userData[9] = rs.getString("Ende");
+			userData[10] = rs.getString("Extern");
+			userData[11] = rs.getString("E-Mail Adresse");
+			userData[12] = rs.getString("Allgemeine Unterweisung");
+			userData[13] = rs.getString("Laboreinrichtungen");
+			userData[14] = rs.getString("Gefahrstoffe");
+			userData[15] = rs.getString("LabKommentar");
+			userData[16] = rs.getString("GefKommentar");
 			
 			return userData;
 			

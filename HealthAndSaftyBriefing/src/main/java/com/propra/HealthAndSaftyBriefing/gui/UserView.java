@@ -1,6 +1,10 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
 
+import java.util.List;
+
+import com.propra.HealthAndSaftyBriefing.AssignedDevice;
+import com.propra.HealthAndSaftyBriefing.DeviceManager;
 import com.propra.HealthAndSaftyBriefing.UserManager;
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControl;
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
@@ -8,6 +12,7 @@ import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -21,8 +26,10 @@ import com.vaadin.flow.router.Route;
 public class UserView extends VerticalLayout {
 	
 	private Label lblUser;
+	private Grid<AssignedDevice> userDeviceGrid;
 	
 	private UserManager userM = new UserManager();
+	private DeviceManager deviceM = new DeviceManager();
 	private AccessControl accessControl; 
 	
 	public UserView() {
@@ -32,8 +39,13 @@ public class UserView extends VerticalLayout {
 		btnLogout.getElement().getStyle().set("margin-left", "auto");
 		btnLogout.addClickListener(e -> logout());
 		
+		configureUserDeviceGrid();
+		
 		add(btnLogout);
 		add(configureUserInfo());
+		
+		add(userDeviceGrid);
+		updateUserDeviceGrid();
 		
 	}
 	
@@ -43,7 +55,7 @@ public class UserView extends VerticalLayout {
 		
 		VerticalLayout userInfo = new VerticalLayout();
 		
-		lblUser = new Label("Benutzer: "+ userData[1]+" "+userData[0]);
+		lblUser = new Label("Benutzer: "+ userData[2]+" "+userData[1]);
 		lblUser.setHeight("50px");
 		
 		// Creating horizontal layout where user informations are stored
@@ -69,23 +81,23 @@ public class UserView extends VerticalLayout {
 		userInfoHead.add(lblInstructionDate, lblIfwt, lblMnaf, lblIntern, lblEmploymentType, lblBegin, lblEnd, lblExtern, lblEmail);
 		
 		HorizontalLayout userInfoContent = new HorizontalLayout();
-		lblInstructionDate = new Label(userData[2]);
+		lblInstructionDate = new Label(userData[3]);
 		lblInstructionDate.setWidth("200px");
-		lblIfwt = new Label(userData[3]);
+		lblIfwt = new Label(userData[4]);
 		lblIfwt.setWidth("100px");
-		lblMnaf = new Label(userData[4]);
+		lblMnaf = new Label(userData[5]);
 		lblMnaf.setWidth("100px");
-		lblIntern = new Label(userData[5]);
+		lblIntern = new Label(userData[6]);
 		lblIntern.setWidth("100px");
-		lblEmploymentType = new Label(userData[6]);
+		lblEmploymentType = new Label(userData[7]);
 		lblEmploymentType.setWidth("200px");
-		lblBegin = new Label(userData[7]);
+		lblBegin = new Label(userData[8]);
 		lblBegin.setWidth("100px");
-		lblEnd = new Label(userData[8]);
+		lblEnd = new Label(userData[9]);
 		lblEnd.setWidth("100px");
-		lblExtern = new Label(userData[9]);
+		lblExtern = new Label(userData[10]);
 		lblExtern.setWidth("200px");
-		lblEmail = new Label(userData[10]);
+		lblEmail = new Label(userData[11]);
 		lblEmail.setWidth("300px");
 		userInfoContent.add(lblInstructionDate, lblIfwt, lblMnaf, lblIntern, lblEmploymentType, lblBegin, lblEnd, lblExtern, lblEmail);
 		
@@ -94,7 +106,7 @@ public class UserView extends VerticalLayout {
 		
 		Label lblGeneralInstruction = new Label("Allgemeine Unterweisungen");
 		lblGeneralInstruction.setWidth("400px");
-		Label lblGeneralInstructionContent = new Label(userData[11]);
+		Label lblGeneralInstructionContent = new Label(userData[12].toString());
 		lblGeneralInstructionContent.setWidth("400px");
 		
 		userInfo.add(lblUser, userInfoHead, userInfoContent, lblSpace, lblGeneralInstruction, lblGeneralInstructionContent);
@@ -102,13 +114,38 @@ public class UserView extends VerticalLayout {
 		return userInfo;
 	}
 	
-	public VerticalLayout configureUserDevices() {
-		VerticalLayout userDevices = new VerticalLayout();
+	public void configureUserDeviceGrid() {
 		accessControl = AccessControlFactory.getInstance().createAccessControl();
 		
+		userDeviceGrid = new Grid<>();
+//		userDeviceGrid.addColumn(AssignedDevice::getId)
+//						.setHeader("ID")
+//						.setKey("id")
+//						.setSortable(true);
+		userDeviceGrid.addColumn(AssignedDevice::getName)
+						.setHeader("Ger\u00e4t")
+						.setKey("name")
+						.setSortable(true);
+		userDeviceGrid.addColumn(AssignedDevice::getDescription)
+						.setHeader("Beschreibung")
+						.setKey("description")
+						.setSortable(true);
+		userDeviceGrid.addColumn(AssignedDevice::getRoom)
+						.setHeader("Raum")
+						.setKey("room")
+						.setSortable(true);
+		userDeviceGrid.addColumn(AssignedDevice::getUsageTime)
+						.setHeader("Nutzungszeit")
+						.setKey("usageTime")
+						.setSortable(true);
+	}
+	
+	private void updateUserDeviceGrid() {
+		accessControl = AccessControlFactory.getInstance().createAccessControl();
+		String[] userData = userM.getUserData(accessControl.getPrincipalName());
 		
-		
-		return userDevices;
+		List<AssignedDevice> devices = deviceM.getAssignedDevices(Integer.parseInt(userData[0]));
+		userDeviceGrid.setItems(devices);
 	}
 	
 	private void logout() {
