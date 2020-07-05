@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.propra.HealthAndSaftyBriefing.Device;
 import com.propra.HealthAndSaftyBriefing.DeviceManager;
+
 import com.vaadin.flow.component.BlurNotifier.BlurEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -15,13 +16,16 @@ import com.vaadin.flow.component.FocusNotifier.FocusEvent;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.ShortcutRegistration;
 import com.vaadin.flow.component.UI;
+
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
+
 import com.vaadin.flow.component.textfield.TextField;
 
 @SuppressWarnings("serial")
@@ -34,13 +38,16 @@ public class DeviceView extends VerticalLayout {
 	private Tabs searchTabs;
 	private ShortcutRegistration shortReg;
 	private DeviceStatsView deviceStatsView;
+
 	
 	DeviceView() {
 		deviceM = new DeviceManager();
 		
+
 		//Building searchComponents
 		Component searchComponents = configureSearchComponents();
 		add(searchComponents);
+
 		
 		//Building the deviceGrid
 		configureDeviceGrid();
@@ -91,6 +98,7 @@ public class DeviceView extends VerticalLayout {
         deviceGrid.setItems(devices);
 	}
 	
+
 	private void updateDeviceGridByID(int id) {
 		List<Device> devices = deviceM.getDevicesByID(id);
         deviceGrid.setItems(devices);
@@ -159,5 +167,6 @@ public class DeviceView extends VerticalLayout {
 				updateDeviceGridByRoom(searchTxt);
 				break;
 		}
+
 	}
 }

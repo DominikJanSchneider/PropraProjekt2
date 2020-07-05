@@ -42,6 +42,7 @@ public class AdminView extends VerticalLayout {
 	private Div pages;
 	//private FormDocPrinter fPrinter; TODO
 	
+	
 	public AdminView() {
 
 	    personView = new PersonView();
@@ -49,6 +50,7 @@ public class AdminView extends VerticalLayout {
 	    dangerSubstView = new DangerSubstView();
 	    roomsView = new RoomsView();
 	    
+
 	    Button btnLogout = new Button("Logout");
 		btnLogout.setIcon(VaadinIcon.SIGN_OUT.create());
 		btnLogout.getElement().getStyle().set("margin-left", "auto");
@@ -59,6 +61,7 @@ public class AdminView extends VerticalLayout {
 	  	Label header = new Label("Sicherheitsunterweisung am Institut für Werkstofftechnik und Ger\u00e4tezentrum MNaF");
 	  	add(header);
 	  	
+
 	    //MenuBar
 	    configureMenuBar();
 	    add(menuBar);
@@ -114,7 +117,7 @@ public class AdminView extends VerticalLayout {
 		MenuItem fileMenu = menuBar.addItem("Datei");
 		MenuItem editDataMenu = menuBar.addItem("Daten bearbeiten", e -> editDataPressed());
 		MenuItem printMenu = menuBar.addItem("Drucken", e -> printPressed());
-		MenuItem editUserMenu = menuBar.addItem("Benutzer verwaltung", e -> editUserPressed());
+		MenuItem editUserMenu = menuBar.addItem("Benutzerverwaltung", e -> UI.getCurrent().navigate("UserManagementView"));
 		SubMenu fileSubMenu = fileMenu.getSubMenu();
 		MenuItem saveMenu = fileSubMenu.addItem("Datenbank Speichern");
 		MenuItem importMenu = fileSubMenu.addItem("Datenbank Importieren");

@@ -1,8 +1,10 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.util.List;
+
 import com.propra.HealthAndSaftyBriefing.Room;
 import com.propra.HealthAndSaftyBriefing.RoomManager;
+
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.FocusNotifier;
@@ -10,6 +12,7 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.ShortcutRegistration;
 import com.vaadin.flow.component.BlurNotifier.BlurEvent;
 import com.vaadin.flow.component.FocusNotifier.FocusEvent;
+
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -22,10 +25,12 @@ public class RoomsView extends VerticalLayout {
 	private TextField tfSearch;
 	private Button btnSearch;
 	private ShortcutRegistration shortReg;
+
 	
 	RoomsView() {
 		roomM = new RoomManager();
 		
+
 		//Building searchComponents
 		Component searchComponents = configureSearchComponents();
 		add(searchComponents);
@@ -80,6 +85,7 @@ public class RoomsView extends VerticalLayout {
         roomGrid.setItems(rooms);
 	}
 	
+
 	private void updateRoomGridByName(String name) {
 		List<Room> rooms = roomM.getRoomsByName(name);
         roomGrid.setItems(rooms);
@@ -89,4 +95,5 @@ public class RoomsView extends VerticalLayout {
 		String searchTxt = tfSearch.getValue();
 		updateRoomGridByName(searchTxt);
 	}
+
 }
