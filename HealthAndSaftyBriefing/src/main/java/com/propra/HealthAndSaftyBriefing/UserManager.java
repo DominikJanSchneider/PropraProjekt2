@@ -30,7 +30,7 @@ public class UserManager {
 				User user = new User(
 							rs.getInt("ID"),
 							rs.getString("Benutzername"),
-							rs.getString("Passwort")
+							"Passwort gesetzt"
 							
 						);
 				list.add(user);

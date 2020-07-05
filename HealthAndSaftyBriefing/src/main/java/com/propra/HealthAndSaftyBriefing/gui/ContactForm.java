@@ -15,13 +15,13 @@ public class ContactForm extends FormLayout {
 
 	  TextField tfUsername = new TextField("Benutzername"); 
 	  TextField tfPassword = new TextField("Passwort");
-	  TextField tfID = new TextField("ID");
+	  
 	  
 	  
 	  Button save; 
 	  Button close;
 	  UserManager userM;
-	  UserManagementView umv;
+	  
 
 	  public ContactForm() {
 	    addClassName("contact-form"); 
@@ -35,6 +35,7 @@ public class ContactForm extends FormLayout {
 	    	if(!(tfUsername.isEmpty()) && !(tfPassword.isEmpty())){
 	    		try {
 					UserManager.addUser(tfUsername.getValue(), tfPassword.getValue());
+					Notification.show("Nutzer wurde hinzugefügt!");
 				} catch (NoSuchAlgorithmException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -65,6 +66,7 @@ public class ContactForm extends FormLayout {
 		    	if(!(tfUsername.isEmpty()) && !(tfPassword.isEmpty())){
 		    		try {
 						UserManager.editUser(UserManagementView.userId, tfUsername.getValue(), tfPassword.getValue());
+						Notification.show("Nutzerdaten wurden erfolgreich bearbeitet!");
 					} catch (NoSuchAlgorithmException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -77,7 +79,7 @@ public class ContactForm extends FormLayout {
 		  );
 		    
 		    close = new Button("Beenden", e -> this.setVisible(false));
-		    add(tfID, tfUsername, tfPassword, new HorizontalLayout(save, close));
+		    add(tfUsername, tfPassword, new HorizontalLayout(save, close));
 		    
 		  }
 	  

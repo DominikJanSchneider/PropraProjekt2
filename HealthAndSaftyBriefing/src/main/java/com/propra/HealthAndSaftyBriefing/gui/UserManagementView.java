@@ -50,12 +50,15 @@ public class UserManagementView extends VerticalLayout{
 		btnAddUser = new Button("Neuen Nutzer anlegen");
 		btnAddUser.addClickListener(e -> {
 			if(addForm == null) {
-				
+				if(editForm!= null)
+				editForm.setVisible(false);
 			    content = new Div(userGrid, addForm = new ContactForm());
 		    	content.setSizeFull();
 		        add(content);
 		        
 			}else {
+				if(editForm != null)
+				editForm.setVisible(false);
 				addForm.setVisible(true);
 				addForm.tfUsername.setValue("");
 				addForm.tfPassword.setValue("");
@@ -71,6 +74,7 @@ public class UserManagementView extends VerticalLayout{
 			selectedUser = userGrid.asSingleSelect();
 			UserM.deleteUser(selectedUser.getValue().getId());
 			updateUserGrid();
+			Notification.show("Nutzer wurde aus der Datenbank entfernt!");
 			}catch(Exception ex) {
 				Notification.show("Wähle einen Nutzer aus, um ihn zu löschen!");
 			}
@@ -82,17 +86,15 @@ public class UserManagementView extends VerticalLayout{
 		btnEditUser = new Button("Nutzer bearbeiten", e -> {
 			
 			try {
-				
-			        selectedUser = userGrid.asSingleSelect();; 
-				
-			        
-			        	
+				     if(addForm != null)
+				     addForm.setVisible(false);
+				     selectedUser = userGrid.asSingleSelect();
 			        
 					if(editForm == null) {
-						
+							
 				    editContent = new Div(userGrid, editForm = new ContactForm(1));
 				    editForm.tfUsername.setValue(selectedUser.getValue().getUsername());
-				    editForm.tfPassword.setValue(selectedUser.getValue().getPassword());
+				    editForm.tfPassword.setValue("");
 				    userId = selectedUser.getValue().getId();
 			    	editContent.setSizeFull();
 			        add(editContent);
@@ -102,13 +104,14 @@ public class UserManagementView extends VerticalLayout{
 						
 						editForm.setVisible(true);
 						editForm.tfUsername.setValue(selectedUser.getValue().getUsername());
-						editForm.tfPassword.setValue(selectedUser.getValue().getPassword());
+						editForm.tfPassword.setValue("");
 						userId = selectedUser.getValue().getId();
+						editContent.setSizeFull();
 						add(editContent);
 					}
 					
 				}catch(Exception ex) {
-				
+				    add(userGrid);
 					Notification.show("Wähle einen Nutzer aus, um Daten bearbeiten zu können!");
 					
 		        }
