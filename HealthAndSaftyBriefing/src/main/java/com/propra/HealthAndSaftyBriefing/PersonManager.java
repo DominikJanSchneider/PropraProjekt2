@@ -500,4 +500,51 @@ public class PersonManager {
 			DBConnector.deconnect();
       }
 	}
+	public Person getPersonByID(int pID) {
+		String tableName = "Personen";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Person person = null;
+		try {
+			pstmt = con.prepareStatement("SELECT * FROM "+tableName+" Where ID='"+pID+"'");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				person = new Person(
+							rs.getInt("ID"),
+							rs.getString("Name"),
+							rs.getString("Vorname"),
+							rs.getString("Datum"),
+							rs.getString("Ifwt"),
+							rs.getString("MNaF"),
+							rs.getString("Intern"),
+							rs.getString("Extern"),
+							rs.getString("Beschaeftigungsverhaeltnis"),
+							rs.getString("Beginn"),
+							rs.getString("Ende"),
+							rs.getString("E-Mail Adresse"),
+							rs.getString("Allgemeine Unterweisung"),
+							rs.getString("Laboreinrichtungen"),
+							rs.getString("Gefahrstoffe"),
+							rs.getString("LabKommentar"),
+							rs.getString("GefKommentar")
+						);
+			}
+			return person;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return person;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
 }

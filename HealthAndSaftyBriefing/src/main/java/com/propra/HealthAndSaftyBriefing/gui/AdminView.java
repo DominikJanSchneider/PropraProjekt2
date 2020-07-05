@@ -11,6 +11,7 @@ import com.propra.HealthAndSaftyBriefing.Person;
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.UI;
@@ -23,9 +24,9 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.component.tabs.Tabs.SelectedChangeEvent;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.OptionalParameter;
@@ -38,13 +39,12 @@ import com.vaadin.flow.router.Route;
 public class AdminView extends VerticalLayout implements HasUrlParameter<String> {
 	private MenuBar menuBar;
 	private Tabs tabs;
+	MenuItem printMenu;
 	private PersonView personView;
 	private DeviceView deviceView;
 	private RoomsView roomsView;
 	private DangerSubstView dangerSubstView;
 	private Div pages;
-	
-	//private FormDocPrinter fPrinter; TODO
 	
 	public AdminView() {
 
@@ -111,6 +111,19 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 			selectedPage.setVisible(true);
 			pagesShown.add(selectedPage);
 		});
+		tabs.addSelectedChangeListener(new ComponentEventListener<Tabs.SelectedChangeEvent>() {
+
+			@Override
+			public void onComponentEvent(SelectedChangeEvent event) {
+				if(!event.getSelectedTab().getLabel().equals("Personen")) {
+					printMenu.setEnabled(false);
+				}
+				else {
+					printMenu.setEnabled(true);
+				}
+			}
+			
+		});
 	}
 
 	@SuppressWarnings("unused")
@@ -118,7 +131,7 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 		menuBar = new MenuBar();
 		MenuItem fileMenu = menuBar.addItem("Datei");
 		MenuItem editDataMenu = menuBar.addItem("Daten bearbeiten", e -> editDataPressed());
-		MenuItem printMenu = menuBar.addItem("Drucken", e -> printPressed());
+		printMenu = menuBar.addItem("Drucken", e -> printPressed());
 		MenuItem editUserMenu = menuBar.addItem("Benutzerverwaltung", e -> editUserPressed());
 		SubMenu fileSubMenu = fileMenu.getSubMenu();
 		MenuItem saveMenu = fileSubMenu.addItem("Datenbank Speichern");
@@ -149,52 +162,17 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 		
 	}
 
-	@SuppressWarnings("deprecation")
 	private void printPressed() {
-		//TODO Implementierung der Druckfunktion
-		Page page = UI.getCurrent().getPage();
-		page.executeJavaScript("print();");
-			Set<Person> personSet = personView.getSelectedPerson();
-			Iterator<Person> it = personSet.iterator();
-			if(it.hasNext()) {
-//				Person person = it.next();
-//				String lName = person.getLName();
-//				String fName = person.getFName();
-//				String date = person.getDate();
-//				String ifwt = person.getIfwt();
-//				String mnaf = person.getMNaF();
-//				String intern = person.getIntern();
-//				String extern = person.getExtern();
-//				String genInstr = person.getGenInstr();
-//				String labSetup = person.getLabSetup();
-//				String dangerSubst = person.getDangerSubsts();
-//				
-//				//setup of printData
-//				PrintData printData = new PrintData(
-//							lName,
-//							fName,
-//							date,
-//							ifwt,
-//							mnaf,
-//							intern,
-//							extern,
-//							"test",
-//							"test",
-//							"test"
-//						);
-//				//start printing process
-//				try {
-//					fPrinter.print(printData);
-//				} catch(IOException e) {
-//					e.printStackTrace();
-//				} catch(PrinterException e) {
-//					e.printStackTrace();
-//				}
-			}
-			else {
-				Notification.show("Kein Eintrag Ausgewählt!");
-			}
+		Set<Person> personSet = personView.getSelectedPerson();
+		Iterator<Person> it = personSet.iterator();
+		if(it.hasNext()) {
+			Person person = it.next();
+			UI.getCurrent().getPage().open("PrintView/"+person.getId());
 		}
+		else {
+			Notification.show("Kein Eintrag Ausgewählt!");
+		}
+	}
 	
 	@Override
 	public void setParameter(BeforeEvent event, @OptionalParameter String parameter) {

@@ -174,7 +174,7 @@ public class PersonView extends VerticalLayout {
 		btnSearch = new Button("Suchen");
 		btnSearch.addClickListener(e -> searchPressed());
 		tfSearch.setWidth("200px");
-		tfSearch.setPlaceholder("Suche");
+		tfSearch.setPlaceholder("Suche nach Name");
 		tfSearch.setAutoselect(true);
 		tfSearch.addFocusListener(new ComponentEventListener<FocusNotifier.FocusEvent<TextField>>() {
 
@@ -211,7 +211,8 @@ public class PersonView extends VerticalLayout {
 		VerticalLayout searchComponent4 = new VerticalLayout(new Label("Ger\u00e4tezentrum"), new HorizontalLayout(btnMNaF));
 		VerticalLayout searchComponent5 = new VerticalLayout(new Label("Intern"), new HorizontalLayout(btnIntern));
 		VerticalLayout searchComponent6 = new VerticalLayout(new Label("Extern"), new HorizontalLayout(btnExtern));
-		return new HorizontalLayout(searchComponent1, searchComponent2, searchComponent3, searchComponent4, searchComponent5, searchComponent6);
+		HorizontalLayout searchComponents = new HorizontalLayout(searchComponent1, searchComponent2, searchComponent3, searchComponent4, searchComponent5, searchComponent6);
+		return searchComponents;
 	}
 	
 	private void updatePersonGridByName(String name) {
