@@ -191,4 +191,29 @@ public class DeviceManager {
 			DBConnector.deconnect();
       }
 	}
+	
+	public void setUsageTime(int deviceID, int personID, double usageTime) {
+		String tableName = "Ger\u00e4tezuordnung";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+		try {
+			con.setAutoCommit(false);
+			pstmt = con.prepareStatement("UPDATE "+tableName+" SET Nutzungszeit="+usageTime+" WHERE Ger\u00e4teID='"+deviceID+"' AND PersonenID='"+personID+"'");
+			pstmt.executeUpdate();
+			con.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
 }
