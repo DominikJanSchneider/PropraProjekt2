@@ -131,7 +131,7 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 		MenuItem fileMenu = menuBar.addItem("Datei");
 		MenuItem editDataMenu = menuBar.addItem("Daten bearbeiten", e -> editDataPressed());
 		printMenu = menuBar.addItem("Drucken", e -> printPressed());
-		MenuItem editUserMenu = menuBar.addItem("Benutzerverwaltung", e -> UI.getCurrent().navigate("UserManagementView"));
+		MenuItem editUserMenu = menuBar.addItem("Benutzerverwaltung", e -> editUserPressed());
 		SubMenu fileSubMenu = fileMenu.getSubMenu();
 		MenuItem saveMenu = fileSubMenu.addItem("Datenbank Speichern");
 		MenuItem importMenu = fileSubMenu.addItem("Datenbank Importieren");
@@ -144,8 +144,7 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	}
 
 	private void editUserPressed() {
-		// TODO Auto-generated method stub
-		System.out.println("Benutzer verwaltung gedrückt");
+		UI.getCurrent().navigate("UserManagementView");
 	}
 	
 	private void logout() {
