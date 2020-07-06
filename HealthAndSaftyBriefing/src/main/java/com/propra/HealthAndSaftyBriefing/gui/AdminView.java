@@ -39,13 +39,12 @@ import com.vaadin.flow.router.Route;
 public class AdminView extends VerticalLayout implements HasUrlParameter<String> {
 	private MenuBar menuBar;
 	private Tabs tabs;
-	MenuItem printMenu;
+	private MenuItem printMenu;
 	private PersonView personView;
 	private DeviceView deviceView;
 	private RoomsView roomsView;
 	private DangerSubstView dangerSubstView;
 	private Div pages;
-	
 	
 	public AdminView() {
 
@@ -54,7 +53,6 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	    dangerSubstView = new DangerSubstView();
 	    roomsView = new RoomsView();
 	    
-
 	    Button btnLogout = new Button("Logout");
 		btnLogout.setIcon(VaadinIcon.SIGN_OUT.create());
 		btnLogout.getElement().getStyle().set("margin-left", "auto");
@@ -65,7 +63,6 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	  	Label header = new Label("Sicherheitsunterweisung am Institut für Werkstofftechnik und Ger\u00e4tezentrum MNaF");
 	  	add(header);
 	  	
-
 	    //MenuBar
 	    configureMenuBar();
 	    add(menuBar);
@@ -74,7 +71,6 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	   	configureTabs();
 	   	add(tabs);
 		add(pages);
-			
 	}
 	    
 	private void configureTabs() {
@@ -134,10 +130,8 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 		menuBar = new MenuBar();
 		MenuItem fileMenu = menuBar.addItem("Datei");
 		MenuItem editDataMenu = menuBar.addItem("Daten bearbeiten", e -> editDataPressed());
-		MenuItem printMenu = menuBar.addItem("Drucken", e -> printPressed());
+		printMenu = menuBar.addItem("Drucken", e -> printPressed());
 		MenuItem editUserMenu = menuBar.addItem("Benutzerverwaltung", e -> UI.getCurrent().navigate("UserManagementView"));
-		//printMenu = menuBar.addItem("Drucken", e -> printPressed());
-		//MenuItem editUserMenu = menuBar.addItem("Benutzerverwaltung", e -> editUserPressed());
 		SubMenu fileSubMenu = fileMenu.getSubMenu();
 		MenuItem saveMenu = fileSubMenu.addItem("Datenbank Speichern");
 		MenuItem importMenu = fileSubMenu.addItem("Datenbank Importieren");
