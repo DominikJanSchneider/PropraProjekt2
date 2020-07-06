@@ -70,7 +70,7 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	   	//Tabs
 	   	configureTabs();
 	   	add(tabs);
-		add(pages);	
+		add(pages);
 	}
 	    
 	private void configureTabs() {
@@ -131,7 +131,7 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 		MenuItem fileMenu = menuBar.addItem("Datei");
 		MenuItem editDataMenu = menuBar.addItem("Daten bearbeiten", e -> editDataPressed());
 		printMenu = menuBar.addItem("Drucken", e -> printPressed());
-		MenuItem editUserMenu = menuBar.addItem("Benutzerverwaltung", e -> editUserPressed());
+		MenuItem editUserMenu = menuBar.addItem("Benutzerverwaltung", e -> UI.getCurrent().navigate("UserManagementView"));
 		SubMenu fileSubMenu = fileMenu.getSubMenu();
 		MenuItem saveMenu = fileSubMenu.addItem("Datenbank Speichern");
 		MenuItem importMenu = fileSubMenu.addItem("Datenbank Importieren");

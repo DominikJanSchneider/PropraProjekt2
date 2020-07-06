@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.propra.HealthAndSaftyBriefing.Person;
 import com.propra.HealthAndSaftyBriefing.PersonManager;
+import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.FocusNotifier;
@@ -13,12 +14,16 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.ShortcutRegistration;
 import com.vaadin.flow.component.BlurNotifier.BlurEvent;
 import com.vaadin.flow.component.FocusNotifier.FocusEvent;
+
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+
 import com.vaadin.flow.component.html.Label;
+
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
+
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.selection.SelectionEvent;
 import com.vaadin.flow.data.selection.SelectionListener;
@@ -28,6 +33,7 @@ public class PersonView extends VerticalLayout {
 	
 	private Grid<Person> personGrid;
 	private PersonManager personM;
+
 	TextArea taGeneralInstruction;
 	TextArea taLabSetup;
 	TextArea taDangerSubst;
@@ -43,21 +49,25 @@ public class PersonView extends VerticalLayout {
 	private Button btnIntern;
 	private Button btnExtern;
 	private ShortcutRegistration shortReg;
+
 	
 	PersonView() {
 		personM = new PersonManager();
 		
+
 		//Building searchComponents
 		Component searchComponents = configureSearchComponents();
 		add(searchComponents);
-		
+
 		//Building the personGrid
 		configurePersonGrid();
         add(personGrid);
         updatePersonGrid();
+
         configureTextAreas();
         HorizontalLayout textAreas = configureTextAreas();
         add(textAreas);
+
 	}
 	
 	private HorizontalLayout configureTextAreas() {
@@ -83,6 +93,7 @@ public class PersonView extends VerticalLayout {
         
 		return new HorizontalLayout(gInstrVL, labSetupVL, dangerSubstVL);
 	}
+
 
 	private void configurePersonGrid() {
 		personGrid = new Grid<>();
@@ -266,14 +277,18 @@ public class PersonView extends VerticalLayout {
         personGrid.setItems(persons);
 	}
 	
+
 	public Set<Person> getSelectedPerson() {
 		Set<Person> personSet = personGrid.getSelectedItems();
 		return personSet;
+
 	}
 	
+
 	private void searchPressed() {
 		String searchTxt = tfSearch.getValue();
 		updatePersonGridByName(searchTxt);
 	}
+
 
 }

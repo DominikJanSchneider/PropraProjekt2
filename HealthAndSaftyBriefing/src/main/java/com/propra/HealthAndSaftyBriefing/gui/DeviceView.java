@@ -33,13 +33,17 @@ public class DeviceView extends VerticalLayout {
 	private Button btnDeviceStats;
 	private Tabs searchTabs;
 	private ShortcutRegistration shortReg;
+	private DeviceStatsView deviceStatsView;
+
 	
 	DeviceView() {
 		deviceM = new DeviceManager();
 		
+
 		//Building searchComponents
 		Component searchComponents = configureSearchComponents();
 		add(searchComponents);
+
 		
 		//Building the deviceGrid
 		configureDeviceGrid();
@@ -93,6 +97,7 @@ public class DeviceView extends VerticalLayout {
         deviceGrid.setItems(devices);
 	}
 	
+
 	private void updateDeviceGridByID(int id) {
 		List<Device> devices = deviceM.getDevicesByID(id);
         deviceGrid.setItems(devices);
@@ -161,5 +166,6 @@ public class DeviceView extends VerticalLayout {
 				updateDeviceGridByRoom(searchTxt);
 				break;
 		}
+
 	}
 }

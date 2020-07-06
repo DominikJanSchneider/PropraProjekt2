@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.propra.HealthAndSaftyBriefing.database.DBConnector;
+import com.propra.HealthAndSaftyBriefing.gui.DeviceView;
 
 public class DeviceManager {
 	public List<Device> getDevicesData() {
@@ -46,6 +47,8 @@ public class DeviceManager {
       }
 	}
 	
+
+
 	public List<Device> getDevicesByID(int id) {
 		String tableName = "Ger\u00e4te";
 		Connection con = DBConnector.connectCore();
@@ -171,6 +174,7 @@ public class DeviceManager {
 						rs.getString("Beschreibung"),
 						rs.getString("Raum"),
 						rs.getDouble("Nutzungszeit")
+
 						);
 				list.add(device);
 			}
@@ -178,6 +182,31 @@ public class DeviceManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return list;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
+	
+	public void setUsageTime(int deviceID, int personID, double usageTime) {
+		String tableName = "Ger\u00e4tezuordnung";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+		try {
+			con.setAutoCommit(false);
+			pstmt = con.prepareStatement("UPDATE "+tableName+" SET Nutzungszeit="+usageTime+" WHERE Ger\u00e4teID='"+deviceID+"' AND PersonenID='"+personID+"'");
+			pstmt.executeUpdate();
+			con.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		finally {
 			try {

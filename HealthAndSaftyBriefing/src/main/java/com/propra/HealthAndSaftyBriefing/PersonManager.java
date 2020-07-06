@@ -8,6 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.propra.HealthAndSaftyBriefing.database.DBConnector;
+import com.propra.HealthAndSaftyBriefing.gui.PersonView;
+
+
 
 public class PersonManager {
 	
@@ -500,6 +503,7 @@ public class PersonManager {
 			DBConnector.deconnect();
       }
 	}
+
 	public Person getPersonByID(int pID) {
 		String tableName = "Personen";
 		Connection con = DBConnector.connectCore();

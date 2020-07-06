@@ -1,4 +1,6 @@
+
 package com.propra.HealthAndSaftyBriefing;
+
 
 public class User {
 	
@@ -49,3 +51,4 @@ public class User {
 		this.userRole = userRole;
 	}
 }
+

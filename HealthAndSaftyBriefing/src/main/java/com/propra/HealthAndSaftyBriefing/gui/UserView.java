@@ -2,6 +2,7 @@ package com.propra.HealthAndSaftyBriefing.gui;
 
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import com.propra.HealthAndSaftyBriefing.AssignedDevice;
 import com.propra.HealthAndSaftyBriefing.DeviceManager;
@@ -13,10 +14,13 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
@@ -27,6 +31,8 @@ public class UserView extends VerticalLayout {
 	
 	private Label lblUser;
 	private Grid<AssignedDevice> userDeviceGrid;
+	private TextField tfUsageTime;
+	private Button btnSetUsageTime;
 	
 	private UserManager userM = new UserManager();
 	private DeviceManager deviceM = new DeviceManager();
@@ -44,6 +50,16 @@ public class UserView extends VerticalLayout {
 		add(btnLogout);
 		add(configureUserInfo());
 		
+		HorizontalLayout usageTimeLayout = new HorizontalLayout();
+		tfUsageTime = new TextField();
+		tfUsageTime.setPlaceholder("Nutzungszeit");
+		tfUsageTime.setClearButtonVisible(true);
+		tfUsageTime.addKeyPressListener(Key.ENTER, e -> setUsageTime());
+		btnSetUsageTime = new Button("Zeit Setzen");
+		btnSetUsageTime.addClickListener(e -> setUsageTime());
+		usageTimeLayout.add(tfUsageTime, btnSetUsageTime);
+		
+		add(usageTimeLayout);
 		add(userDeviceGrid);
 		updateUserDeviceGrid();
 		
@@ -118,6 +134,7 @@ public class UserView extends VerticalLayout {
 		accessControl = AccessControlFactory.getInstance().createAccessControl();
 		
 		userDeviceGrid = new Grid<>();
+		userDeviceGrid.setSelectionMode(SelectionMode.SINGLE);
 //		userDeviceGrid.addColumn(AssignedDevice::getId)
 //						.setHeader("ID")
 //						.setKey("id")
@@ -146,6 +163,20 @@ public class UserView extends VerticalLayout {
 		
 		List<AssignedDevice> devices = deviceM.getAssignedDevices(Integer.parseInt(userData[0]));
 		userDeviceGrid.setItems(devices);
+	}
+	
+	private void setUsageTime() {
+		try {
+			accessControl = AccessControlFactory.getInstance().createAccessControl();
+			int userID = Integer.parseInt(userM.getUserData(accessControl.getPrincipalName())[0]);
+			int selectedDevice = userDeviceGrid.getSelectionModel().getFirstSelectedItem().get().getId();
+			double usageTime = Double.parseDouble(tfUsageTime.getValue());
+			
+			deviceM.setUsageTime(selectedDevice, userID, usageTime);
+			updateUserDeviceGrid();
+		} catch (NoSuchElementException e) {
+			Notification.show("Bitte w\u00e4hlen Sie ein Ger\u00e4t aus der Tabelle.");
+		}
 	}
 	
 	private void logout() {
