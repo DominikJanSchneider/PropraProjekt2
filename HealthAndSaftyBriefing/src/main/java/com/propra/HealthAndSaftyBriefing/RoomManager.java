@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-
 import com.propra.HealthAndSaftyBriefing.database.DBConnector;
-import com.propra.HealthAndSaftyBriefing.gui.RoomsView;
 
 public class RoomManager {
 	public List<Room> getRoomsData() {

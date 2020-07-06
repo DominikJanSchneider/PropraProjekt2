@@ -10,7 +10,6 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.FocusNotifier;
-import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.ShortcutRegistration;
 import com.vaadin.flow.component.BlurNotifier.BlurEvent;
 import com.vaadin.flow.component.FocusNotifier.FocusEvent;
@@ -33,10 +32,9 @@ public class PersonView extends VerticalLayout {
 	
 	private Grid<Person> personGrid;
 	private PersonManager personM;
-
-	TextArea taGeneralInstruction;
-	TextArea taLabSetup;
-	TextArea taDangerSubst;
+	private TextArea taGeneralInstruction;
+	private TextArea taLabSetup;
+	private TextArea taDangerSubst;
 	private TextField tfSearch;
 	private Button btnSearch;
 	private Button btnAll;
@@ -50,11 +48,9 @@ public class PersonView extends VerticalLayout {
 	private Button btnExtern;
 	private ShortcutRegistration shortReg;
 
-	
 	PersonView() {
 		personM = new PersonManager();
 		
-
 		//Building searchComponents
 		Component searchComponents = configureSearchComponents();
 		add(searchComponents);
@@ -67,7 +63,6 @@ public class PersonView extends VerticalLayout {
         configureTextAreas();
         HorizontalLayout textAreas = configureTextAreas();
         add(textAreas);
-
 	}
 	
 	private HorizontalLayout configureTextAreas() {
@@ -93,7 +88,6 @@ public class PersonView extends VerticalLayout {
         
 		return new HorizontalLayout(gInstrVL, labSetupVL, dangerSubstVL);
 	}
-
 
 	private void configurePersonGrid() {
 		personGrid = new Grid<>();
@@ -256,7 +250,6 @@ public class PersonView extends VerticalLayout {
 		personGrid.setItems(LMWpersons);
 	}
 
-	
 	private void updatePersonGridMNaF() {
 		List<Person> MNaFpersons = personM.getMNaFPersons();
 		personGrid.setItems(MNaFpersons);
@@ -277,18 +270,14 @@ public class PersonView extends VerticalLayout {
         personGrid.setItems(persons);
 	}
 	
-
 	public Set<Person> getSelectedPerson() {
 		Set<Person> personSet = personGrid.getSelectedItems();
 		return personSet;
 
 	}
 	
-
 	private void searchPressed() {
 		String searchTxt = tfSearch.getValue();
 		updatePersonGridByName(searchTxt);
 	}
-
-
 }

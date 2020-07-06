@@ -1,5 +1,3 @@
-
-
 package com.propra.HealthAndSaftyBriefing;
 
 import java.security.NoSuchAlgorithmException;
@@ -9,13 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-
 import com.propra.HealthAndSaftyBriefing.database.DBConnector;
 import com.propra.HealthAndSaftyBriefing.security.pwEncrypt;
 
 public class UserManager {
-	
-	User user;
+	private User user;
 	
 	public boolean checkUser(String username, String password) {
 		String tableName = "Benutzer";
@@ -59,7 +55,6 @@ public class UserManager {
 		}
 	}
 	
-	
 	public String getRole() {
 		if (user.getUserRole().equals("admin")) {
 			return user.getUserRole(); // returns the admin role
@@ -96,7 +91,6 @@ public class UserManager {
 //			DBConnector.deconnect();
 //		}
 //	}
-	
 	
 	public String[] getUserData(String username) {
 		String tableName = "Benutzer";
@@ -164,7 +158,6 @@ public class UserManager {
 							rs.getString("Benutzername"),
 							"Passwort gesetzt",
 							rs.getString("Rolle")
-							
 						);
 				list.add(user);
 			}
@@ -220,19 +213,16 @@ public class UserManager {
       }
 	}
 	
-	
-	@SuppressWarnings("resource")
 	public void deleteUser(int id) {
-		
 		String tableName = "Benutzer";
 		Connection con = DBConnector.connectLogin();
 		PreparedStatement pstmt = null;
-		
 		try {
 			
 			pstmt = con.prepareStatement("DELETE FROM " +tableName+ " WHERE ID ="+ id);
 			con.setAutoCommit(false);
 			pstmt.execute();
+			pstmt.close();
 			con.commit();
 			pstmt = con.prepareStatement("UPDATE sqlite_sequence SET seq='"+(id-1)+"' WHERE name='Benutzer';");
 			con.setAutoCommit(false);
@@ -255,7 +245,6 @@ public class UserManager {
       }
 	}
 	
-	
 	public static void editUser(int id, String username, String password, String role) throws NoSuchAlgorithmException {
 		String tableName = "Benutzer";
 		Connection con = DBConnector.connectLogin();
@@ -263,7 +252,7 @@ public class UserManager {
 		
 		
 		try {
-			pstmt = con.prepareStatement("UPDATE Benutzer SET Benutzername='"+username+"', Passwort='"+pwEncrypt.toHexString(pwEncrypt.getSHA(password))+ "' ,Rolle= '"+role+"' WHERE ID="+id);
+			pstmt = con.prepareStatement("UPDATE "+tableName+" SET Benutzername='"+username+"', Passwort='"+pwEncrypt.toHexString(pwEncrypt.getSHA(password))+ "' ,Rolle= '"+role+"' WHERE ID="+id);
 			pstmt.executeUpdate();
 			
 				

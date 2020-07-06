@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-
 import com.propra.HealthAndSaftyBriefing.database.DBConnector;
-import com.propra.HealthAndSaftyBriefing.gui.DeviceView;
 
 public class DeviceManager {
 	public List<Device> getDevicesData() {
@@ -47,8 +45,6 @@ public class DeviceManager {
       }
 	}
 	
-
-
 	public List<Device> getDevicesByID(int id) {
 		String tableName = "Ger\u00e4te";
 		Connection con = DBConnector.connectCore();
