@@ -8,6 +8,7 @@ import com.propra.HealthAndSaftyBriefing.User;
 import com.propra.HealthAndSaftyBriefing.UserManager;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
@@ -28,6 +29,7 @@ public class UserManagementView extends VerticalLayout{
 	Button btnAddUser;
 	Button btnDeleteUser;
 	Button btnEditUser;
+	Button btnBack;
 	Div content;
 	Div editContent;
 	ContactForm addForm = new ContactForm();
@@ -45,6 +47,12 @@ public class UserManagementView extends VerticalLayout{
 		UserM = new UserManager();
 		
 		//create Buttons and their clickListener
+		
+		//btnBack
+		btnBack = new Button("Zurück");
+		btnBack.getElement().getStyle().set("margin-left", "auto");
+		btnBack.addClickListener(e -> { UI.getCurrent().navigate("AdminView");});
+		add(btnBack);
 		
 		//addUser
 		btnAddUser = new Button("Neuen Nutzer anlegen");
