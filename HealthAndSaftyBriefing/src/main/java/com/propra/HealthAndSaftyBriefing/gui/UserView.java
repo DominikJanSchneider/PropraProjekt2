@@ -4,11 +4,11 @@ package com.propra.HealthAndSaftyBriefing.gui;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import com.propra.HealthAndSaftyBriefing.AssignedDevice;
-import com.propra.HealthAndSaftyBriefing.DeviceManager;
-import com.propra.HealthAndSaftyBriefing.UserManager;
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControl;
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
+import com.propra.HealthAndSaftyBriefing.backend.DeviceManager;
+import com.propra.HealthAndSaftyBriefing.backend.UserManager;
+import com.propra.HealthAndSaftyBriefing.backend.data.AssignedDevice;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;

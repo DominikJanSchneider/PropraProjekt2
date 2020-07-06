@@ -1,4 +1,4 @@
-package com.propra.HealthAndSaftyBriefing;
+package com.propra.HealthAndSaftyBriefing.backend.data;
 
 public class DeviceStats {
 	private int personID;
@@ -6,7 +6,7 @@ public class DeviceStats {
 	private String personFName;
 	private double useTime;
 	
-	DeviceStats(int personID, String personLName, String personFName, double useTime) {
+	public DeviceStats(int personID, String personLName, String personFName, double useTime) {
 		this.setPersonID(personID);
 		this.setPersonLName(personLName);
 		this.setPersonFName(personFName);

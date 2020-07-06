@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.propra.HealthAndSaftyBriefing.Person;
-import com.propra.HealthAndSaftyBriefing.PersonManager;
+import com.propra.HealthAndSaftyBriefing.backend.PersonManager;
+import com.propra.HealthAndSaftyBriefing.backend.data.Person;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;

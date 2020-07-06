@@ -1,7 +1,8 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.security.NoSuchAlgorithmException;
-import com.propra.HealthAndSaftyBriefing.UserManager;
+
+import com.propra.HealthAndSaftyBriefing.backend.UserManager;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.notification.Notification;

@@ -1,6 +1,6 @@
 package com.propra.HealthAndSaftyBriefing.authentication;
 
-import com.propra.HealthAndSaftyBriefing.UserManager;
+import com.propra.HealthAndSaftyBriefing.backend.UserManager;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.server.VaadinSession;
 

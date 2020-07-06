@@ -7,8 +7,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.propra.HealthAndSaftyBriefing.Person;
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
+import com.propra.HealthAndSaftyBriefing.backend.data.Person;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;

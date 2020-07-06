@@ -1,4 +1,4 @@
-package com.propra.HealthAndSaftyBriefing;
+package com.propra.HealthAndSaftyBriefing.backend.data;
 
 import java.io.Serializable;
 
@@ -22,7 +22,7 @@ public class Person implements Serializable, Cloneable {
 	private String labComment;
 	private String dangerSubstComment;
 	
-	Person(int id, String lName, String fName, String date, String ifwt, String mnaf, String intern, String extern, String employment, String begin, String end, String eMail, String genInstr, String labSetup, String dangerSubsts, String labComment, String dangerSubstComment) {
+	public Person(int id, String lName, String fName, String date, String ifwt, String mnaf, String intern, String extern, String employment, String begin, String end, String eMail, String genInstr, String labSetup, String dangerSubsts, String labComment, String dangerSubstComment) {
 		this.setId(id);
 		this.setFName(fName);
 		this.setLName(lName);

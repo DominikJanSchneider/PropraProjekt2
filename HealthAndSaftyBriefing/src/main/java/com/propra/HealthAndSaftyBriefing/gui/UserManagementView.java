@@ -1,8 +1,9 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.util.List;
-import com.propra.HealthAndSaftyBriefing.User;
-import com.propra.HealthAndSaftyBriefing.UserManager;
+
+import com.propra.HealthAndSaftyBriefing.backend.UserManager;
+import com.propra.HealthAndSaftyBriefing.backend.data.User;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;

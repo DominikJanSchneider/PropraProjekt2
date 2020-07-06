@@ -1,8 +1,9 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.util.List;
-import com.propra.HealthAndSaftyBriefing.DeviceStats;
-import com.propra.HealthAndSaftyBriefing.DeviceStatsManager;
+
+import com.propra.HealthAndSaftyBriefing.backend.DeviceStatsManager;
+import com.propra.HealthAndSaftyBriefing.backend.data.DeviceStats;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.FocusNotifier;

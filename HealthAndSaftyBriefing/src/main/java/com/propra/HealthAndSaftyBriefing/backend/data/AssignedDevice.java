@@ -1,4 +1,4 @@
-package com.propra.HealthAndSaftyBriefing;
+package com.propra.HealthAndSaftyBriefing.backend.data;
 
 public class AssignedDevice extends Device {
 	

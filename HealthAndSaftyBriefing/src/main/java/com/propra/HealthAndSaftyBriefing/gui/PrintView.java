@@ -4,8 +4,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import com.propra.HealthAndSaftyBriefing.Person;
-import com.propra.HealthAndSaftyBriefing.PersonManager;
+
+import com.propra.HealthAndSaftyBriefing.backend.PersonManager;
+import com.propra.HealthAndSaftyBriefing.backend.data.Person;
 import com.propra.HealthAndSaftyBriefing.printer.FormDoc;
 import com.propra.HealthAndSaftyBriefing.printer.PrintData;
 import com.vaadin.flow.component.html.Div;

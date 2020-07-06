@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.propra.HealthAndSaftyBriefing.Device;
-import com.propra.HealthAndSaftyBriefing.DeviceManager;
+import com.propra.HealthAndSaftyBriefing.backend.DeviceManager;
+import com.propra.HealthAndSaftyBriefing.backend.data.Device;
 import com.vaadin.flow.component.BlurNotifier.BlurEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;

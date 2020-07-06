@@ -1,4 +1,4 @@
-package com.propra.HealthAndSaftyBriefing;
+package com.propra.HealthAndSaftyBriefing.backend;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.propra.HealthAndSaftyBriefing.backend.data.DangerSubst;
 import com.propra.HealthAndSaftyBriefing.database.DBConnector;
 
 public class DangerSubstManager {

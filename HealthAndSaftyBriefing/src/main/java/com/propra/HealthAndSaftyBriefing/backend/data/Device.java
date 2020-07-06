@@ -1,4 +1,4 @@
-package com.propra.HealthAndSaftyBriefing;
+package com.propra.HealthAndSaftyBriefing.backend.data;
 
 public class Device {
 	
@@ -7,7 +7,7 @@ public class Device {
 	private String description;
 	private String room;
 	
-	Device(int id, String name, String description, String room) {
+	public Device(int id, String name, String description, String room) {
 		this.setId(id);
 		this.setName(name);
 		this.setDescription(description);

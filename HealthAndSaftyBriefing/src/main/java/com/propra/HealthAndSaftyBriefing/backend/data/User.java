@@ -1,5 +1,5 @@
 
-package com.propra.HealthAndSaftyBriefing;
+package com.propra.HealthAndSaftyBriefing.backend.data;
 
 
 public class User {
@@ -10,7 +10,7 @@ public class User {
 	private String userRole;
 	
 	
-	User(int userID, String userName, String userPassword, String userRole) {
+	public User(int userID, String userName, String userPassword, String userRole) {
 		this.setUserID(userID);
 		this.setUserName(userName);
 		this.setUserPassword(userPassword);

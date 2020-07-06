@@ -2,9 +2,8 @@ package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.util.List;
 
-import com.propra.HealthAndSaftyBriefing.Room;
-import com.propra.HealthAndSaftyBriefing.RoomManager;
-
+import com.propra.HealthAndSaftyBriefing.backend.RoomManager;
+import com.propra.HealthAndSaftyBriefing.backend.data.Room;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.FocusNotifier;

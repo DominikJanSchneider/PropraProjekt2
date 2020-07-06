@@ -1,10 +1,10 @@
-package com.propra.HealthAndSaftyBriefing;
+package com.propra.HealthAndSaftyBriefing.backend.data;
 
 public class Room {
 	private String name;
 	private String description;
 	
-	Room(String name, String description) {
+	public Room(String name, String description) {
 		this.setName(name);
 		this.setDescription(description);
 	}
