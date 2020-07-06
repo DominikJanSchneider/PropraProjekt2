@@ -16,8 +16,13 @@ public class Person implements Serializable, Cloneable {
 	private String begin;
 	private String end;
 	private String eMail;
+	private String genInstr;
+	private String labSetup;
+	private String dangerSubsts;
+	private String labComment;
+	private String dangerSubstComment;
 	
-	Person(int id, String lName, String fName, String date, String ifwt, String mnaf, String intern, String extern, String employment, String begin, String end, String eMail) {
+	Person(int id, String lName, String fName, String date, String ifwt, String mnaf, String intern, String extern, String employment, String begin, String end, String eMail, String genInstr, String labSetup, String dangerSubsts, String labComment, String dangerSubstComment) {
 		this.setId(id);
 		this.setFName(fName);
 		this.setLName(lName);
@@ -30,6 +35,11 @@ public class Person implements Serializable, Cloneable {
 		this.setBegin(begin);
 		this.setEnd(end);
 		this.setEMail(eMail);
+		this.setGenInstr(genInstr);
+		this.setLabSetup(labSetup);
+		this.setDangerSubsts(dangerSubsts);
+		this.setLabComment(labComment);
+		this.setDangerSubstComment(dangerSubstComment);
 	}
 	
 	//getter and setter
@@ -126,6 +136,46 @@ public class Person implements Serializable, Cloneable {
 
 	public void setEMail(String eMail) {
 		this.eMail = eMail;
+	}
+
+	public String getGenInstr() {
+		return genInstr;
+	}
+
+	public void setGenInstr(String genInstr) {
+		this.genInstr = genInstr;
+	}
+
+	public String getLabSetup() {
+		return labSetup;
+	}
+
+	public void setLabSetup(String labSetup) {
+		this.labSetup = labSetup;
+	}
+
+	public String getDangerSubsts() {
+		return dangerSubsts;
+	}
+
+	public void setDangerSubsts(String dangerSubsts) {
+		this.dangerSubsts = dangerSubsts;
+	}
+
+	public String getLabComment() {
+		return labComment;
+	}
+
+	public void setLabComment(String labComment) {
+		this.labComment = labComment;
+	}
+
+	public String getDangerSubstComment() {
+		return dangerSubstComment;
+	}
+
+	public void setDangerSubstComment(String dangerSubstComment) {
+		this.dangerSubstComment = dangerSubstComment;
 	}
 	
 	

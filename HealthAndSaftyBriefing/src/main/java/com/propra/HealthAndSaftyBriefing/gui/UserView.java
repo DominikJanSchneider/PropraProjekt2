@@ -24,8 +24,9 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+@SuppressWarnings("serial")
 @Route("UserView")
-@PageTitle("User")
+@PageTitle("User | Sicherheitsunterweisungen")
 public class UserView extends VerticalLayout {
 	
 	private Label lblUser;
@@ -73,7 +74,7 @@ public class UserView extends VerticalLayout {
 		lblUser = new Label("Benutzer: "+ userData[2]+" "+userData[1]);
 		lblUser.setHeight("50px");
 		
-		// Creating horzintal layout where user informations are stored
+		// Creating horizontal layout where user informations are stored
 		HorizontalLayout userInfoHead = new HorizontalLayout();
 		Label lblInstructionDate = new Label("Unterweisungsdatum");
 		lblInstructionDate.setWidth("200px");

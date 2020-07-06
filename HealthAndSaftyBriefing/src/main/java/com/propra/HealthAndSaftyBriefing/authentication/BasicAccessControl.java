@@ -4,6 +4,7 @@ import com.propra.HealthAndSaftyBriefing.UserManager;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.server.VaadinSession;
 
+@SuppressWarnings("serial")
 public class BasicAccessControl implements AccessControl {
 	
 	private UserManager userM = new UserManager();

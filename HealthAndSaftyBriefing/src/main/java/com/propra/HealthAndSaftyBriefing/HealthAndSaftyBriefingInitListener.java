@@ -9,6 +9,7 @@ import com.propra.HealthAndSaftyBriefing.gui.UserView;
 import com.vaadin.flow.server.ServiceInitEvent;
 import com.vaadin.flow.server.VaadinServiceInitListener;
 
+@SuppressWarnings("serial")
 public class HealthAndSaftyBriefingInitListener implements VaadinServiceInitListener {
 	
 	@Override
