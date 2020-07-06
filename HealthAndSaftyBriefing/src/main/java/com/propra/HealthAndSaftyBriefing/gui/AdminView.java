@@ -39,7 +39,7 @@ import com.vaadin.flow.router.Route;
 public class AdminView extends VerticalLayout implements HasUrlParameter<String> {
 	private MenuBar menuBar;
 	private Tabs tabs;
-	MenuItem printMenu;
+	private MenuItem printMenu;
 	private PersonView personView;
 	private DeviceView deviceView;
 	private RoomsView roomsView;
@@ -70,8 +70,7 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	   	//Tabs
 	   	configureTabs();
 	   	add(tabs);
-		add(pages);
-			
+		add(pages);	
 	}
 	    
 	private void configureTabs() {
