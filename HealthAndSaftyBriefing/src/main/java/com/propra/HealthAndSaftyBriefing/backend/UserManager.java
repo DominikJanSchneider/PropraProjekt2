@@ -181,7 +181,7 @@ public class UserManager {
       }
 	}
 	
-	public static void addUser(String username, String password, String role) throws NoSuchAlgorithmException {
+	public void addUser(String username, String password, String role) throws NoSuchAlgorithmException {
 		String tableName = "Benutzer";
 		Connection con = DBConnector.connectLogin();
 		PreparedStatement pstmt = null;
@@ -200,7 +200,9 @@ public class UserManager {
 			
 				
 			}catch (SQLException e) {
-			e.printStackTrace();
+				System.out.println(e.getMessage());
+				System.out.println(e.getErrorCode());
+				e.printStackTrace();
 			}
 		finally {
 			try {
@@ -247,7 +249,7 @@ public class UserManager {
       }
 	}
 	
-	public static void editUser(int id, String username, String password, String role) throws NoSuchAlgorithmException {
+	public void editUser(int id, String username, String password, String role) throws NoSuchAlgorithmException {
 		String tableName = "Benutzer";
 		Connection con = DBConnector.connectLogin();
 		PreparedStatement pstmt = null;
@@ -274,7 +276,36 @@ public class UserManager {
       }
 	}
 	
-
+	public boolean existsUser(String name) {
+		String tableName = "Benutzer";
+		Connection con = DBConnector.connectLogin();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = con.prepareStatement("SELECT * FROM "+tableName+" WHERE Benutzername='"+name+"'");
+			rs = pstmt.executeQuery();
+			if(rs.isAfterLast()) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
 }
 
 
