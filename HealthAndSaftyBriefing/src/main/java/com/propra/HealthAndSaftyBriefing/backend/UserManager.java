@@ -101,7 +101,7 @@ public class UserManager {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			con.prepareStatement("ATTACH DATABASE 'database/CoreDatabase.db' AS p").execute(); // Attach CoreDatabase to UserDatabase
+			con.prepareStatement("ATTACH DATABASE '"+DBConnector.getURLCore().substring(12)+"' AS p").execute(); // Attach CoreDatabase to UserDatabase
 			pstmt = con.prepareStatement("SELECT * FROM p.Personen WHERE 'E-Mail Adresse' = '"+username+"'");
 			rs = pstmt.executeQuery();
 			userData = new String[rs.getMetaData().getColumnCount()];
