@@ -11,6 +11,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 
+@PWA(name = "HealthAndSafetyBriefing", shortName = "HASB")
 @SuppressWarnings("serial")
 @Route("LoginView")
 @PageTitle("Login | Sicherheitsunterweisungen")
