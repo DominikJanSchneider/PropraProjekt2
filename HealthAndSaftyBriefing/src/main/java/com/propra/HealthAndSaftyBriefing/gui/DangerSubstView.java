@@ -2,8 +2,8 @@ package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.util.List;
 
-import com.propra.HealthAndSaftyBriefing.DangerSubst;
-import com.propra.HealthAndSaftyBriefing.DangerSubstManager;
+import com.propra.HealthAndSaftyBriefing.backend.DangerSubstManager;
+import com.propra.HealthAndSaftyBriefing.backend.data.DangerSubst;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.FocusNotifier;

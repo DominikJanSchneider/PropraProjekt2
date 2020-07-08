@@ -1,15 +1,15 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.propra.HealthAndSaftyBriefing.Person;
-import com.propra.HealthAndSaftyBriefing.PersonManager;
+import com.propra.HealthAndSaftyBriefing.backend.PersonManager;
+import com.propra.HealthAndSaftyBriefing.backend.data.Person;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.FocusNotifier;
-import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.ShortcutRegistration;
 import com.vaadin.flow.component.BlurNotifier.BlurEvent;
 import com.vaadin.flow.component.FocusNotifier.FocusEvent;
@@ -24,16 +24,17 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.selection.SelectionEvent;
+import com.vaadin.flow.data.selection.SelectionListener;
 
 @SuppressWarnings("serial")
 public class PersonView extends VerticalLayout {
 	
 	private Grid<Person> personGrid;
 	private PersonManager personM;
-
-	TextArea taGeneralInstruction;
-	TextArea taLabSetup;
-	TextArea taDangerSubst;
+	private TextArea taGeneralInstruction;
+	private TextArea taLabSetup;
+	private TextArea taDangerSubst;
 	private TextField tfSearch;
 	private Button btnSearch;
 	private Button btnAll;
@@ -47,11 +48,9 @@ public class PersonView extends VerticalLayout {
 	private Button btnExtern;
 	private ShortcutRegistration shortReg;
 
-	
 	PersonView() {
 		personM = new PersonManager();
 		
-
 		//Building searchComponents
 		Component searchComponents = configureSearchComponents();
 		add(searchComponents);
@@ -64,7 +63,6 @@ public class PersonView extends VerticalLayout {
         configureTextAreas();
         HorizontalLayout textAreas = configureTextAreas();
         add(textAreas);
-
 	}
 	
 	private HorizontalLayout configureTextAreas() {
@@ -77,17 +75,19 @@ public class PersonView extends VerticalLayout {
         
         taGeneralInstruction.setHeight(height);
         taGeneralInstruction.setWidth(width);
+        taGeneralInstruction.setReadOnly(true);
         taLabSetup.setHeight(height);
         taLabSetup.setWidth(width);
+        taLabSetup.setReadOnly(true);
         taDangerSubst.setHeight(height);
         taDangerSubst.setWidth(width);
+        taDangerSubst.setReadOnly(true);
         VerticalLayout gInstrVL = new VerticalLayout(new Label("Allgemeine Unterweisung (Datum s.o.)"), taGeneralInstruction);
         VerticalLayout labSetupVL = new VerticalLayout(new Label("Laboreinrichtungen"), taLabSetup);
         VerticalLayout dangerSubstVL = new VerticalLayout(new Label("Gefahrstoffe"), taDangerSubst);
         
 		return new HorizontalLayout(gInstrVL, labSetupVL, dangerSubstVL);
 	}
-
 
 	private void configurePersonGrid() {
 		personGrid = new Grid<>();
@@ -150,14 +150,36 @@ public class PersonView extends VerticalLayout {
 					.setHeader("E-Mail Adresse")
 					.setKey("eMail")
 					.setSortable(true);
+        personGrid.addSelectionListener(new SelectionListener<Grid<Person>,Person>() {
+
+			@Override
+			public void selectionChange(SelectionEvent<Grid<Person>,Person> event) {
+				updateTextAreas();
+			}
+        	
+        });
 	}
 	
+	protected void updateTextAreas() {
+		Set<Person> personSet = personGrid.getSelectedItems();
+		Iterator<Person> it = personSet.iterator();
+		if(it.hasNext()) {
+			Person person = it.next();
+			String genInstr = person.getGenInstr();
+			String labSetup = person.getLabSetup();
+			String dangerSubsts = person.getDangerSubsts();
+			taGeneralInstruction.setValue(genInstr);
+			taLabSetup.setValue(labSetup);
+			taDangerSubst.setValue(dangerSubsts);
+		}
+	}
+
 	private Component configureSearchComponents() {
 		tfSearch = new TextField();
 		btnSearch = new Button("Suchen");
 		btnSearch.addClickListener(e -> searchPressed());
 		tfSearch.setWidth("200px");
-		tfSearch.setPlaceholder("Suche");
+		tfSearch.setPlaceholder("Suche nach Name");
 		tfSearch.setAutoselect(true);
 		tfSearch.addFocusListener(new ComponentEventListener<FocusNotifier.FocusEvent<TextField>>() {
 
@@ -194,7 +216,8 @@ public class PersonView extends VerticalLayout {
 		VerticalLayout searchComponent4 = new VerticalLayout(new Label("Ger\u00e4tezentrum"), new HorizontalLayout(btnMNaF));
 		VerticalLayout searchComponent5 = new VerticalLayout(new Label("Intern"), new HorizontalLayout(btnIntern));
 		VerticalLayout searchComponent6 = new VerticalLayout(new Label("Extern"), new HorizontalLayout(btnExtern));
-		return new HorizontalLayout(searchComponent1, searchComponent2, searchComponent3, searchComponent4, searchComponent5, searchComponent6);
+		HorizontalLayout searchComponents = new HorizontalLayout(searchComponent1, searchComponent2, searchComponent3, searchComponent4, searchComponent5, searchComponent6);
+		return searchComponents;
 	}
 	
 	private void updatePersonGridByName(String name) {
@@ -227,7 +250,6 @@ public class PersonView extends VerticalLayout {
 		personGrid.setItems(LMWpersons);
 	}
 
-	
 	private void updatePersonGridMNaF() {
 		List<Person> MNaFpersons = personM.getMNaFPersons();
 		personGrid.setItems(MNaFpersons);
@@ -248,18 +270,14 @@ public class PersonView extends VerticalLayout {
         personGrid.setItems(persons);
 	}
 	
-
 	public Set<Person> getSelectedPerson() {
 		Set<Person> personSet = personGrid.getSelectedItems();
 		return personSet;
 
 	}
 	
-
 	private void searchPressed() {
 		String searchTxt = tfSearch.getValue();
 		updatePersonGridByName(searchTxt);
 	}
-
-
 }

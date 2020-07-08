@@ -1,13 +1,15 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.util.List;
-import com.propra.HealthAndSaftyBriefing.DeviceStats;
-import com.propra.HealthAndSaftyBriefing.DeviceStatsManager;
+
+import com.propra.HealthAndSaftyBriefing.backend.DeviceStatsManager;
+import com.propra.HealthAndSaftyBriefing.backend.data.DeviceStats;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.FocusNotifier;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.ShortcutRegistration;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.BlurNotifier.BlurEvent;
 import com.vaadin.flow.component.FocusNotifier.FocusEvent;
 import com.vaadin.flow.component.button.Button;
@@ -28,6 +30,7 @@ public class DeviceStatsView extends VerticalLayout implements HasUrlParameter<S
 	private DeviceStatsManager deviceStatsM;
 	private TextField tfSearch;
 	private Button btnSearch;
+	private Button btnBack;
 	private Tabs searchTabs;
 	private Grid<DeviceStats> deviceStatsGrid;
 	private int dID;
@@ -35,6 +38,9 @@ public class DeviceStatsView extends VerticalLayout implements HasUrlParameter<S
 
 	public DeviceStatsView() {
 		deviceStatsM = new DeviceStatsManager();
+		
+		btnBack = new Button("Zurück", e -> backButtonPressed());
+		add(btnBack);
 		//Building searchComponents
 		Component searchComponents = configureSearchComponents();
 		add(searchComponents);
@@ -44,6 +50,10 @@ public class DeviceStatsView extends VerticalLayout implements HasUrlParameter<S
         add(deviceStatsGrid);
 	}
 	
+	private void backButtonPressed() {
+		UI.getCurrent().navigate("AdminView/DeviceTab");
+	}
+
 	private Component configureSearchComponents() {
 		tfSearch = new TextField();
 		btnSearch = new Button("Suchen");

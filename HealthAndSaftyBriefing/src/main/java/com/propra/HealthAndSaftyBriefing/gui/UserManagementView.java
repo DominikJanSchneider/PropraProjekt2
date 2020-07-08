@@ -2,23 +2,21 @@ package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.util.List;
 
-import javax.swing.SingleSelectionModel;
 
-import com.propra.HealthAndSaftyBriefing.User;
-import com.propra.HealthAndSaftyBriefing.UserManager;
+import javax.swing.SingleSelectionModel;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.UI;
+import com.propra.HealthAndSaftyBriefing.backend.UserManager;
+import com.propra.HealthAndSaftyBriefing.backend.data.User;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.data.selection.SelectionModel;
 import com.vaadin.flow.data.selection.SingleSelect;
 import com.vaadin.flow.router.Route;
-
 
 @Route("UserManagementView")
 @SuppressWarnings("serial")
@@ -36,7 +34,6 @@ public class UserManagementView extends VerticalLayout{
 	ContactForm editForm = new ContactForm(1);
 	SingleSelect<Grid<User>, User> selectedUser;
 	public static int userId;
-	
 	
 	public UserManagementView() {
 		
@@ -90,15 +87,11 @@ public class UserManagementView extends VerticalLayout{
 				Notification.show("Wähle einen Nutzer aus, um ihn zu löschen!");
 			}
 			
-		}
-		);
+		});
 		
 		//button edit User
 		btnEditUser = new Button("Nutzer bearbeiten", e -> {
-			
-			
 			try {
-				
 				     if(addForm != null)
 				     addForm.setVisible(false);
 				     selectedUser = userGrid.asSingleSelect();
@@ -139,11 +132,7 @@ public class UserManagementView extends VerticalLayout{
 				configureUserGrid();
 		        add(userGrid);
 		        updateUserGrid();
-		        
-		        
 	}
-	
-	
 	
 	public void configureUserGrid() {
 		userGrid = new Grid<>();
@@ -162,15 +151,11 @@ public class UserManagementView extends VerticalLayout{
         userGrid.addColumn(User::getUserRole)
 		.setHeader("Rolle")
 		.setKey("role")
-		.setSortable(true);
-        
+		.setSortable(true);   
 	}
-	
-	
+
 	public static void updateUserGrid() {
 		List<User> users = UserM.getAllUsers();
         userGrid.setItems(users);
 	}
-	
-
 }
