@@ -3,8 +3,8 @@ package com.propra.HealthAndSaftyBriefing.database;
 import java.sql.*;
 
 public class DBConnector {
-	private static String urlCore = "jdbc:sqlite:database/CoreDatabase.db";
-	private static String urlLogin = "jdbc:sqlite:database/UserDatabase.db";
+	private static String urlCore = "jdbc:sqlite:src/main/resources/database/CoreDatabase.db";
+	private static String urlLogin = "jdbc:sqlite:src/main/resources/database/UserDatabase.db";
 	private static Connection con = null;
 		
 	public static Connection connectCore() {
