@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
 import com.propra.HealthAndSaftyBriefing.backend.data.Person;
+import com.propra.HealthAndSaftyBriefing.database.DBConverter;
 import com.propra.HealthAndSaftyBriefing.database.DBExporter;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
@@ -141,9 +142,12 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 		Anchor downloadLink = new Anchor(dbExporter.getResource(), "Datenbank Herunterladen");
 		downloadLink.getElement().setAttribute("download", true);
 		MenuItem saveMenu = fileSubMenu.addItem(downloadLink);
-		
+		// Creating Import Database item
 		MenuItem importMenu = fileSubMenu.addItem("Datenbank Importieren");
-		MenuItem exportMenu = fileSubMenu.addItem("Datenbank als CSV exportieren");
+		// Creating Export As CSV item
+		downloadLink = new Anchor(dbExporter.getCSVResource(), "Datenbank als CSV Exportieren");
+		downloadLink.getElement().setAttribute("download", true);
+		MenuItem exportMenu = fileSubMenu.addItem(downloadLink);
 	}
 
 	private void editDataPressed() {
@@ -154,10 +158,6 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	private void editUserPressed() {
 		UI.getCurrent().navigate("UserManagementView");
 	}
-	
-//	private void saveDatabasePressed() {
-//		
-//	}
 	
 	private void logout() {
         AccessControlFactory.getInstance().createAccessControl().signOut();

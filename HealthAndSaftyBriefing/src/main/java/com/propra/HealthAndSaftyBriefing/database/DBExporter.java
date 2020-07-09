@@ -25,4 +25,20 @@ public class DBExporter {
 			return null;
 		}
 	}
+	
+	public AbstractStreamResource getCSVResource() {
+		DBConverter.convertToCSV();
+		return new StreamResource("CoreDatabase.csv", this::createCSVExporter);
+	}
+	
+	private InputStream createCSVExporter() {
+		try {
+			File initialFile = new File("src/main/resources/database/CoreDatabase.csv");
+			InputStream fileStream = new FileInputStream(initialFile);
+			return fileStream;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
