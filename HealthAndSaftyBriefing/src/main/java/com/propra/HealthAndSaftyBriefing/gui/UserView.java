@@ -6,8 +6,10 @@ import java.util.NoSuchElementException;
 
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControl;
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
+import com.propra.HealthAndSaftyBriefing.backend.DangerSubstManager;
 import com.propra.HealthAndSaftyBriefing.backend.DeviceManager;
 import com.propra.HealthAndSaftyBriefing.backend.UserManager;
+import com.propra.HealthAndSaftyBriefing.backend.data.AssignedDangerSubst;
 import com.propra.HealthAndSaftyBriefing.backend.data.AssignedDevice;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Key;
@@ -36,6 +38,7 @@ public class UserView extends VerticalLayout {
 	
 	private UserManager userM = new UserManager();
 	private DeviceManager deviceM = new DeviceManager();
+	private DangerSubstManager dangerSubstM = new DangerSubstManager();
 	private AccessControl accessControl; 
 	
 	public UserView() {
@@ -120,12 +123,36 @@ public class UserView extends VerticalLayout {
 		Label lblSpace = new Label("");
 		lblSpace.setHeight("50px");
 		
+		HorizontalLayout assignedInstructDangerSubst = new HorizontalLayout();
+		
+		VerticalLayout generalInstruction = new VerticalLayout();
 		Label lblGeneralInstruction = new Label("Allgemeine Unterweisungen");
 		lblGeneralInstruction.setWidth("400px");
 		Label lblGeneralInstructionContent = new Label(userData[12].toString());
 		lblGeneralInstructionContent.setWidth("400px");
+		generalInstruction.add(lblGeneralInstruction, lblGeneralInstructionContent);
 		
-		userInfo.add(lblUser, userInfoHead, userInfoContent, lblSpace, lblGeneralInstruction, lblGeneralInstructionContent);
+		VerticalLayout assignedDangerSubstLayout = new VerticalLayout();
+		Label lblAssignedDangerSubst = new Label("Zugewiesene Gefahrstoffe");
+		lblAssignedDangerSubst.setWidth("400px");
+		
+		StringBuffer assignedDangerSubst = new StringBuffer();
+		List<AssignedDangerSubst> list = dangerSubstM.getAssignedDangerSubst(Integer.parseInt(userData[0]));
+		for (int i = 0; i < list.size(); i++) {
+			if (i == list.size()-1) {
+				assignedDangerSubst.append(list.get(i).getName());
+			} else {
+				assignedDangerSubst.append(list.get(i).getName()+", ");
+			}
+		}
+		Label lblAssignedDangerSubstContent = new Label(assignedDangerSubst.toString());
+		lblAssignedDangerSubstContent.setWidth("400px");
+		assignedDangerSubstLayout.add(lblAssignedDangerSubst, lblAssignedDangerSubstContent);
+		
+		assignedInstructDangerSubst.add(generalInstruction, assignedDangerSubstLayout);
+		
+		
+		userInfo.add(lblUser, userInfoHead, userInfoContent, lblSpace, assignedInstructDangerSubst);
 		
 		return userInfo;
 	}
