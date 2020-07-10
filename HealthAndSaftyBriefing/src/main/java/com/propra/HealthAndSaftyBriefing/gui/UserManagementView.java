@@ -6,14 +6,18 @@ import java.util.List;
 import com.propra.HealthAndSaftyBriefing.backend.UserManager;
 import com.propra.HealthAndSaftyBriefing.backend.data.User;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.selection.SelectionEvent;
+import com.vaadin.flow.data.selection.SelectionListener;
 import com.vaadin.flow.data.selection.SingleSelect;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -27,12 +31,10 @@ public class UserManagementView extends VerticalLayout{
 	private UserManager userM;
 	private Button btnAddUser;
 	private Button btnDeleteUser;
-	private Button btnEditUser;
 	private Div content;
 	private Div editContent;
 	private UserAddForm addForm;
 	private UserEditForm editForm;
-	private SingleSelect<Grid<User>, User> selectedUser;
 	
 	public UserManagementView() {
 		
@@ -44,82 +46,46 @@ public class UserManagementView extends VerticalLayout{
 		
 		//addUser
 		btnAddUser = new Button("Neuen Nutzer anlegen");
+		btnAddUser.setIcon(VaadinIcon.PLUS_CIRCLE.create());
 		btnAddUser.addClickListener(e -> {
 			if(addForm == null) {
-				if(editForm!= null)
-				editForm.setVisible(false);
+				if(editForm!= null) {
+					editForm.setVisible(false);
+				}
 			    content = new Div(userGrid, addForm = new UserAddForm(this, userM));
 		    	content.setSizeFull();
 		        add(content);
 		        
 			}else {
-				if(editForm != null)
-				editForm.setVisible(false);
+				if(editForm != null) {
+					editForm.setVisible(false);
+				}
 				addForm.setVisible(true);
 				addForm.setUserName("");
 				addForm.setPassword("");
 				addForm.setRole("");
-
 				add(content);
-				
 			}
-			selectedUser = null;
-		    });
+		});
 		
 		//button delete User
 		btnDeleteUser =  new Button("Nutzer löschen", e -> {
-			try {
-				selectedUser = userGrid.asSingleSelect();
+			SingleSelect<Grid<User>, User> selectedUser = userGrid.asSingleSelect();
+			if(!selectedUser.isEmpty()) {
 				userM.deleteUser(selectedUser.getValue().getUserID());
-				updateUserGrid();
-				selectedUser = null;
+				//selectedUser = null;
 				Notification.show("Nutzer wurde aus der Datenbank entfernt!");
+				userGrid.deselectAll();
+				updateUserGrid();
+				editForm.setVisible(false);
 			}
-			catch(Exception ex) {
+			else{
 				Notification.show("Wähle einen Nutzer aus, um ihn zu löschen!");
 			}
-			
 		});
-		
-		//button edit User
-		btnEditUser = new Button("Nutzer bearbeiten", e -> {
-			try {
-				if(addForm != null)
-					addForm.setVisible(false);
-				    selectedUser = userGrid.asSingleSelect();
-			        
-					if(editForm == null) {
-						int userId = selectedUser.getValue().getUserID();
-						editContent = new Div(userGrid, editForm = new UserEditForm(this, userM, userId));
-						editForm.setUserName(selectedUser.getValue().getUserName());
-						editForm.setPassword("");
-						editForm.setRole(selectedUser.getValue().getUserRole());
-				    
-						editContent.setSizeFull();
-						add(editContent);
-						updateUserGrid();
-					}
-					else {
-						editForm.setVisible(true);
-						editForm.setUserName(selectedUser.getValue().getUserName());
-						editForm.setPassword("");
-						editForm.setRole(selectedUser.getValue().getUserRole());
-						int userId = selectedUser.getValue().getUserID();
-						editForm.setUserId(userId);
-						editContent.setSizeFull();
-						add(editContent);
-					}
-					
-				}
-				catch(Exception ex) {
-				    add(userGrid);
-				    editForm.setVisible(false);;
-					Notification.show("Wähle einen Nutzer aus, um Daten bearbeiten zu können!");
-					
-		        }
-			});
-		
-		add(new HorizontalLayout(btnAddUser, btnDeleteUser, btnEditUser));
+		btnDeleteUser.addThemeVariants(ButtonVariant.LUMO_ERROR, ButtonVariant.LUMO_PRIMARY);
+		btnDeleteUser.setIcon(VaadinIcon.MINUS_CIRCLE.create());
+		add(new HorizontalLayout(btnAddUser, btnDeleteUser));
 		
 		//Building the UserGrid
 		configureUserGrid();
@@ -148,11 +114,64 @@ public class UserManagementView extends VerticalLayout{
 					.setHeader("Rolle")
 					.setKey("role")
 					.setSortable(true);
+        userGrid.addSelectionListener(new SelectionListener<Grid<User>,User>() {
+
+			@Override
+			public void selectionChange(SelectionEvent<Grid<User>,User> event) {
+				if(event.isFromClient()) {
+					showEditForm();
+				}
+			}
+        	
+        });
 	}
 
 	public void updateUserGrid() {
 		List<User> users = userM.getAllUsers();
         userGrid.setItems(users);
+	}
+	
+	private void showEditForm() {
+		SingleSelect<Grid<User>, User> selectedUser = userGrid.asSingleSelect();
+		if(selectedUser.isEmpty()) {
+	    	return;
+	    }
+		if(addForm != null) {
+			addForm.setVisible(false);
+		}
+		if(editForm == null) {
+			int userId = selectedUser.getValue().getUserID();
+			editContent = new Div(userGrid, editForm = new UserEditForm(this, userM, userId));
+			editForm.setUserName(selectedUser.getValue().getUserName());
+			editForm.setPassword("");
+			String role = null;
+			if(selectedUser.getValue().getUserRole().equals("admin")) {
+				role = "Admin";
+			}
+			else {
+				role = "Benutzer";
+			}
+			editForm.setRole(role);
+			editContent.setSizeFull();
+			add(editContent);
+		}
+		else {
+			editForm.setVisible(true);
+			editForm.setUserName(selectedUser.getValue().getUserName());
+			editForm.setPassword("");
+			String role = null;
+			if(selectedUser.getValue().getUserRole().equals("admin")) {
+				role = "Admin";
+			}
+			else {
+				role = "Benutzer";
+			}
+			editForm.setRole(role);
+			int userId = selectedUser.getValue().getUserID();
+			editForm.setUserId(userId);
+			editContent.setSizeFull();
+			add(editContent);
+		}
 	}
 	
 	class UserEditForm extends FormLayout {
@@ -168,15 +187,22 @@ public class UserManagementView extends VerticalLayout{
 			    tfUserName = new TextField("Benutzername");
 			    tfPassword = new TextField("Passwort");
 			    //tfRole = new TextField("Rolle");
-			    slRole = new Select<String>("Benutzer", "Admin");
+			    slRole = new Select<String>("Admin", "Benutzer");
 			    slRole.setLabel("Rolle");
 			    this.userId = userId;
 			    
 			    Button save = new Button("Speichern", e -> 
 			    {
-			    	if(!(tfUserName.isEmpty()) && !(tfPassword.isEmpty()) && !(slRole.isEmpty())){
+			    	if(!tfUserName.isEmpty()){
 			    		try {
-							userM.editUser(this.userId, tfUserName.getValue(), tfPassword.getValue(), slRole.getValue());
+			    			String role = null;
+		    				if(slRole.getValue() == "Admin") {
+		    					role = "admin";
+		    				}
+		    				else {
+		    					role = "benutzer";
+		    				}
+							userM.editUser(this.userId, tfUserName.getValue(), tfPassword.getValue(), role);
 							Notification.show("Nutzerdaten wurden erfolgreich bearbeitet!");
 						} 
 			    		catch (NoSuchAlgorithmException ex) {
@@ -185,7 +211,7 @@ public class UserManagementView extends VerticalLayout{
 			    		  userMView.updateUserGrid();
 			    	}
 			    	else {
-			    		Notification.show("Bitte geben Sie sowohl einen Benutzernamen als auch ein Passwort ein!");
+			    		Notification.show("Bitte geben Sie einen Benutzernamen ein!");
 			    	}
 			    });
 			    Button close = new Button("Beenden", e -> this.setVisible(false));
@@ -218,7 +244,7 @@ public class UserManagementView extends VerticalLayout{
 		    this.setVisible(true);
 		    tfUserName = new TextField("Benutzername");
 		    tfPassword = new TextField("Passwort");
-		    slRole = new Select<String>("Benutzer", "Admin");
+		    slRole = new Select<String>("Admin", "Benutzer");
 		    slRole.setLabel("Rolle");
 		    
 		    Button save = new Button("Speichern", e -> 
@@ -229,7 +255,14 @@ public class UserManagementView extends VerticalLayout{
 		    				Notification.show("Nutzer existiert bereits!");
 		    			}
 		    			else {
-		    				userM.addUser(tfUserName.getValue(), tfPassword.getValue(), slRole.getValue());
+		    				String role = null;
+		    				if(slRole.getValue() == "Admin") {
+		    					role = "admin";
+		    				}
+		    				else {
+		    					role = "benutzer";
+		    				}
+		    				userM.addUser(tfUserName.getValue(), tfPassword.getValue(), role);
 							Notification.show("Nutzer wurde hinzugefügt!");
 		    			}
 					} 
