@@ -9,6 +9,8 @@ import java.util.stream.Stream;
 
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
 import com.propra.HealthAndSaftyBriefing.backend.data.Person;
+import com.propra.HealthAndSaftyBriefing.database.DBConverter;
+import com.propra.HealthAndSaftyBriefing.database.DBExporter;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -18,6 +20,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -32,8 +35,6 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.OptionalParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.theme.Theme;
-import com.vaadin.flow.theme.lumo.Lumo;
 
 @Route("AdminView")
 @PageTitle("Admin | Sicherheitsunterweisungen")
@@ -47,6 +48,8 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	private RoomsView roomsView;
 	private DangerSubstView dangerSubstView;
 	private Div pages;
+	
+	private DBExporter dbExporter = new DBExporter();
 	
 	public AdminView() {
 
@@ -135,9 +138,16 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 		printMenu = menuBar.addItem("Drucken", e -> printPressed());
 		MenuItem editUserMenu = menuBar.addItem("Benutzerverwaltung", e -> editUserPressed());
 		SubMenu fileSubMenu = fileMenu.getSubMenu();
-		MenuItem saveMenu = fileSubMenu.addItem("Datenbank Speichern");
+		// Creating Download Database item
+		Anchor downloadLink = new Anchor(dbExporter.getResource(), "Datenbank Herunterladen");
+		downloadLink.getElement().setAttribute("download", true);
+		MenuItem saveMenu = fileSubMenu.addItem(downloadLink);
+		// Creating Import Database item
 		MenuItem importMenu = fileSubMenu.addItem("Datenbank Importieren");
-		MenuItem exportMenu = fileSubMenu.addItem("Datenbank als CSV exportieren");
+		// Creating Export As CSV item
+		downloadLink = new Anchor(dbExporter.getCSVResource(), "Datenbank als CSV Exportieren");
+		downloadLink.getElement().setAttribute("download", true);
+		MenuItem exportMenu = fileSubMenu.addItem(downloadLink);
 	}
 
 	private void editDataPressed() {
