@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.propra.HealthAndSaftyBriefing.backend.data.AssignedDangerSubst;
-import com.propra.HealthAndSaftyBriefing.backend.data.AssignedDevice;
 import com.propra.HealthAndSaftyBriefing.backend.data.DangerSubst;
 import com.propra.HealthAndSaftyBriefing.database.DBConnector;
 

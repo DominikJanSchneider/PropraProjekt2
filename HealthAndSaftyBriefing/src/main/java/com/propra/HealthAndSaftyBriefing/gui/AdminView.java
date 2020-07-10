@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
 import com.propra.HealthAndSaftyBriefing.backend.data.Person;
-import com.propra.HealthAndSaftyBriefing.database.DBConverter;
 import com.propra.HealthAndSaftyBriefing.database.DBExporter;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
