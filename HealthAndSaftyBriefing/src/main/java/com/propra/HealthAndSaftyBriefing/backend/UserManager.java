@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-
 import com.propra.HealthAndSaftyBriefing.backend.data.User;
 import com.propra.HealthAndSaftyBriefing.database.DBConnector;
 import com.propra.HealthAndSaftyBriefing.security.pwEncrypt;
@@ -153,6 +152,114 @@ public class UserManager {
 		List<User> list = new LinkedList<User>();
 		try {
 			pstmt = con.prepareStatement("SELECT * FROM "+tableName);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				User user = new User(
+							rs.getInt("ID"),
+							rs.getString("Benutzername"),
+							"Passwort gesetzt",
+							rs.getString("Rolle")
+						);
+				list.add(user);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return list;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
+	
+	public List<User> getUserByID(int id) {
+		String tableName = "Benutzer";
+		Connection con = DBConnector.connectLogin();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<User> list = new LinkedList<User>();
+		try {
+			pstmt = con.prepareStatement("SELECT * FROM "+tableName+ " WHERE ID='"+id+"'");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				User user = new User(
+							rs.getInt("ID"),
+							rs.getString("Benutzername"),
+							"Passwort gesetzt",
+							rs.getString("Rolle")
+						);
+				list.add(user);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return list;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
+	
+	public List<User> getUserByName(String name) {
+		String tableName = "Benutzer";
+		Connection con = DBConnector.connectLogin();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<User> list = new LinkedList<User>();
+		try {
+			pstmt = con.prepareStatement("SELECT * FROM "+tableName+ " WHERE Benutzername LIKE '%"+name+"%'");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				User user = new User(
+							rs.getInt("ID"),
+							rs.getString("Benutzername"),
+							"Passwort gesetzt",
+							rs.getString("Rolle")
+						);
+				list.add(user);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return list;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
+	
+	public List<User> getUserByRole(String role) {
+		String tableName = "Benutzer";
+		Connection con = DBConnector.connectLogin();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<User> list = new LinkedList<User>();
+		try {
+			pstmt = con.prepareStatement("SELECT * FROM "+tableName+ " WHERE Rolle='"+role+"'");
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				User user = new User(
