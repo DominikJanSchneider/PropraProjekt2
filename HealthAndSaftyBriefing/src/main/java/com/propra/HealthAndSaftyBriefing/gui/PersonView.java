@@ -18,7 +18,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 
 import com.vaadin.flow.component.html.Label;
-
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
@@ -177,6 +177,7 @@ public class PersonView extends VerticalLayout {
 	private Component configureSearchComponents() {
 		tfSearch = new TextField();
 		btnSearch = new Button("Suchen");
+		btnSearch.setIcon(VaadinIcon.SEARCH.create());
 		btnSearch.addClickListener(e -> searchPressed());
 		tfSearch.setWidth("200px");
 		tfSearch.setPlaceholder("Suche nach Name");

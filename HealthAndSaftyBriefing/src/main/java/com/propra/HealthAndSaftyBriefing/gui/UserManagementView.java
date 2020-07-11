@@ -2,14 +2,12 @@ package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-
 import com.propra.HealthAndSaftyBriefing.backend.UserManager;
 import com.propra.HealthAndSaftyBriefing.backend.data.User;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -31,16 +29,17 @@ public class UserManagementView extends VerticalLayout{
 	private UserManager userM;
 	private Button btnAddUser;
 	private Button btnDeleteUser;
-	private Div content;
-	private Div editContent;
 	private UserAddForm addForm;
 	private UserEditForm editForm;
 	
 	public UserManagementView() {
-		
-		addForm = null;
-		editForm = null;
 		userM = new UserManager();
+		addForm = new UserAddForm(this, userM);
+		editForm = new UserEditForm(this, userM);
+		addForm.setSizeFull();
+		addForm.setVisible(false);
+		editForm.setSizeFull();
+		editForm.setVisible(false);
 		
 		//create Buttons and their clickListener
 		
@@ -48,24 +47,11 @@ public class UserManagementView extends VerticalLayout{
 		btnAddUser = new Button("Neuen Nutzer anlegen");
 		btnAddUser.setIcon(VaadinIcon.PLUS_CIRCLE.create());
 		btnAddUser.addClickListener(e -> {
-			if(addForm == null) {
-				if(editForm!= null) {
-					editForm.setVisible(false);
-				}
-			    content = new Div(userGrid, addForm = new UserAddForm(this, userM));
-		    	content.setSizeFull();
-		        add(content);
-		        
-			}else {
-				if(editForm != null) {
-					editForm.setVisible(false);
-				}
-				addForm.setVisible(true);
-				addForm.setUserName("");
-				addForm.setPassword("");
-				addForm.setRole("");
-				add(content);
-			}
+			editForm.setVisible(false);
+			addForm.setVisible(true);
+			addForm.setUserName("");
+			addForm.setPassword("");
+			addForm.setRole("");
 		});
 		
 		//button delete User
@@ -73,7 +59,6 @@ public class UserManagementView extends VerticalLayout{
 			SingleSelect<Grid<User>, User> selectedUser = userGrid.asSingleSelect();
 			if(!selectedUser.isEmpty()) {
 				userM.deleteUser(selectedUser.getValue().getUserID());
-				//selectedUser = null;
 				Notification.show("Nutzer wurde aus der Datenbank entfernt!");
 				userGrid.deselectAll();
 				updateUserGrid();
@@ -87,9 +72,8 @@ public class UserManagementView extends VerticalLayout{
 		btnDeleteUser.setIcon(VaadinIcon.MINUS_CIRCLE.create());
 		add(new HorizontalLayout(btnAddUser, btnDeleteUser));
 		
-		//Building the UserGrid
 		configureUserGrid();
-		add(userGrid);
+		add(new VerticalLayout(userGrid, addForm, editForm));
 		updateUserGrid();
 	}
 	
@@ -136,60 +120,35 @@ public class UserManagementView extends VerticalLayout{
 		if(selectedUser.isEmpty()) {
 	    	return;
 	    }
-		if(addForm != null) {
-			addForm.setVisible(false);
-		}
-		if(editForm == null) {
-			int userId = selectedUser.getValue().getUserID();
-			editContent = new Div(userGrid, editForm = new UserEditForm(this, userM, userId));
-			editForm.setUserName(selectedUser.getValue().getUserName());
-			editForm.setPassword("");
-			String role = null;
-			if(selectedUser.getValue().getUserRole().equals("admin")) {
-				role = "Admin";
-			}
-			else {
-				role = "Benutzer";
-			}
-			editForm.setRole(role);
-			editContent.setSizeFull();
-			add(editContent);
+		addForm.setVisible(false);
+		editForm.setVisible(true);
+		editForm.setUserName(selectedUser.getValue().getUserName());
+		editForm.setPassword("");
+		String role = null;
+		if(selectedUser.getValue().getUserRole().equals("admin")) {
+			role = "Admin";
 		}
 		else {
-			editForm.setVisible(true);
-			editForm.setUserName(selectedUser.getValue().getUserName());
-			editForm.setPassword("");
-			String role = null;
-			if(selectedUser.getValue().getUserRole().equals("admin")) {
-				role = "Admin";
-			}
-			else {
-				role = "Benutzer";
-			}
-			editForm.setRole(role);
-			int userId = selectedUser.getValue().getUserID();
-			editForm.setUserId(userId);
-			editContent.setSizeFull();
-			add(editContent);
+			role = "Benutzer";
 		}
+		editForm.setRole(role);
+		int userId = selectedUser.getValue().getUserID();
+		editForm.setUserId(userId);
 	}
 	
 	class UserEditForm extends FormLayout {
 		private TextField tfUserName; 
 		private TextField tfPassword;
-		//private TextField tfRole;
 		private Select<String> slRole;
 		private int userId;
 		
-		  UserEditForm(UserManagementView userMView, UserManager userM, int userId) {
-			    //addClassName("contact-form"); 
+		  UserEditForm(UserManagementView userMView, UserManager userM) {
 			    this.setVisible(true);
 			    tfUserName = new TextField("Benutzername");
 			    tfPassword = new TextField("Passwort");
-			    //tfRole = new TextField("Rolle");
 			    slRole = new Select<String>("Admin", "Benutzer");
 			    slRole.setLabel("Rolle");
-			    this.userId = userId;
+			    this.userId = -1;
 			    
 			    Button save = new Button("Speichern", e -> 
 			    {
@@ -214,8 +173,10 @@ public class UserManagementView extends VerticalLayout{
 			    		Notification.show("Bitte geben Sie einen Benutzernamen ein!");
 			    	}
 			    });
-			    Button close = new Button("Beenden", e -> this.setVisible(false));
-			    add(tfUserName, tfPassword, slRole, new HorizontalLayout(save, close));
+			    save.setIcon(VaadinIcon.ADD_DOCK.create());
+			    Button cancel = new Button("Schließen", e -> this.setVisible(false));
+			    cancel.setIcon(VaadinIcon.CLOSE_CIRCLE.create());
+			    add(tfUserName, tfPassword, slRole, new HorizontalLayout(save, cancel));
 		  } 
 		  
 		  public void setUserName(String name) {
@@ -240,7 +201,6 @@ public class UserManagementView extends VerticalLayout{
 		private TextField tfPassword;
 		private Select<String> slRole;
 		  UserAddForm(UserManagementView userMView, UserManager userM) {
-		    //addClassName("contact-form"); 
 		    this.setVisible(true);
 		    tfUserName = new TextField("Benutzername");
 		    tfPassword = new TextField("Passwort");
@@ -275,9 +235,10 @@ public class UserManagementView extends VerticalLayout{
 		    		Notification.show("Bitte füllen Sie alle Felder aus!");
 		    	}
 		    });
-		    
-		    Button close = new Button("Beenden", e -> this.setVisible(false));
-		    add(tfUserName, tfPassword, slRole, new HorizontalLayout(save, close));
+		    save.setIcon(VaadinIcon.ADD_DOCK.create());
+		    Button cancel = new Button("Schließen", e -> this.setVisible(false));
+		    cancel.setIcon(VaadinIcon.CLOSE_CIRCLE.create());
+		    add(tfUserName, tfPassword, slRole, new HorizontalLayout(save, cancel));
 		  }
 		  
 		  public void setUserName(String name) {

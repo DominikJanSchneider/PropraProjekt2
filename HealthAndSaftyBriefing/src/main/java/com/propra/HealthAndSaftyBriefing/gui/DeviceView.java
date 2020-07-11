@@ -17,6 +17,7 @@ import com.vaadin.flow.component.ShortcutRegistration;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -47,6 +48,7 @@ public class DeviceView extends VerticalLayout {
         updateDeviceGrid();
         
         btnDeviceStats = new Button("Öffne Gerätestatistik");
+        btnDeviceStats.setIcon(VaadinIcon.CHART.create());
         btnDeviceStats.addClickListener(e -> deviceStatsButtonPressed());
         add(btnDeviceStats);
 	}
@@ -110,6 +112,7 @@ public class DeviceView extends VerticalLayout {
 	private Component configureSearchComponents() {
 		tfSearch = new TextField();
 		btnSearch = new Button("Suchen");
+		btnSearch.setIcon(VaadinIcon.SEARCH.create());
 		btnSearch.addClickListener(e -> searchPressed());
 		tfSearch.setWidth("200px");
 		tfSearch.setPlaceholder("Suche");

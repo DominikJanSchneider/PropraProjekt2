@@ -14,6 +14,7 @@ import com.vaadin.flow.component.FocusNotifier.FocusEvent;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 
@@ -42,6 +43,7 @@ public class RoomsView extends VerticalLayout {
 	private Component configureSearchComponents() {
 		tfSearch = new TextField();
 		btnSearch = new Button("Suchen");
+		btnSearch.setIcon(VaadinIcon.SEARCH.create());
 		btnSearch.addClickListener(e -> searchPressed());
 		tfSearch.setWidth("200px");
 		tfSearch.setPlaceholder("Suche");
