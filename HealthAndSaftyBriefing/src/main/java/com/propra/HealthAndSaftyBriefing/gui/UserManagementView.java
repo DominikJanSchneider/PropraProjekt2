@@ -9,6 +9,7 @@ import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.FocusNotifier;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.ShortcutRegistration;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.BlurNotifier.BlurEvent;
 import com.vaadin.flow.component.FocusNotifier.FocusEvent;
 import com.vaadin.flow.component.button.Button;
@@ -43,6 +44,7 @@ public class UserManagementView extends VerticalLayout{
 	private Button btnAll;
 	private Button btnAdmin;
 	private Button btnUser;
+	private Button btnBack;
 	private UserAddForm addForm;
 	private UserEditForm editForm;
 	private TextField tfSearch;
@@ -62,6 +64,11 @@ public class UserManagementView extends VerticalLayout{
 		Component searchComponents = configureSearchComponents();
 		
 		//create Buttons and their clickListener
+		
+		//btnBack
+		btnBack = new Button("Zurück");
+		btnBack.setIcon(VaadinIcon.ARROW_BACKWARD.create());
+		btnBack.addClickListener(e -> { UI.getCurrent().navigate("AdminView");});
 		
 		//addUser
 		btnAddUser = new Button("Neuen Nutzer anlegen");
@@ -94,7 +101,7 @@ public class UserManagementView extends VerticalLayout{
 		configureUserGrid();
 		updateUserGrid();
 		
-		add(new VerticalLayout(searchComponents, new HorizontalLayout(btnAddUser, btnDeleteUser), userGrid, addForm, editForm));
+		add(new VerticalLayout(btnBack, searchComponents, new HorizontalLayout(btnAddUser, btnDeleteUser), userGrid, addForm, editForm));
 	}
 	
 	public void configureUserGrid() {
