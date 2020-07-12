@@ -17,6 +17,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
@@ -209,12 +210,16 @@ public class PersonView extends VerticalLayout {
 		VerticalLayout searchComponent1 = new VerticalLayout(tfSearch, btnSearch);
 		Label lbAll = new Label("Alle anzeigen");
 		lbAll.setWidth("100px");
-		VerticalLayout searchComponent2 = new VerticalLayout(lbAll , btnAll);
+		VerticalLayout searchComponent2 = new VerticalLayout(lbAll , new HorizontalLayout(btnAll));
 		VerticalLayout searchComponent3 = new VerticalLayout(new Label("Institut für Werkstoffstechnik (Ifwt)"), new HorizontalLayout(btnIfwt, btnLMN, btnLMW, btnLOT, btnLWF));
 		VerticalLayout searchComponent4 = new VerticalLayout(new Label("Ger\u00e4tezentrum"), new HorizontalLayout(btnMNaF));
 		VerticalLayout searchComponent5 = new VerticalLayout(new Label("Intern"), new HorizontalLayout(btnIntern));
 		VerticalLayout searchComponent6 = new VerticalLayout(new Label("Extern"), new HorizontalLayout(btnExtern));
-		HorizontalLayout searchComponents = new HorizontalLayout(searchComponent1, searchComponent2, searchComponent3, searchComponent4, searchComponent5, searchComponent6);
+		Label label = new Label("Filter:");
+		label.addComponentAsFirst(VaadinIcon.FILTER.create());
+		label.setSizeFull();
+		HorizontalLayout searchComponents = new HorizontalLayout(searchComponent1, label, searchComponent2, searchComponent3, searchComponent4, searchComponent5, searchComponent6);
+		searchComponents.setVerticalComponentAlignment(FlexComponent.Alignment.CENTER, label);
 		return searchComponents;
 	}
 	

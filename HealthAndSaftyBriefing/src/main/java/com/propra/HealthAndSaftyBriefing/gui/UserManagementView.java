@@ -4,15 +4,26 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import com.propra.HealthAndSaftyBriefing.backend.UserManager;
 import com.propra.HealthAndSaftyBriefing.backend.data.User;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.FocusNotifier;
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.ShortcutRegistration;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.BlurNotifier.BlurEvent;
+import com.vaadin.flow.component.FocusNotifier.FocusEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
+import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.selection.SelectionEvent;
 import com.vaadin.flow.data.selection.SelectionListener;
@@ -29,8 +40,17 @@ public class UserManagementView extends VerticalLayout{
 	private UserManager userM;
 	private Button btnAddUser;
 	private Button btnDeleteUser;
+	private Button btnSearch;
+	private Button btnAll;
+	private Button btnAdmin;
+	private Button btnUser;
+	private Button btnBack;
 	private UserAddForm addForm;
 	private UserEditForm editForm;
+	private TextField tfSearch;
+	
+	protected ShortcutRegistration shortReg;
+	private Tabs searchTabs;
 	
 	public UserManagementView() {
 		userM = new UserManager();
@@ -41,7 +61,14 @@ public class UserManagementView extends VerticalLayout{
 		editForm.setSizeFull();
 		editForm.setVisible(false);
 		
+		Component searchComponents = configureSearchComponents();
+		
 		//create Buttons and their clickListener
+		
+		//btnBack
+		btnBack = new Button("Zurück");
+		btnBack.setIcon(VaadinIcon.ARROW_BACKWARD.create());
+		btnBack.addClickListener(e -> { UI.getCurrent().navigate("AdminView");});
 		
 		//addUser
 		btnAddUser = new Button("Neuen Nutzer anlegen");
@@ -70,11 +97,11 @@ public class UserManagementView extends VerticalLayout{
 		});
 		btnDeleteUser.addThemeVariants(ButtonVariant.LUMO_ERROR, ButtonVariant.LUMO_PRIMARY);
 		btnDeleteUser.setIcon(VaadinIcon.MINUS_CIRCLE.create());
-		add(new HorizontalLayout(btnAddUser, btnDeleteUser));
-		
+	
 		configureUserGrid();
-		add(new VerticalLayout(userGrid, addForm, editForm));
 		updateUserGrid();
+		
+		add(new VerticalLayout(btnBack, searchComponents, new HorizontalLayout(btnAddUser, btnDeleteUser), userGrid, addForm, editForm));
 	}
 	
 	public void configureUserGrid() {
@@ -109,10 +136,85 @@ public class UserManagementView extends VerticalLayout{
         	
         });
 	}
+	
+	private Component configureSearchComponents() {
+		tfSearch = new TextField();
+		btnSearch = new Button("Suchen");
+		btnSearch.setIcon(VaadinIcon.SEARCH.create());
+		btnSearch.addClickListener(e -> searchPressed());
+		tfSearch.setWidth("200px");
+		tfSearch.setPlaceholder("Suche");
+		tfSearch.setAutoselect(true);
+		tfSearch.addFocusListener(new ComponentEventListener<FocusNotifier.FocusEvent<TextField>>() {
+
+			@Override
+			public void onComponentEvent(FocusEvent<TextField> event) {
+				shortReg = btnSearch.addClickShortcut(Key.ENTER);
+			}
+			
+		});
+		tfSearch.addBlurListener(new ComponentEventListener<BlurEvent<TextField>>() {
+
+			@Override
+			public void onComponentEvent(BlurEvent<TextField> event) {
+				shortReg.remove();
+			}
+			
+		});
+		
+		btnAll = new Button("Alle", e -> updateUserGrid());
+		btnAdmin = new Button("Admin", e -> updateUserGridByRole("admin"));
+		btnUser = new Button("Benutzer", e -> updateUserGridByRole("benutzer"));
+		
+		Tab idTab = new Tab("BenutzerID");
+		Tab nameTab = new Tab("Name");
+		searchTabs = new Tabs(idTab, nameTab);
+		VerticalLayout searchComponent1 = new VerticalLayout(tfSearch, btnSearch);
+		Label label = new Label("Suchen nach:");
+		label.addComponentAsFirst(VaadinIcon.FILTER.create());
+		VerticalLayout searchComponent2 = new VerticalLayout(label, searchTabs);
+		label = new Label("Filter");
+		label.addComponentAsFirst(VaadinIcon.FILTER.create());
+		VerticalLayout searchComponent3 = new VerticalLayout(label, new HorizontalLayout(btnAll, btnAdmin, btnUser));
+		return new HorizontalLayout(searchComponent1, searchComponent2, searchComponent3);
+	}
+
+	private void searchPressed() {
+		String tabName = searchTabs.getSelectedTab().getLabel();
+		String searchTxt = tfSearch.getValue();
+		switch(tabName) {
+			case "BenutzerID":
+				if(searchTxt.isEmpty()) {
+					updateUserGrid();
+				}
+				else {
+					updateUserGridByID(Integer.parseInt(searchTxt));
+				}
+				break;
+			case "Name":
+				updateUserGridByName(searchTxt);
+				break;
+		}
+	}
 
 	public void updateUserGrid() {
 		List<User> users = userM.getAllUsers();
         userGrid.setItems(users);
+	}
+	
+	private void updateUserGridByID(int id) {
+		List<User> user = userM.getUserByID(id);
+        userGrid.setItems(user);
+	}
+	
+	private void updateUserGridByName(String name) {
+		List<User> user = userM.getUserByName(name);
+        userGrid.setItems(user);
+	}
+	
+	private void updateUserGridByRole(String role) {
+		List<User> user = userM.getUserByRole(role);
+        userGrid.setItems(user);
 	}
 	
 	private void showEditForm() {

@@ -138,7 +138,9 @@ public class DeviceView extends VerticalLayout {
 		Tab roomTab = new Tab("Raum");
 		searchTabs = new Tabs(idTab, nameTab, roomTab);
 		VerticalLayout searchComponent1 = new VerticalLayout(tfSearch, btnSearch);
-		VerticalLayout searchComponent2 = new VerticalLayout(new Label("Suchen nach:"), searchTabs);
+		Label label = new Label("Suchen nach:");
+		label.addComponentAsFirst(VaadinIcon.FILTER.create());
+		VerticalLayout searchComponent2 = new VerticalLayout(label, searchTabs);
 		return new HorizontalLayout(searchComponent1, searchComponent2);
 	}
 	

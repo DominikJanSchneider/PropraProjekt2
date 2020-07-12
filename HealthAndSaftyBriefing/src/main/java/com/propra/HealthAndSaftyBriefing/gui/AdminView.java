@@ -21,7 +21,6 @@ import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.notification.Notification;
@@ -62,10 +61,6 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 		btnLogout.getElement().getStyle().set("margin-left", "auto");
 		btnLogout.addClickListener(e -> logout());
 	    add(btnLogout);
-	    
-	    //Building header
-	  	Label header = new Label("Sicherheitsunterweisung am Institut für Werkstofftechnik und Ger\u00e4tezentrum MNaF");
-	  	add(header);
 	  	
 	    //MenuBar
 	    configureMenuBar();
@@ -80,20 +75,24 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	private void configureTabs() {
 		//personTab
 		Tab personTab = new Tab("Personen");
+		personTab.addComponentAsFirst(VaadinIcon.CHILD.create());
 		Div personPage = new Div(personView);
 			
 		//deviceTab
 		Tab deviceTab = new Tab("Ger\u00e4te");
+		deviceTab.addComponentAsFirst(VaadinIcon.AUTOMATION.create());
 		Div devicePage = new Div(deviceView);
 		devicePage.setVisible(false);
 			
 		//roomsTab
 		Tab roomsTab = new Tab("R\u00e4ume");
+		roomsTab.addComponentAsFirst(VaadinIcon.HOME.create());
 		Div roomsPage = new Div(roomsView);
 		roomsPage.setVisible(false);
 			
 		//dangerSubstTab
 		Tab dangerSubstTab = new Tab("Gefahrstoffe");
+		dangerSubstTab.addComponentAsFirst(VaadinIcon.BOMB.create());
 		Div dangerSubstPage = new Div(dangerSubstView);
 		dangerSubstPage.setVisible(false);
 
@@ -133,9 +132,12 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	private void configureMenuBar() {
 		menuBar = new MenuBar();
 		MenuItem fileMenu = menuBar.addItem("Datei");
+		fileMenu.addComponentAsFirst(VaadinIcon.FOLDER.create());
 		MenuItem editDataMenu = menuBar.addItem("Daten bearbeiten", e -> editDataPressed());
 		printMenu = menuBar.addItem("Drucken", e -> printPressed());
+		printMenu.addComponentAsFirst(VaadinIcon.PRINT.create());
 		MenuItem editUserMenu = menuBar.addItem("Benutzerverwaltung", e -> editUserPressed());
+		editUserMenu.addComponentAsFirst(VaadinIcon.GROUP.create());
 		SubMenu fileSubMenu = fileMenu.getSubMenu();
 		// Creating Download Database item
 		Anchor downloadLink = new Anchor(dbExporter.getResource(), "Datenbank Herunterladen");

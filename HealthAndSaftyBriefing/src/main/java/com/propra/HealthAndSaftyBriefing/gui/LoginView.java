@@ -3,13 +3,17 @@ package com.propra.HealthAndSaftyBriefing.gui;
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControl;
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
 import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
+import com.vaadin.flow.server.StreamResource;
 
 @PWA(name = "HealthAndSafetyBriefing", shortName = "HASB")
 @SuppressWarnings("serial")
@@ -24,13 +28,18 @@ public class LoginView extends FlexLayout {
 	public LoginView() {
 		accessControl = AccessControlFactory.getInstance().createAccessControl();
 		buildUI();
-		
-		
 	}
 	
 	private void buildUI() {
 		setSizeFull();
 		setClassName("login-view");
+		
+		//logo and header
+		StreamResource resource = new StreamResource("uni_logo.jpg", () -> getClass().getResourceAsStream("/images/uni_logo.jpg"));
+		Image image = new Image(resource, "Universität Siegen Logo");
+		image.setMaxWidth("100px");
+		Label header = new Label("Sicherheitsunterweisung am Institut für Werkstofftechnik und Ger\u00e4tezentrum MNaF");
+		header.addClassName("app-header");
 		
 		// login form, centered in the available part of the screen
 		LoginForm loginForm = new LoginForm();
@@ -45,7 +54,9 @@ public class LoginView extends FlexLayout {
 		centeringLayout.setAlignItems(Alignment.CENTER);
 		centeringLayout.add(loginForm);
 		
-		add(centeringLayout);
+		VerticalLayout components = new VerticalLayout(image, header, centeringLayout);
+		components.setHorizontalComponentAlignment(Alignment.CENTER, image, header);
+		add(components);
 	}
 	
 	// Translating the login to the german language
