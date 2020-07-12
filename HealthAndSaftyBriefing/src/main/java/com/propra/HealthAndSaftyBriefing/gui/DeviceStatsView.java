@@ -84,7 +84,9 @@ public class DeviceStatsView extends VerticalLayout implements HasUrlParameter<S
 		Tab lNameTab = new Tab("Name");
 		searchTabs = new Tabs(idTab, lNameTab);
 		VerticalLayout searchComponent1 = new VerticalLayout(tfSearch, btnSearch);
-		VerticalLayout searchComponent2 = new VerticalLayout(new Label("Suchen nach:"), searchTabs);
+		Label label = new Label("Suchen nach:");
+		label.addComponentAsFirst(VaadinIcon.FILTER.create());
+		VerticalLayout searchComponent2 = new VerticalLayout(label , searchTabs);
 		return new HorizontalLayout(searchComponent1, searchComponent2);
 	}
 	

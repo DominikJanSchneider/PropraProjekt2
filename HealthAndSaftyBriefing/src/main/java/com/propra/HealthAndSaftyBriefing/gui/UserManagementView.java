@@ -170,8 +170,12 @@ public class UserManagementView extends VerticalLayout{
 		Tab nameTab = new Tab("Name");
 		searchTabs = new Tabs(idTab, nameTab);
 		VerticalLayout searchComponent1 = new VerticalLayout(tfSearch, btnSearch);
-		VerticalLayout searchComponent2 = new VerticalLayout(new Label("Suchen nach:"), searchTabs);
-		VerticalLayout searchComponent3 = new VerticalLayout(new Label("Filter"), new HorizontalLayout(btnAll, btnAdmin, btnUser));
+		Label label = new Label("Suchen nach:");
+		label.addComponentAsFirst(VaadinIcon.FILTER.create());
+		VerticalLayout searchComponent2 = new VerticalLayout(label, searchTabs);
+		label = new Label("Filter");
+		label.addComponentAsFirst(VaadinIcon.FILTER.create());
+		VerticalLayout searchComponent3 = new VerticalLayout(label, new HorizontalLayout(btnAll, btnAdmin, btnUser));
 		return new HorizontalLayout(searchComponent1, searchComponent2, searchComponent3);
 	}
 

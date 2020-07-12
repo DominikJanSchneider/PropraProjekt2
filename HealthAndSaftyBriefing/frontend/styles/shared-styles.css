@@ -112,3 +112,8 @@ body {
 .Discontinued {
     color: #f54993;
 }
+
+.app-header {
+	font-size:30px;
+	margin-top: 2em;
+}
