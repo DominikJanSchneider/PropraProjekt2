@@ -2,8 +2,6 @@ package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -11,6 +9,7 @@ import java.util.stream.Stream;
 
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
 import com.propra.HealthAndSaftyBriefing.backend.data.Person;
+import com.propra.HealthAndSaftyBriefing.database.DBConnector;
 import com.propra.HealthAndSaftyBriefing.database.DBExporter;
 import com.propra.HealthAndSaftyBriefing.database.DBUploader;
 import com.vaadin.flow.component.AttachEvent;
@@ -20,7 +19,6 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -31,6 +29,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.tabs.Tabs.SelectedChangeEvent;
@@ -55,6 +54,7 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	private DangerSubstView dangerSubstView;
 	private Div pages;
 	private Dialog settingsDialog;
+	private Select<String> selDatabase;
 	
 	private DBUploader dbUploader = new DBUploader();
 	private DBExporter dbExporter = new DBExporter();
@@ -81,6 +81,7 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	   	configureTabs();
 	   	add(tabs);
 		add(pages);
+		System.out.println(DBConnector.getURLCore());
 	}
 	
 	
@@ -167,6 +168,7 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 		upload.setSizeFull();
 		MenuItem importMenu = fileSubMenu.addItem(upload);
 		MenuItem settingsMenu = menuBar.addItem("Einstellungen", e -> settingsPressed());
+		settingsMenu.addComponentAsFirst(VaadinIcon.COG.create()); //COG or SLIDERS
 	}
 	
 	private void configureSettingsMenu() {
@@ -178,17 +180,34 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 		 
 		 Label lblHeader = new Label("Einstellungen");
 		 Label lblSpace = new Label("");
-		 Label lblSelectDB = new Label("Wählen Sie die zu ladende Datenbank");
+		 Label lblSelectDB = new Label("Wählen Sie die zu ladende Datenbank aus");
 		 
-		 List<String> databases = new LinkedList<String>();
+		 selDatabase = new Select<String>(dbUploader.getUploadedFiles());
+		 selDatabase.setSizeFull();
 		 
+		 Button btnLoadDB = new Button("Datenbank Laden");
+		 btnLoadDB.addClickListener(e -> loadDBPressed());
 		 
-		 ComboBox cbDatabase = new ComboBox();
-		 dialogLayout.add(lblHeader, lblSpace, lblSelectDB, cbDatabase);
+		 Button btnLoadDefaultDB = new Button("Standarddatenbank Laden");
+		 btnLoadDefaultDB.addClickListener(e -> loadDefaultDBPressed());
 		 
+		 dialogLayout.add(lblHeader, lblSpace, lblSelectDB, selDatabase, btnLoadDB, btnLoadDefaultDB);
 		 settingsDialog.add(dialogLayout);
 		 
 		 settingsDialog.open();
+	}
+	
+	private void loadDBPressed() {
+		String selFile = selDatabase.getValue();
+		System.out.println(selFile);
+		DBConnector.setURLCore("jdbc:sqlite:src/main/resources/upload/"+selFile);
+		System.out.println(DBConnector.getURLCore());
+		settingsDialog.close();
+	}
+	
+	private void loadDefaultDBPressed() {
+		DBConnector.setURLCore("jdbc:sqlite:src/main/resources/database/CoreDatabase.db");
+		settingsDialog.close();
 	}
 
 	private void settingsPressed() {

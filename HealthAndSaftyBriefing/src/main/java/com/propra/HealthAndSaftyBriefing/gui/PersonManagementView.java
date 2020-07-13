@@ -32,14 +32,7 @@ public class PersonManagementView extends VerticalLayout {
 	private PersonAddForm addForm;
 	private PersonEditForm editForm;
 	private Button btnBack;
-	//TODO
-	private SingleSelect<Grid<Person>, Person> selectedPerson {
-		@Override
-		public void selectionChange(SelectionEvent<Grid<Person>,Person> event) {
-			if (event.isFromClient()) {
-				showEditForm();
-			}
-	};
+	private SingleSelect<Grid<Person>, Person> selectedPerson;
 
 	public PersonManagementView() {
 
@@ -211,7 +204,7 @@ public class PersonManagementView extends VerticalLayout {
 						.setKey("eMail")
 						.setSortable(true);
 		}
-	}
+	
 
 	public void updatePersonGrid() {
 		List<Person> persons = personM.getPersonsData();

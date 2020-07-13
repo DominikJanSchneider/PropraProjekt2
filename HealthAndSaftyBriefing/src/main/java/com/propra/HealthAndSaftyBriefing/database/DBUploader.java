@@ -3,7 +3,9 @@ package com.propra.HealthAndSaftyBriefing.database;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.vaadin.flow.component.upload.Receiver;
 
@@ -29,5 +31,13 @@ public class DBUploader implements Receiver {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public String[] getUploadedFiles() {
+		String[] filenames;
+		File uploadPath = new File(path);
+		filenames = uploadPath.list();
+		
+		return filenames;
 	}
 }

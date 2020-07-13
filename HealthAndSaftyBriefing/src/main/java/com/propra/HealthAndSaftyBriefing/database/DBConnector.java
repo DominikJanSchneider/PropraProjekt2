@@ -46,11 +46,11 @@ public class DBConnector {
 	}
 	
 	//Getter and Setter
-			public static String getURLCore() {
-				return urlCore;
-			}
+	public static String getURLCore() {
+		return urlCore;
+	}
 			
-			public static void setURLCore(String path) {
-				urlCore = path;
-			}
+	public static void setURLCore(String path) {
+		urlCore = path;
+	}
 }
