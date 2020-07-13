@@ -164,4 +164,9 @@ public class DeviceView extends VerticalLayout {
 				break;
 		}
 	}
+	
+	public void reloadGrid() {
+		List<Device> devices = deviceM.getDevicesData();
+		deviceGrid.setItems(devices);
+	}
 }

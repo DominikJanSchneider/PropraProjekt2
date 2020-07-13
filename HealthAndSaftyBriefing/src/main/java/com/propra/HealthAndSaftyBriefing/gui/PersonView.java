@@ -281,4 +281,9 @@ public class PersonView extends VerticalLayout {
 		String searchTxt = tfSearch.getValue();
 		updatePersonGridByName(searchTxt);
 	}
+	
+	public void reloadGrid() {
+		List<Person> persons = personM.getPersonsData();
+		personGrid.setItems(persons);
+	}
 }
