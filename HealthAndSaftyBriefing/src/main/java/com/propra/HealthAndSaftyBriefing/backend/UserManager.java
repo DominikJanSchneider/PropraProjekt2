@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.propra.HealthAndSaftyBriefing.backend.data.Person;
 import com.propra.HealthAndSaftyBriefing.backend.data.User;
 import com.propra.HealthAndSaftyBriefing.database.DBConnector;
 import com.propra.HealthAndSaftyBriefing.security.pwEncrypt;
@@ -94,44 +95,42 @@ public class UserManager {
 //		}
 //	}
 	
-	public String[] getUserData(String username) {
+	public Person getUserData(String username) {
 		String tableName = "Benutzer";
-		String[] userData;
 		Connection con = DBConnector.connectLogin();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		Person person = null;
 		try {
-			con.prepareStatement("ATTACH DATABASE 'database/CoreDatabase.db' AS p").execute(); // Attach CoreDatabase to UserDatabase
-			pstmt = con.prepareStatement("SELECT * FROM p.Personen WHERE 'E-Mail Adresse' = '"+username+"'");
-			rs = pstmt.executeQuery();
-			userData = new String[rs.getMetaData().getColumnCount()];
-			pstmt.close();
+			con.prepareStatement("ATTACH DATABASE '"+DBConnector.getURLCore().substring(12)+"' AS p").execute(); // Attach CoreDatabase to UserDatabase
 			pstmt = con.prepareStatement("SELECT * FROM "+tableName+" u join p.Personen on u.Benutzername = p.Personen.'E-Mail Adresse' WHERE Benutzername='"+username+"';"); //join user with his person data
 			rs = pstmt.executeQuery();
-			
-			userData[0] = rs.getString("ID");
-			userData[1] = rs.getString("Name");
-			userData[2] = rs.getString("Vorname");
-			userData[3] = rs.getString("Datum");
-			userData[4] = rs.getString("Ifwt");
-			userData[5] = rs.getString("MNaF");
-			userData[6] = rs.getString("Intern");
-			userData[7] = rs.getString("Beschaeftigungsverhaeltnis");
-			userData[8] = rs.getString("Beginn");
-			userData[9] = rs.getString("Ende");
-			userData[10] = rs.getString("Extern");
-			userData[11] = rs.getString("E-Mail Adresse");
-			userData[12] = rs.getString("Allgemeine Unterweisung");
-			userData[13] = rs.getString("Laboreinrichtungen");
-			userData[14] = rs.getString("Gefahrstoffe");
-			userData[15] = rs.getString("LabKommentar");
-			userData[16] = rs.getString("GefKommentar");
-			
-			return userData;
+			while (rs.next()) {
+				person = new Person(
+							rs.getInt("ID"),
+							rs.getString("Name"),
+							rs.getString("Vorname"),
+							rs.getString("Datum"),
+							rs.getString("Ifwt"),
+							rs.getString("MNaF"),
+							rs.getString("Intern"),
+							rs.getString("Extern"),
+							rs.getString("Beschaeftigungsverhaeltnis"),
+							rs.getString("Beginn"),
+							rs.getString("Ende"),
+							rs.getString("E-Mail Adresse"),
+							rs.getString("Allgemeine Unterweisung"),
+							rs.getString("Laboreinrichtungen"),
+							rs.getString("Gefahrstoffe"),
+							rs.getString("LabKommentar"),
+							rs.getString("GefKommentar")
+						);
+			}
+			return person;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			return person;
 		}
 		finally {
 			try {
@@ -181,7 +180,115 @@ public class UserManager {
       }
 	}
 	
-	public static void addUser(String username, String password, String role) throws NoSuchAlgorithmException {
+	public List<User> getUserByID(int id) {
+		String tableName = "Benutzer";
+		Connection con = DBConnector.connectLogin();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<User> list = new LinkedList<User>();
+		try {
+			pstmt = con.prepareStatement("SELECT * FROM "+tableName+ " WHERE ID='"+id+"'");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				User user = new User(
+							rs.getInt("ID"),
+							rs.getString("Benutzername"),
+							"Passwort gesetzt",
+							rs.getString("Rolle")
+						);
+				list.add(user);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return list;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
+	
+	public List<User> getUserByName(String name) {
+		String tableName = "Benutzer";
+		Connection con = DBConnector.connectLogin();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<User> list = new LinkedList<User>();
+		try {
+			pstmt = con.prepareStatement("SELECT * FROM "+tableName+ " WHERE Benutzername LIKE '%"+name+"%'");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				User user = new User(
+							rs.getInt("ID"),
+							rs.getString("Benutzername"),
+							"Passwort gesetzt",
+							rs.getString("Rolle")
+						);
+				list.add(user);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return list;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
+	
+	public List<User> getUserByRole(String role) {
+		String tableName = "Benutzer";
+		Connection con = DBConnector.connectLogin();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<User> list = new LinkedList<User>();
+		try {
+			pstmt = con.prepareStatement("SELECT * FROM "+tableName+ " WHERE Rolle='"+role+"'");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				User user = new User(
+							rs.getInt("ID"),
+							rs.getString("Benutzername"),
+							"Passwort gesetzt",
+							rs.getString("Rolle")
+						);
+				list.add(user);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return list;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
+	
+	public void addUser(String username, String password, String role) throws NoSuchAlgorithmException {
 		String tableName = "Benutzer";
 		Connection con = DBConnector.connectLogin();
 		PreparedStatement pstmt = null;
@@ -200,7 +307,9 @@ public class UserManager {
 			
 				
 			}catch (SQLException e) {
-			e.printStackTrace();
+				System.out.println(e.getMessage());
+				System.out.println(e.getErrorCode());
+				e.printStackTrace();
 			}
 		finally {
 			try {
@@ -247,7 +356,7 @@ public class UserManager {
       }
 	}
 	
-	public static void editUser(int id, String username, String password, String role) throws NoSuchAlgorithmException {
+	public void editUser(int id, String username, String password, String role) throws NoSuchAlgorithmException {
 		String tableName = "Benutzer";
 		Connection con = DBConnector.connectLogin();
 		PreparedStatement pstmt = null;
@@ -274,7 +383,36 @@ public class UserManager {
       }
 	}
 	
-
+	public boolean existsUser(String name) {
+		String tableName = "Benutzer";
+		Connection con = DBConnector.connectLogin();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = con.prepareStatement("SELECT * FROM "+tableName+" WHERE Benutzername='"+name+"'");
+			rs = pstmt.executeQuery();
+			if(rs.isAfterLast()) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
 }
 
 

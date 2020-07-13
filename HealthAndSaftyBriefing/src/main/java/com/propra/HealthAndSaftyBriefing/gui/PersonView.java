@@ -18,7 +18,8 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 
 import com.vaadin.flow.component.html.Label;
-
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
@@ -60,12 +61,11 @@ public class PersonView extends VerticalLayout {
         add(personGrid);
         updatePersonGrid();
 
-        configureTextAreas();
-        HorizontalLayout textAreas = configureTextAreas();
-        add(textAreas);
+        HorizontalLayout briefingInformationComponent = configureBriefingInformationComponent();
+        add(briefingInformationComponent);
 	}
 	
-	private HorizontalLayout configureTextAreas() {
+	private HorizontalLayout configureBriefingInformationComponent() {
 		taGeneralInstruction = new TextArea();
         taLabSetup = new TextArea();
         taDangerSubst = new TextArea();
@@ -76,17 +76,16 @@ public class PersonView extends VerticalLayout {
         taGeneralInstruction.setHeight(height);
         taGeneralInstruction.setWidth(width);
         taGeneralInstruction.setReadOnly(true);
+        taGeneralInstruction.setLabel("Allgemeine Unterweisung (Datum s.o.)");
         taLabSetup.setHeight(height);
         taLabSetup.setWidth(width);
         taLabSetup.setReadOnly(true);
+        taLabSetup.setLabel("Laboreinrichtungen");
         taDangerSubst.setHeight(height);
         taDangerSubst.setWidth(width);
         taDangerSubst.setReadOnly(true);
-        VerticalLayout gInstrVL = new VerticalLayout(new Label("Allgemeine Unterweisung (Datum s.o.)"), taGeneralInstruction);
-        VerticalLayout labSetupVL = new VerticalLayout(new Label("Laboreinrichtungen"), taLabSetup);
-        VerticalLayout dangerSubstVL = new VerticalLayout(new Label("Gefahrstoffe"), taDangerSubst);
-        
-		return new HorizontalLayout(gInstrVL, labSetupVL, dangerSubstVL);
+        taDangerSubst.setLabel("Gefahrstoffe");
+		return new HorizontalLayout(taGeneralInstruction, taLabSetup, taDangerSubst);
 	}
 
 	private void configurePersonGrid() {
@@ -154,13 +153,13 @@ public class PersonView extends VerticalLayout {
 
 			@Override
 			public void selectionChange(SelectionEvent<Grid<Person>,Person> event) {
-				updateTextAreas();
+				updateBriefingInformationComponent();
 			}
         	
         });
 	}
 	
-	protected void updateTextAreas() {
+	protected void updateBriefingInformationComponent() {
 		Set<Person> personSet = personGrid.getSelectedItems();
 		Iterator<Person> it = personSet.iterator();
 		if(it.hasNext()) {
@@ -177,6 +176,7 @@ public class PersonView extends VerticalLayout {
 	private Component configureSearchComponents() {
 		tfSearch = new TextField();
 		btnSearch = new Button("Suchen");
+		btnSearch.setIcon(VaadinIcon.SEARCH.create());
 		btnSearch.addClickListener(e -> searchPressed());
 		tfSearch.setWidth("200px");
 		tfSearch.setPlaceholder("Suche nach Name");
@@ -211,12 +211,16 @@ public class PersonView extends VerticalLayout {
 		VerticalLayout searchComponent1 = new VerticalLayout(tfSearch, btnSearch);
 		Label lbAll = new Label("Alle anzeigen");
 		lbAll.setWidth("100px");
-		VerticalLayout searchComponent2 = new VerticalLayout(lbAll , btnAll);
+		VerticalLayout searchComponent2 = new VerticalLayout(lbAll , new HorizontalLayout(btnAll));
 		VerticalLayout searchComponent3 = new VerticalLayout(new Label("Institut für Werkstoffstechnik (Ifwt)"), new HorizontalLayout(btnIfwt, btnLMN, btnLMW, btnLOT, btnLWF));
 		VerticalLayout searchComponent4 = new VerticalLayout(new Label("Ger\u00e4tezentrum"), new HorizontalLayout(btnMNaF));
 		VerticalLayout searchComponent5 = new VerticalLayout(new Label("Intern"), new HorizontalLayout(btnIntern));
 		VerticalLayout searchComponent6 = new VerticalLayout(new Label("Extern"), new HorizontalLayout(btnExtern));
-		HorizontalLayout searchComponents = new HorizontalLayout(searchComponent1, searchComponent2, searchComponent3, searchComponent4, searchComponent5, searchComponent6);
+		Label label = new Label("Filter:");
+		label.addComponentAsFirst(VaadinIcon.FILTER.create());
+		label.setSizeFull();
+		HorizontalLayout searchComponents = new HorizontalLayout(searchComponent1, label, searchComponent2, searchComponent3, searchComponent4, searchComponent5, searchComponent6);
+		searchComponents.setVerticalComponentAlignment(FlexComponent.Alignment.CENTER, label);
 		return searchComponents;
 	}
 	

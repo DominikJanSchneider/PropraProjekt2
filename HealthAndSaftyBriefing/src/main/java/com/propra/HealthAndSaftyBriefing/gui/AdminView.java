@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
 import com.propra.HealthAndSaftyBriefing.backend.data.Person;
+import com.propra.HealthAndSaftyBriefing.database.DBExporter;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -18,8 +19,8 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.notification.Notification;
@@ -46,6 +47,8 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	private DangerSubstView dangerSubstView;
 	private Div pages;
 	
+	private DBExporter dbExporter = new DBExporter();
+	
 	public AdminView() {
 
 	    personView = new PersonView();
@@ -58,10 +61,6 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 		btnLogout.getElement().getStyle().set("margin-left", "auto");
 		btnLogout.addClickListener(e -> logout());
 	    add(btnLogout);
-	    
-	    //Building header
-	  	Label header = new Label("Sicherheitsunterweisung am Institut für Werkstofftechnik und Ger\u00e4tezentrum MNaF");
-	  	add(header);
 	  	
 	    //MenuBar
 	    configureMenuBar();
@@ -76,20 +75,24 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	private void configureTabs() {
 		//personTab
 		Tab personTab = new Tab("Personen");
+		personTab.addComponentAsFirst(VaadinIcon.CHILD.create());
 		Div personPage = new Div(personView);
 			
 		//deviceTab
 		Tab deviceTab = new Tab("Ger\u00e4te");
+		deviceTab.addComponentAsFirst(VaadinIcon.AUTOMATION.create());
 		Div devicePage = new Div(deviceView);
 		devicePage.setVisible(false);
 			
 		//roomsTab
 		Tab roomsTab = new Tab("R\u00e4ume");
+		roomsTab.addComponentAsFirst(VaadinIcon.HOME.create());
 		Div roomsPage = new Div(roomsView);
 		roomsPage.setVisible(false);
 			
 		//dangerSubstTab
 		Tab dangerSubstTab = new Tab("Gefahrstoffe");
+		dangerSubstTab.addComponentAsFirst(VaadinIcon.BOMB.create());
 		Div dangerSubstPage = new Div(dangerSubstView);
 		dangerSubstPage.setVisible(false);
 
@@ -129,13 +132,23 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	private void configureMenuBar() {
 		menuBar = new MenuBar();
 		MenuItem fileMenu = menuBar.addItem("Datei");
+		fileMenu.addComponentAsFirst(VaadinIcon.FOLDER.create());
 		MenuItem editDataMenu = menuBar.addItem("Daten bearbeiten", e -> editDataPressed());
 		printMenu = menuBar.addItem("Drucken", e -> printPressed());
+		printMenu.addComponentAsFirst(VaadinIcon.PRINT.create());
 		MenuItem editUserMenu = menuBar.addItem("Benutzerverwaltung", e -> editUserPressed());
+		editUserMenu.addComponentAsFirst(VaadinIcon.GROUP.create());
 		SubMenu fileSubMenu = fileMenu.getSubMenu();
-		MenuItem saveMenu = fileSubMenu.addItem("Datenbank Speichern");
+		// Creating Download Database item
+		Anchor downloadLink = new Anchor(dbExporter.getResource(), "Datenbank Herunterladen");
+		downloadLink.getElement().setAttribute("download", true);
+		MenuItem saveMenu = fileSubMenu.addItem(downloadLink);
+		// Creating Import Database item
 		MenuItem importMenu = fileSubMenu.addItem("Datenbank Importieren");
-		MenuItem exportMenu = fileSubMenu.addItem("Datenbank als CSV exportieren");
+		// Creating Export As CSV item
+		downloadLink = new Anchor(dbExporter.getCSVResource(), "Datenbank als CSV Exportieren");
+		downloadLink.getElement().setAttribute("download", true);
+		MenuItem exportMenu = fileSubMenu.addItem(downloadLink);
 	}
 
 	private void editDataPressed() {

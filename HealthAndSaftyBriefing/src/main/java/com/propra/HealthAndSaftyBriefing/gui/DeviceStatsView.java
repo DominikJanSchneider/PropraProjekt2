@@ -15,6 +15,7 @@ import com.vaadin.flow.component.FocusNotifier.FocusEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
@@ -40,6 +41,7 @@ public class DeviceStatsView extends VerticalLayout implements HasUrlParameter<S
 		deviceStatsM = new DeviceStatsManager();
 		
 		btnBack = new Button("Zurück", e -> backButtonPressed());
+		btnBack.setIcon(VaadinIcon.ARROW_BACKWARD.create());
 		add(btnBack);
 		//Building searchComponents
 		Component searchComponents = configureSearchComponents();
@@ -57,6 +59,7 @@ public class DeviceStatsView extends VerticalLayout implements HasUrlParameter<S
 	private Component configureSearchComponents() {
 		tfSearch = new TextField();
 		btnSearch = new Button("Suchen");
+		btnSearch.setIcon(VaadinIcon.SEARCH.create());
 		btnSearch.addClickListener(e -> searchPressed());
 		tfSearch.setWidth("200px");
 		tfSearch.setPlaceholder("Suche");
@@ -81,7 +84,9 @@ public class DeviceStatsView extends VerticalLayout implements HasUrlParameter<S
 		Tab lNameTab = new Tab("Name");
 		searchTabs = new Tabs(idTab, lNameTab);
 		VerticalLayout searchComponent1 = new VerticalLayout(tfSearch, btnSearch);
-		VerticalLayout searchComponent2 = new VerticalLayout(new Label("Suchen nach:"), searchTabs);
+		Label label = new Label("Suchen nach:");
+		label.addComponentAsFirst(VaadinIcon.FILTER.create());
+		VerticalLayout searchComponent2 = new VerticalLayout(label , searchTabs);
 		return new HorizontalLayout(searchComponent1, searchComponent2);
 	}
 	

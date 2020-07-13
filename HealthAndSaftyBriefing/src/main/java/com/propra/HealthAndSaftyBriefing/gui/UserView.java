@@ -3,16 +3,18 @@ package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControl;
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
 import com.propra.HealthAndSaftyBriefing.backend.DeviceManager;
 import com.propra.HealthAndSaftyBriefing.backend.UserManager;
 import com.propra.HealthAndSaftyBriefing.backend.data.AssignedDevice;
+import com.propra.HealthAndSaftyBriefing.backend.data.Person;
 import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.details.Details;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.html.Label;
@@ -20,6 +22,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -38,107 +41,111 @@ public class UserView extends VerticalLayout {
 	private DeviceManager deviceM = new DeviceManager();
 	private AccessControl accessControl; 
 	
+	private TextArea taGeneralInstruction;
+	private TextArea taLabSetup;
+	private TextArea taDangerSubst;
+	private TextField tfDate;
+	private TextField tfIfwt;
+	private TextField tfMNaF;
+	private TextField tfIntern;
+	private TextField tfExtern;
+	private TextField tfEmployment;
+	private TextField tfBegin;
+	private TextField tfEnd;
+	private TextField tfEMail;
+	private Person userData;
+	
 	public UserView() {
+		accessControl = AccessControlFactory.getInstance().createAccessControl();
+		userData = userM.getUserData(accessControl.getPrincipalName());
 		
+		//logout button
 		Button btnLogout = new Button("Logout");
 		btnLogout.setIcon(VaadinIcon.SIGN_OUT.create());
 		btnLogout.getElement().getStyle().set("margin-left", "auto");
 		btnLogout.addClickListener(e -> logout());
 		
+		//label with name of current user
+		lblUser = new Label("Benutzer: "+ userData.getFName()+" "+userData.getLName());
+		lblUser.setHeight("50px");
+		
+		//Building and updating of ui
+		add(btnLogout, lblUser, configureUserInfoComponent(), configureBriefingInformationComponent(), configureTimeSettingsComponent());
+		updateUserDeviceGrid();
+		updateUserInfo();
+		
+	}
+	
+	private Component configureTimeSettingsComponent() {
 		configureUserDeviceGrid();
-		
-		add(btnLogout);
-		add(configureUserInfo());
-		
-		HorizontalLayout usageTimeLayout = new HorizontalLayout();
 		tfUsageTime = new TextField();
 		tfUsageTime.setPlaceholder("Nutzungszeit");
 		tfUsageTime.setClearButtonVisible(true);
 		tfUsageTime.addKeyPressListener(Key.ENTER, e -> setUsageTime());
 		btnSetUsageTime = new Button("Zeit Setzen");
 		btnSetUsageTime.addClickListener(e -> setUsageTime());
-		usageTimeLayout.add(tfUsageTime, btnSetUsageTime);
-		
-		add(usageTimeLayout);
-		add(userDeviceGrid);
-		updateUserDeviceGrid();
-		
+		HorizontalLayout usageTimeLayout = new HorizontalLayout(tfUsageTime, btnSetUsageTime);
+		VerticalLayout timeSettingsContent = new VerticalLayout(usageTimeLayout, userDeviceGrid);
+		Details timeSettings = new Details("Nutzungszeiteinstellungen", timeSettingsContent);
+		return timeSettings;
 	}
 	
-	private VerticalLayout configureUserInfo() {
-		accessControl = AccessControlFactory.getInstance().createAccessControl();
-		String[] userData = userM.getUserData(accessControl.getPrincipalName());
+	private Component configureUserInfoComponent() {
+		tfDate = new TextField();
+		tfDate.setLabel("Unterweisungsdatum");
+		tfDate.setReadOnly(true);
 		
-		VerticalLayout userInfo = new VerticalLayout();
+		tfIfwt = new TextField();
+		tfIfwt.setLabel("Ifwt");
+		tfIfwt.setReadOnly(true);
 		
-		lblUser = new Label("Benutzer: "+ userData[2]+" "+userData[1]);
-		lblUser.setHeight("50px");
+		tfMNaF = new TextField();
+		tfMNaF.setLabel("MNaF");
+		tfMNaF.setReadOnly(true);
 		
-		// Creating horizontal layout where user informations are stored
-		HorizontalLayout userInfoHead = new HorizontalLayout();
-		Label lblInstructionDate = new Label("Unterweisungsdatum");
-		lblInstructionDate.setWidth("200px");
-		Label lblIfwt = new Label("Ifwt");
-		lblIfwt.setWidth("100px");
-		Label lblMnaf = new Label("MNaF");
-		lblMnaf.setWidth("100px");
-		Label lblIntern = new Label("Intern");
-		lblIntern.setWidth("100px");
-		Label lblEmploymentType = new Label("Besch\u00e4ftigungsverh\u00e4ltnis");
-		lblEmploymentType.setWidth("200px");
-		Label lblBegin = new Label("Beginn");
-		lblBegin.setWidth("100px");
-		Label lblEnd = new Label("Ende");
-		lblEnd.setWidth("100px");
-		Label lblExtern = new Label("Extern");
-		lblExtern.setWidth("200px");
-		Label lblEmail = new Label("E-Mail Adresse");
-		lblEmail.setWidth("250px");
-		userInfoHead.add(lblInstructionDate, lblIfwt, lblMnaf, lblIntern, lblEmploymentType, lblBegin, lblEnd, lblExtern, lblEmail);
+		tfIntern = new TextField();
+		tfIntern.setLabel("Intern");
+		tfIntern.setReadOnly(true);
 		
-		HorizontalLayout userInfoContent = new HorizontalLayout();
-		lblInstructionDate = new Label(userData[3]);
-		lblInstructionDate.setWidth("200px");
-		lblIfwt = new Label(userData[4]);
-		lblIfwt.setWidth("100px");
-		lblMnaf = new Label(userData[5]);
-		lblMnaf.setWidth("100px");
-		lblIntern = new Label(userData[6]);
-		lblIntern.setWidth("100px");
-		lblEmploymentType = new Label(userData[7]);
-		lblEmploymentType.setWidth("200px");
-		lblBegin = new Label(userData[8]);
-		lblBegin.setWidth("100px");
-		lblEnd = new Label(userData[9]);
-		lblEnd.setWidth("100px");
-		lblExtern = new Label(userData[10]);
-		lblExtern.setWidth("200px");
-		lblEmail = new Label(userData[11]);
-		lblEmail.setWidth("300px");
-		userInfoContent.add(lblInstructionDate, lblIfwt, lblMnaf, lblIntern, lblEmploymentType, lblBegin, lblEnd, lblExtern, lblEmail);
+		tfExtern = new TextField();
+		tfExtern.setLabel("Extern");
+		tfExtern.setReadOnly(true);
 		
-		Label lblSpace = new Label("");
-		lblSpace.setHeight("50px");
+		tfEmployment = new TextField();
+		tfEmployment.setLabel("Beschäftigungverhältnis");
+		tfEmployment.setReadOnly(true);
 		
-		Label lblGeneralInstruction = new Label("Allgemeine Unterweisungen");
-		lblGeneralInstruction.setWidth("400px");
-		Label lblGeneralInstructionContent = new Label(userData[12].toString());
-		lblGeneralInstructionContent.setWidth("400px");
+		tfBegin = new TextField();
+		tfBegin.setLabel("Beginn");
+		tfBegin.setReadOnly(true);
 		
-		userInfo.add(lblUser, userInfoHead, userInfoContent, lblSpace, lblGeneralInstruction, lblGeneralInstructionContent);
+		tfEnd = new TextField();
+		tfEnd.setLabel("Ende");
+		tfEnd.setReadOnly(true);
 		
+		tfEMail = new TextField();
+		tfEMail.setLabel("E-Mail-Adresse");
+		tfEMail.setReadOnly(true);
+		tfEMail.setWidth("350px");
+		
+		VerticalLayout userInfoContent = new VerticalLayout(
+														tfDate, 
+														new HorizontalLayout(tfIfwt, tfMNaF, tfIntern, tfExtern), 
+														new HorizontalLayout(tfEmployment, tfBegin, tfEnd), 
+														tfEMail
+													);
+		//VerticalLayout userInfoContent = new VerticalLayout(lblUser
+		Details userInfo = new Details("Allgeimene Benutzerinformationen", userInfoContent);
 		return userInfo;
 	}
 	
 	public void configureUserDeviceGrid() {
-		accessControl = AccessControlFactory.getInstance().createAccessControl();
-		
 		userDeviceGrid = new Grid<>();
 		userDeviceGrid.setSelectionMode(SelectionMode.SINGLE);
-//		userDeviceGrid.addColumn(AssignedDevice::getId)
-//						.setHeader("ID")
-//						.setKey("id")
-//						.setSortable(true);
+		userDeviceGrid.addColumn(AssignedDevice::getId)
+						.setHeader("Ger\u00e4teID")
+						.setKey("id")
+						.setSortable(true);
 		userDeviceGrid.addColumn(AssignedDevice::getName)
 						.setHeader("Ger\u00e4t")
 						.setKey("name")
@@ -155,23 +162,60 @@ public class UserView extends VerticalLayout {
 						.setHeader("Nutzungszeit")
 						.setKey("usageTime")
 						.setSortable(true);
+		userDeviceGrid.setWidth("1200px");
+	}
+	
+	private Component configureBriefingInformationComponent() {
+		taGeneralInstruction = new TextArea();
+		taLabSetup = new TextArea();
+        taDangerSubst = new TextArea();
+        
+        String height = "150px";
+        String width = "400px";
+        
+        taGeneralInstruction.setHeight(height);
+        taGeneralInstruction.setWidth(width);
+        taGeneralInstruction.setReadOnly(true);
+        taGeneralInstruction.setLabel("Allgemeine Unterweisung");
+        taLabSetup.setHeight(height);
+        taLabSetup.setWidth(width);
+        taLabSetup.setReadOnly(true);
+        taLabSetup.setLabel("Laboreinrichtungen");
+        taDangerSubst.setHeight(height);
+        taDangerSubst.setWidth(width);
+        taDangerSubst.setReadOnly(true);
+        taDangerSubst.setLabel("Gefahrstoffe");
+        HorizontalLayout briefingInformationContent = new HorizontalLayout(taGeneralInstruction, taLabSetup, taDangerSubst);
+        Details briefingInformation = new Details("Unterweisungsinformationen", briefingInformationContent);
+		return briefingInformation;
+	}
+	
+	private void updateUserInfo() {
+		tfDate.setValue(userData.getDate());
+		tfIfwt.setValue(userData.getIfwt());
+		tfMNaF.setValue(userData.getMNaF());
+		tfIntern.setValue(userData.getIntern());
+		tfExtern.setValue(userData.getExtern());
+		tfEmployment.setValue(userData.getEmployment());
+		tfBegin.setValue(userData.getBegin());
+		tfEnd.setValue(userData.getEnd());
+		tfEMail.setValue(userData.getEMail());
+		taGeneralInstruction.setValue(userData.getGenInstr());
+		taLabSetup.setValue(userData.getLabSetup());
+		taDangerSubst.setValue(userData.getDangerSubsts());
 	}
 	
 	private void updateUserDeviceGrid() {
-		accessControl = AccessControlFactory.getInstance().createAccessControl();
-		String[] userData = userM.getUserData(accessControl.getPrincipalName());
-		
-		List<AssignedDevice> devices = deviceM.getAssignedDevices(Integer.parseInt(userData[0]));
+		userData = userM.getUserData(accessControl.getPrincipalName());
+		List<AssignedDevice> devices = deviceM.getAssignedDevices(userData.getId());
 		userDeviceGrid.setItems(devices);
 	}
 	
 	private void setUsageTime() {
 		try {
-			accessControl = AccessControlFactory.getInstance().createAccessControl();
-			int userID = Integer.parseInt(userM.getUserData(accessControl.getPrincipalName())[0]);
+			int userID = userData.getId();
 			int selectedDevice = userDeviceGrid.getSelectionModel().getFirstSelectedItem().get().getId();
 			double usageTime = Double.parseDouble(tfUsageTime.getValue());
-			
 			deviceM.setUsageTime(selectedDevice, userID, usageTime);
 			updateUserDeviceGrid();
 		} catch (NoSuchElementException e) {
@@ -180,7 +224,7 @@ public class UserView extends VerticalLayout {
 	}
 	
 	private void logout() {
-        AccessControlFactory.getInstance().createAccessControl().signOut();
+       accessControl.signOut();
     }
 	
 	@Override 
