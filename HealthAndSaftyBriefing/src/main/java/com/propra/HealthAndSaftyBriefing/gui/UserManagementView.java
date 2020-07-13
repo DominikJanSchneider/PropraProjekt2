@@ -2,6 +2,13 @@ package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+
+
+
+import javax.swing.SingleSelectionModel;
+import com.vaadin.flow.component.ComponentEvent;
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.UI;
 import com.propra.HealthAndSaftyBriefing.backend.UserManager;
 import com.propra.HealthAndSaftyBriefing.backend.data.User;
 import com.vaadin.flow.component.Component;
@@ -36,6 +43,7 @@ import com.vaadin.flow.router.Route;
 @SuppressWarnings("serial")
 public class UserManagementView extends VerticalLayout{
 	
+
 	private Grid<User> userGrid;
 	private UserManager userM;
 	private Button btnAddUser;
@@ -51,6 +59,7 @@ public class UserManagementView extends VerticalLayout{
 	
 	protected ShortcutRegistration shortReg;
 	private Tabs searchTabs;
+
 	
 	public UserManagementView() {
 		userM = new UserManager();
@@ -67,8 +76,10 @@ public class UserManagementView extends VerticalLayout{
 		
 		//btnBack
 		btnBack = new Button("Zurück");
+
 		btnBack.setIcon(VaadinIcon.ARROW_BACKWARD.create());
 		btnBack.addClickListener(e -> { UI.getCurrent().navigate("AdminView");});
+
 		
 		//addUser
 		btnAddUser = new Button("Neuen Nutzer anlegen");

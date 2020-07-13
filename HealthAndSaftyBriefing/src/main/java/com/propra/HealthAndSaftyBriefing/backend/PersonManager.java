@@ -1,5 +1,6 @@
 package com.propra.HealthAndSaftyBriefing.backend;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -547,5 +548,108 @@ public class PersonManager {
 			}
 			DBConnector.deconnect();
       }
+	}
+	
+	public void deletePerson(int id) {
+		String tableName = "Personen";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+		try {
+
+			pstmt = con.prepareStatement("DELETE FROM " + tableName + " WHERE ID =" + id);
+			con.setAutoCommit(false);
+			pstmt.execute();
+			pstmt.close();
+			con.commit();
+			
+			pstmt = con.prepareStatement("UPDATE sqlite_sequence SET seq='"+(id-1)+"' WHERE name='Personen';");
+			con.setAutoCommit(false);
+			pstmt.executeUpdate();
+			con.commit();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+		}
+	}
+	
+	public void editPerson(int id, String name, String vorname, String datum, String ifwt, String mnaf, String intern,
+			String extern, String bv, String beginn, String ende, String email, String gs, String lk, String gk)
+			throws NoSuchAlgorithmException {
+		String tableName = "Personen";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+
+		try {
+			pstmt = con.prepareStatement("UPDATE " + tableName + " SET Name='" + name + "', Vorname='" + vorname
+					+ "' ,Datum= '" + datum + "', Ifwt='" + ifwt + "', MNaF='" + mnaf + "', Intern='" + intern
+					+ "', Extern='" + extern + "', Beschaeftigungsverhaeltnis='" + bv + "', Beginn='" + beginn
+					+ "', Ende='" + ende + "', 'E-Mail Adresse'='" + email + "', 'Allgemeine Unterweisung'='" + gs
+					+ "', LabKommentar='" + lk + "', GefKommentar='" + gk + "' WHERE ID=" + id);
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+		}
+	}
+	
+	public void addPerson(String name, String vorname, String datum, String ifwt, String mnaf, String intern,
+			String extern, String bv, String beginn, String ende, String email, String au, String lk, String gk)
+			throws NoSuchAlgorithmException {
+		String tableName = "Personen";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+
+		try {
+			pstmt = con.prepareStatement("INSERT INTO " + tableName
+					+ "(Name, Vorname, Datum, Ifwt, MNaF, Intern, Extern, Beschaeftigungsverhaeltnis, Beginn, Ende, 'E-Mail Adresse', 'Allgemeine Unterweisung', LabKommentar, GefKommentar) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+			pstmt.setString(1, name);
+			pstmt.setString(2, vorname);
+			pstmt.setString(3, datum);
+			pstmt.setString(4, ifwt);
+			pstmt.setString(5, mnaf);
+			pstmt.setString(6, intern);
+			pstmt.setString(7, extern);
+			pstmt.setString(8, bv);
+			pstmt.setString(9, beginn);
+			pstmt.setString(10, ende);
+			pstmt.setString(11, email);
+			pstmt.setString(12, au);
+			pstmt.setString(13, lk);
+			pstmt.setString(14, gk);
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getErrorCode());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+		}
 	}
 }
