@@ -1,81 +1,83 @@
 ID; Name; Vorname; Datum; Ifwt; MNaF; Intern; Beschaeftigungsverhaeltnis; Beginn; Ende; Extern; E-Mail Adresse; Allgemeine Unterweisung; Laboreinrichtungen; Gefahrstoffe; LabKommentar; GefKommentar;
-1; Schneider; Fred; ; LWF; ; ; Technischer Mitarbeiter; ; ; ; fred.schneider@beispiel-uni.de; ; Test
-Geräte mit denen gearbeitet wird:
--GeräteID: 1, Name: Materialtrennschneider, Raum: BR-A 001; test
+1; Schneider; Fred; ; LWF; ; ; Technischer Mitarbeiter; fred.schneider@beispiel-uni.de; ; ; ; ; Test
+GerÃ¤te mit denen gearbeitet wird:
+-GerÃ¤teID: 1, Name: Materialtrennschneider, Raum: BR-A 001; test
 Gefahrstoffe mit denen gearbeitet wird:
--Laborabzüge; Test; test;
-2; Heer; Jonatan; 03.04.2019; LMW; ; ; Masterarbeiter; ; ; ; jonatan.heer@student.beispiel-uni.de; 03.04.2019 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; 13.08.2019 Themenbezogene Unterweisung
-Geräte mit denen gearbeitet wird:
--GeräteID: 2, Name: Schleifeinrichtung, Raum: BR-A 002
--GeräteID: 1, Name: Materialtrennschneider, Raum: BR-A 001
--GeräteID: 4, Name: Ständerbohrmaschine, Raum: BR-A 003
--GeräteID: 3, Name: Ultraschall-Reinigungsgerät, Raum: BR-A 001; 13.08.2019 Themenbezogene Unterweisung
+-LaborabzÃ¼ge; Test; test
+test;
+2; Heer; Jonatan; 03.04.2019; LMW; ; ; Masterarbeiter; ; ; ; jonatan.heer@student.beispiel-uni.de; 03.04.2019 Teilnahme an der allgemeinen Sicherheitsunterweisung fÃ¼r den Bereich Campus Paul-Bonatz StraÃŸe und allgemeine Hinweise fÃ¼r den Laborbereich der LehrstÃ¼hle am lfwt.; 13.08.2019 Themenbezogene Unterweisung
+GerÃ¤te mit denen gearbeitet wird:
+-GerÃ¤teID: 2, Name: Schleifeinrichtung, Raum: BR-A 002
+-GerÃ¤teID: 1, Name: Materialtrennschneider, Raum: BR-A 001
+-GerÃ¤teID: 4, Name: StÃ¤nderbohrmaschine, Raum: BR-A 003
+-GerÃ¤teID: 3, Name: Ultraschall-ReinigungsgerÃ¤t, Raum: BR-A 001; 13.08.2019 Themenbezogene Unterweisung
 Gefahrstoffe mit denen gearbeitet wird:
 -Laugen
--Säuren; 13.08.2019 Themenbezogene Unterweisung; 13.08.2019 Themenbezogene Unterweisung;
-3; Kautz; Herbert; 25.03.2019; LMW; ; ; Student; ; ; ; kautz.herbert@student.beispiel-uni.de; 25.03.2019 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; 14.05.2019 Themenbezogene Unterweisung
-Geräte mit denen gearbeitet wird:
--GeräteID: 5, Name: Materialtrennschneider, Raum: PB-A 225
--GeräteID: 6, Name: Schleifeinrichtung, Raum: PB-A 225
--GeräteID: 7, Name: Ultraschall-Reinigungsgerät, Raum: PB-A 225
--GeräteID: 8, Name: Ständerbohrmaschine, Raum: PB-A 225; 14.05.2019 Themenbezogene Unterweisung
+-SÃ¤uren; 13.08.2019 Themenbezogene Unterweisung; 13.08.2019 Themenbezogene Unterweisung;
+3; Kautz; Herbert; 25.03.2019; LMW; ; ; Student; ; ; ; kautz.herbert@student.beispiel-uni.de; 25.03.2019 Teilnahme an der allgemeinen Sicherheitsunterweisung fÃ¼r den Bereich Campus Paul-Bonatz StraÃŸe und allgemeine Hinweise fÃ¼r den Laborbereich der LehrstÃ¼hle am lfwt.; 14.05.2019 Themenbezogene Unterweisung
+GerÃ¤te mit denen gearbeitet wird:
+-GerÃ¤teID: 5, Name: Materialtrennschneider, Raum: PB-A 225
+-GerÃ¤teID: 6, Name: Schleifeinrichtung, Raum: PB-A 225
+-GerÃ¤teID: 7, Name: Ultraschall-ReinigungsgerÃ¤t, Raum: PB-A 225
+-GerÃ¤teID: 8, Name: StÃ¤nderbohrmaschine, Raum: PB-A 225; 14.05.2019 Themenbezogene Unterweisung
 Gefahrstoffe mit denen gearbeitet wird:
--Laborabzüge
+-LaborabzÃ¼ge
 -Sprengstoff; 14.05.2019 Themenbezogene Unterweisung; 14.05.2019 Themenbezogene Unterweisung;
-4; Hehl; Max; ; LMN; ; ; Student; ; ; ; max.hehl@student.beispiel-uni.de; ; Geräte mit denen gearbeitet wird:
--GeräteID: 4, Name: Ständerbohrmaschine, Raum: BR-A 003; Gefahrstoffe mit denen gearbeitet wird:; ; ;
-5; Friedrich; Helene; 05.12.2019; LMW; ; ; Technische Mitarbeiterin; ; ; ; helene.friedrich@beispiel-uni.de; 05.12.2019 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; 15.02.2020 Themenbezogene Unterweisung
-Geräte mit denen gearbeitet wird:
--GeräteID: 9, Name: Laser, Raum: PB-A 225
--GeräteID: 8, Name: Ständerbohrmaschine, Raum: PB-A 225
--GeräteID: 7, Name: Ultraschall-Reinigungsgerät, Raum: PB-A 225
--GeräteID: 6, Name: Schleifeinrichtung, Raum: PB-A 225
--GeräteID: 5, Name: Materialtrennschneider, Raum: PB-A 225; 15.02.2020 Themenbezogene Unterweisung
+4; Hehl; Max; ; LMN; ; ; Student; ; ; ; max.hehl@student.beispiel-uni.de; ; GerÃ¤te mit denen gearbeitet wird:
+-GerÃ¤teID: 4, Name: StÃ¤nderbohrmaschine, Raum: BR-A 003; Gefahrstoffe mit denen gearbeitet wird:; ; ;
+5; Friedrich; Helene; 05.12.2019; LMW; ; ; Technische Mitarbeiterin; ; ; ; helene.friedrich@beispiel-uni.de; 05.12.2019 Teilnahme an der allgemeinen Sicherheitsunterweisung fÃ¼r den Bereich Campus Paul-Bonatz StraÃŸe und allgemeine Hinweise fÃ¼r den Laborbereich der LehrstÃ¼hle am lfwt.; 15.02.2020 Themenbezogene Unterweisung
+GerÃ¤te mit denen gearbeitet wird:
+-GerÃ¤teID: 9, Name: Laser, Raum: PB-A 225
+-GerÃ¤teID: 8, Name: StÃ¤nderbohrmaschine, Raum: PB-A 225
+-GerÃ¤teID: 7, Name: Ultraschall-ReinigungsgerÃ¤t, Raum: PB-A 225
+-GerÃ¤teID: 6, Name: Schleifeinrichtung, Raum: PB-A 225
+-GerÃ¤teID: 5, Name: Materialtrennschneider, Raum: PB-A 225; 15.02.2020 Themenbezogene Unterweisung
 Gefahrstoffe mit denen gearbeitet wird:
--Laborabzüge; 15.02.2020 Themenbezogene Unterweisung; 15.02.2020 Themenbezogene Unterweisung;
-6; Flies; Alfred; 25.12.2019; LMN; ; ; Wissenschaftlicher Mitarbeiter; ; ; ; alfred.flies@beispiel-uni.de; 25.12.2019 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; 08.01.2020 Themenbezogene Unterweisung
-Geräte mit denen gearbeitet wird:
--GeräteID: 10, Name: Atom-Uboot, Raum: PB-A 225; 08.01.2020 Themenbezogene Unterweisung
+-LaborabzÃ¼ge; 15.02.2020 Themenbezogene Unterweisung; 15.02.2020 Themenbezogene Unterweisung;
+6; Flies; Alfred; 25.12.2019; LMN; ; ; Wissenschaftlicher Mitarbeiter; ; ; ; alfred.flies@beispiel-uni.de; 25.12.2019 Teilnahme an der allgemeinen Sicherheitsunterweisung fÃ¼r den Bereich Campus Paul-Bonatz StraÃŸe und allgemeine Hinweise fÃ¼r den Laborbereich der LehrstÃ¼hle am lfwt.; 08.01.2020 Themenbezogene Unterweisung
+GerÃ¤te mit denen gearbeitet wird:
+-GerÃ¤teID: 10, Name: Atom-Uboot, Raum: PB-A 225; 08.01.2020 Themenbezogene Unterweisung
 Gefahrstoffe mit denen gearbeitet wird:
 -Atomwaffen; 08.01.2020 Themenbezogene Unterweisung; 08.01.2020 Themenbezogene Unterweisung;
-7; Gries; Lena; 25.03.2020; LWF; ; ; Wissenschaftliche Mitarbeiterin; ; ; ; lena.gries@beispiel-uni.de; 25.03.2020 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; 25.04.2020 Themenbezogene Unterweisung
-Geräte mit denen gearbeitet wird:
--GeräteID: 11, Name: synthetische Kuh, Raum: PB-A 225; 25.04.2020 Themenbezogene Unterweisung
+7; Gries; Lena; 25.03.2020; LWF; ; ; Wissenschaftliche Mitarbeiterin; ; ; ; lena.gries@beispiel-uni.de; 25.03.2020 Teilnahme an der allgemeinen Sicherheitsunterweisung fÃ¼r den Bereich Campus Paul-Bonatz StraÃŸe und allgemeine Hinweise fÃ¼r den Laborbereich der LehrstÃ¼hle am lfwt.; 25.04.2020 Themenbezogene Unterweisung
+GerÃ¤te mit denen gearbeitet wird:
+-GerÃ¤teID: 11, Name: synthetische Kuh, Raum: PB-A 225; 25.04.2020 Themenbezogene Unterweisung
 Gefahrstoffe mit denen gearbeitet wird:
 -Milch; 25.04.2020 Themenbezogene Unterweisung; 25.04.2020 Themenbezogene Unterweisung;
-8; Hermann; Lea; 25.03.2020; LMW; ; ; Wissenschaftliche Mitarbeiterin; ; ; ; lea.mann@beispiel-uni.de; 25.03.2020 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; 28.05.2020 Themenbezogene Unterweisung
-Geräte mit denen gearbeitet wird:
--GeräteID: 6, Name: Schleifeinrichtung, Raum: PB-A 225
--GeräteID: 5, Name: Materialtrennschneider, Raum: PB-A 225
--GeräteID: 7, Name: Ultraschall-Reinigungsgerät, Raum: PB-A 225
--GeräteID: 8, Name: Ständerbohrmaschine, Raum: PB-A 225; 28.05.2020 Themenbezogene Unterweisung
+8; Hermann; Lea; 25.03.2020; LMW; ; ; Wissenschaftliche Mitarbeiterin; ; ; ; lea.mann@beispiel-uni.de; 25.03.2020 Teilnahme an der allgemeinen Sicherheitsunterweisung fÃ¼r den Bereich Campus Paul-Bonatz StraÃŸe und allgemeine Hinweise fÃ¼r den Laborbereich der LehrstÃ¼hle am lfwt.; 28.05.2020 Themenbezogene Unterweisung
+GerÃ¤te mit denen gearbeitet wird:
+-GerÃ¤teID: 6, Name: Schleifeinrichtung, Raum: PB-A 225
+-GerÃ¤teID: 5, Name: Materialtrennschneider, Raum: PB-A 225
+-GerÃ¤teID: 7, Name: Ultraschall-ReinigungsgerÃ¤t, Raum: PB-A 225
+-GerÃ¤teID: 8, Name: StÃ¤nderbohrmaschine, Raum: PB-A 225; 28.05.2020 Themenbezogene Unterweisung
 Gefahrstoffe mit denen gearbeitet wird:
--Säuren
+-SÃ¤uren
 -Laugen; 28.05.2020 Themenbezogene Unterweisung; 28.05.2020 Themenbezogene Unterweisung;
-9; Haus; Lea; 25.03.2020; LMN; ; ; Technische Mitarbeiterin; ; ; ; lea.haus@beispiel-uni.de; 25.03.2020 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; 28.05.2020 Themenbezogene Unterweisung
-Geräte mit denen gearbeitet wird:
--GeräteID: 12, Name: Zentrifuge, Raum: PB-A 225; 28.05.2020 Themenbezogene Unterweisung
+9; Haus; Lea; 25.03.2020; LMN; ; ; Technische Mitarbeiterin; ; ; ; lea.haus@beispiel-uni.de; 25.03.2020 Teilnahme an der allgemeinen Sicherheitsunterweisung fÃ¼r den Bereich Campus Paul-Bonatz StraÃŸe und allgemeine Hinweise fÃ¼r den Laborbereich der LehrstÃ¼hle am lfwt.; 28.05.2020 Themenbezogene Unterweisung
+GerÃ¤te mit denen gearbeitet wird:
+-GerÃ¤teID: 12, Name: Zentrifuge, Raum: PB-A 225; 28.05.2020 Themenbezogene Unterweisung
 Gefahrstoffe mit denen gearbeitet wird:
 -Radioaktives Material; 28.05.2020 Themenbezogene Unterweisung; 28.05.2020 Themenbezogene Unterweisung;
 10; Song; Yu; ; LOT; ; ; Wissenschaftlicher Mitarbeiter; ; ; ; yu.song@beispiel-uni.de; ; ; ; ; ;
 11; Max; Mustermann; 15.05.2020; ; ; WINFO; Student; ; ; ; max.mustermann@student.beispiel-uni.de; Test Unterweisung; test
-Geräte mit denen gearbeitet wird:
--GeräteID: 1, Name: Materialtrennschneider, Raum: BR-A 001; test
+GerÃ¤te mit denen gearbeitet wird:
+-GerÃ¤teID: 1, Name: Materialtrennschneider, Raum: BR-A 001; test
 Gefahrstoffe mit denen gearbeitet wird:
--Laborabzüge; test; test;
+-LaborabzÃ¼ge; test; test;
 12; Maurer; Fred; 20.05.2020; ; MNaF; ; Wissenschaftlicher Mitarbeiter; 01.10.2019; 01.10.2020; ; fred.maurer@beispiel-uni.de; Test; Test; Test; ; ;
-13; Nauen; Sina; 14.04.2020; ; ; ; Arbeiterin; ; ; ExterneArbeiterin; sina.nauen@externe-uni.de; test1; test1; test1; ; ;
+13; Nauen; Sina; 14.04.2020; ; ; ; Arbeiterin; sina.nauen@externe-uni.de; ; ExterneArbeiterin; ; test1
+test2; test1; test1; ; ;
 
 
-GeräteID; Name; Beschreibung; Raum;
+GerÃ¤teID; Name; Beschreibung; Raum;
 1; Materialtrennschneider; ; BR-A 001; 
 2; Schleifeinrichtung; ; BR-A 002; 
-3; Ultraschall-Reinigungsgerät; ; BR-A 001; 
-4; Ständerbohrmaschine; ; BR-A 003; 
+3; Ultraschall-ReinigungsgerÃ¤t; ; BR-A 001; 
+4; StÃ¤nderbohrmaschine; ; BR-A 003; 
 5; Materialtrennschneider; ; PB-A 225; 
 6; Schleifeinrichtung; ; PB-A 225; 
-7; Ultraschall-Reinigungsgerät; ; PB-A 225; 
-8; Ständerbohrmaschine; ; PB-A 225; 
+7; Ultraschall-ReinigungsgerÃ¤t; ; PB-A 225; 
+8; StÃ¤nderbohrmaschine; ; PB-A 225; 
 9; Laser; ; PB-A 225; 
 10; Atom-Uboot; ; PB-A 225; 
 11; synthetische Kuh; ; BR-A 003; 
@@ -89,7 +91,7 @@ BR-A 003; Beispielraum 3;
 PB-A 225; ;
 
 
-GeräteID; PersonenID; Nutzungszeit;
+GerÃ¤teID; PersonenID; Nutzungszeit;
 1; 1; 0,000000;
 2; 2; 0,000000;
 4; 4; 0,000000;
@@ -116,9 +118,9 @@ GeräteID; PersonenID; Nutzungszeit;
 
 
 Name;
-Laborabzüge;
+LaborabzÃ¼ge;
 Laugen;
-Säuren;
+SÃ¤uren;
 Sprengstoff;
 Atomwaffen;
 Milch;
@@ -126,20 +128,20 @@ Radioaktives Material;
 
 
 Gefahrstoff; PersonenID;
-Laborabzüge; 1;
+LaborabzÃ¼ge; 1;
 Laugen; 2;
-Säuren; 2;
-Laborabzüge; 3;
+SÃ¤uren; 2;
+LaborabzÃ¼ge; 3;
 Sprengstoff; 3;
-Laborabzüge; 5;
+LaborabzÃ¼ge; 5;
 Atomwaffen; 6;
 Milch; 7;
-Säuren; 8;
+SÃ¤uren; 8;
 Laugen; 8;
 Radioaktives Material; 9;
-Laborabzüge; 11;
+LaborabzÃ¼ge; 11;
 
 
 name; seq;
-Geräte; 12;
-Personen; 15;
+GerÃ¤te; 12;
+Personen; 13;
