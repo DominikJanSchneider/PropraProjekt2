@@ -184,11 +184,16 @@ public class UserManagementView extends VerticalLayout{
 		String searchTxt = tfSearch.getValue();
 		switch(tabName) {
 			case "BenutzerID":
-				if(searchTxt.isEmpty()) {
-					updateUserGrid();
+				try {
+					if(searchTxt.isEmpty()) {
+						updateUserGrid();
+					}
+					else {
+						updateUserGridByID(Integer.parseInt(searchTxt));
+					}
 				}
-				else {
-					updateUserGridByID(Integer.parseInt(searchTxt));
+				catch(NumberFormatException e) {
+					Notification.show("Bitte geben Sie eine Zahl ein.");
 				}
 				break;
 			case "Name":

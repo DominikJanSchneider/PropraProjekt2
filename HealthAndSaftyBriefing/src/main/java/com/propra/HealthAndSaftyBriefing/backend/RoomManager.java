@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-
+import com.propra.HealthAndSaftyBriefing.backend.data.AssignedRoom;
 import com.propra.HealthAndSaftyBriefing.backend.data.Room;
 import com.propra.HealthAndSaftyBriefing.database.DBConnector;
 
@@ -78,5 +78,128 @@ public class RoomManager {
 			}
 			DBConnector.deconnect();
       }
+	}
+	
+	public List<AssignedRoom> getAssignedRooms(int dID) {
+		String tableName1 = "Ger\u00e4te";
+		String tableName2 = "R\u00e4ume";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null;
+		List<AssignedRoom> list = new LinkedList<AssignedRoom>();
+		try {
+			pstmt = con.prepareStatement("SELECT "+tableName1+".Raum, "+tableName1+".Ger\u00e4teID, "+tableName2+".Beschreibung FROM "+tableName1+" INNER JOIN "+tableName2+" ON "+tableName1+".Raum = "+tableName2+".Name WHERE Ger\u00e4teID='"+ dID +"'");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				AssignedRoom room = new AssignedRoom(
+						rs.getString("Raum"),
+						rs.getString("Beschreibung"),
+						rs.getInt("Ger\u00e4teID")
+						);
+				list.add(room);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return list;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
+	
+	public List<Room> getUnassignedRooms(int dID) {
+		String tableName1 = "Ger\u00e4te";
+		String tableName2 = "R\u00e4ume";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null;
+		List<Room> list = new LinkedList<Room>();
+		try {
+			pstmt = con.prepareStatement("SELECT Name, Beschreibung FROM "+tableName2+" WHERE "
+					+ "("+tableName2+".Name IN ("
+						+"SELECT "+tableName2+".Name FROM "+tableName2+" EXCEPT SELECT "+tableName1+".Raum FROM "+tableName1+" WHERE Ger\u00e4teID='"+dID+"'))");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Room room = new Room(
+						rs.getString("Name"),
+						rs.getString("Beschreibung")
+						);
+				list.add(room);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return list;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
+	
+	public void assignRoom(int dID, String room){
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+		try {
+			con.setAutoCommit(false);
+			pstmt = con.prepareStatement("UPDATE Ger\u00e4te SET Raum='"+room+"' WHERE Ger\u00e4teID="+dID+" ;");
+			pstmt.execute();
+			con.commit();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+       }
+	}
+	
+	public void unassignRoom(int dID) {
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement("UPDATE Ger\u00e4te SET Raum='' WHERE Ger\u00e4teID="+dID+";");
+			con.setAutoCommit(false);
+			pstmt.executeUpdate();
+			con.commit();
+		}
+	    catch (SQLException e) {
+	    	e.printStackTrace();
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+       }
 	}
 }

@@ -214,9 +214,9 @@ public class UserView extends VerticalLayout {
 	private void setUsageTime() {
 		try {
 			int userID = userData.getId();
-			int selectedDevice = userDeviceGrid.getSelectionModel().getFirstSelectedItem().get().getId();
+			int dID = userDeviceGrid.getSelectionModel().getFirstSelectedItem().get().getId();
 			double usageTime = Double.parseDouble(tfUsageTime.getValue());
-			deviceM.setUsageTime(selectedDevice, userID, usageTime);
+			deviceM.setUsageTime(dID, userID, usageTime);
 			updateUserDeviceGrid();
 		} catch (NoSuchElementException e) {
 			Notification.show("Bitte w\u00e4hlen Sie ein Ger\u00e4t aus der Tabelle.");

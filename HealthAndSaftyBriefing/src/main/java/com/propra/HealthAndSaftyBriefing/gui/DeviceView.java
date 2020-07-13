@@ -149,11 +149,16 @@ public class DeviceView extends VerticalLayout {
 		String searchTxt = tfSearch.getValue();
 		switch(tabName) {
 			case "GeräteID":
-				if(searchTxt.isEmpty()) {
-					updateDeviceGrid();
+				try {
+					if(searchTxt.isEmpty()) {
+						updateDeviceGrid();
+					}
+					else {
+						updateDeviceGridByID(Integer.parseInt(searchTxt));
+					}
 				}
-				else {
-					updateDeviceGridByID(Integer.parseInt(searchTxt));
+				catch(NumberFormatException e) {
+					Notification.show("Bitte geben Sie eine Zahl ein.");
 				}
 				break;
 			case "Name":

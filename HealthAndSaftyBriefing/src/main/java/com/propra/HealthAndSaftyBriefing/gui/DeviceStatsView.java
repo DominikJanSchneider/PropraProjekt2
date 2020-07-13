@@ -16,6 +16,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
@@ -134,11 +135,16 @@ public class DeviceStatsView extends VerticalLayout implements HasUrlParameter<S
 		String searchTxt = tfSearch.getValue();
 		switch(tabName) {
 			case "PersonenID":
-				if(searchTxt.isEmpty()) {
-					updateDeviceStatsGrid(dID);
+				try {
+					if(searchTxt.isEmpty()) {
+						updateDeviceStatsGrid(dID);
+					}
+					else {
+						updateDeviceStatsGridByPersonID(dID, Integer.parseInt(searchTxt));
+					}
 				}
-				else {
-					updateDeviceStatsGridByPersonID(dID, Integer.parseInt(searchTxt));
+				catch(NumberFormatException e) {
+					Notification.show("Bitte geben Sie eine Zahl ein.");
 				}
 				break;
 			case "Name":
