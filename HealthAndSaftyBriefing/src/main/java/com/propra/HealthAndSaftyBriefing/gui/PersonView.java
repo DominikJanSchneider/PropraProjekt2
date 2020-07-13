@@ -58,12 +58,11 @@ public class PersonView extends VerticalLayout {
         add(personGrid);
         updatePersonGrid();
 
-        configureTextAreas();
-        HorizontalLayout textAreas = configureTextAreas();
-        add(textAreas);
+        HorizontalLayout briefingInformationComponent = configureBriefingInformationComponent();
+        add(briefingInformationComponent);
 	}
 	
-	private HorizontalLayout configureTextAreas() {
+	private HorizontalLayout configureBriefingInformationComponent() {
 		taGeneralInstruction = new TextArea();
         taLabSetup = new TextArea();
         taDangerSubst = new TextArea();
@@ -74,17 +73,16 @@ public class PersonView extends VerticalLayout {
         taGeneralInstruction.setHeight(height);
         taGeneralInstruction.setWidth(width);
         taGeneralInstruction.setReadOnly(true);
+        taGeneralInstruction.setLabel("Allgemeine Unterweisung (Datum s.o.)");
         taLabSetup.setHeight(height);
         taLabSetup.setWidth(width);
         taLabSetup.setReadOnly(true);
+        taLabSetup.setLabel("Laboreinrichtungen");
         taDangerSubst.setHeight(height);
         taDangerSubst.setWidth(width);
         taDangerSubst.setReadOnly(true);
-        VerticalLayout gInstrVL = new VerticalLayout(new Label("Allgemeine Unterweisung (Datum s.o.)"), taGeneralInstruction);
-        VerticalLayout labSetupVL = new VerticalLayout(new Label("Laboreinrichtungen"), taLabSetup);
-        VerticalLayout dangerSubstVL = new VerticalLayout(new Label("Gefahrstoffe"), taDangerSubst);
-        
-		return new HorizontalLayout(gInstrVL, labSetupVL, dangerSubstVL);
+        taDangerSubst.setLabel("Gefahrstoffe");
+		return new HorizontalLayout(taGeneralInstruction, taLabSetup, taDangerSubst);
 	}
 
 	private void configurePersonGrid() {
@@ -152,13 +150,13 @@ public class PersonView extends VerticalLayout {
 
 			@Override
 			public void selectionChange(SelectionEvent<Grid<Person>,Person> event) {
-				updateTextAreas();
+				updateBriefingInformationComponent();
 			}
         	
         });
 	}
 	
-	protected void updateTextAreas() {
+	protected void updateBriefingInformationComponent() {
 		Set<Person> personSet = personGrid.getSelectedItems();
 		Iterator<Person> it = personSet.iterator();
 		if(it.hasNext()) {
