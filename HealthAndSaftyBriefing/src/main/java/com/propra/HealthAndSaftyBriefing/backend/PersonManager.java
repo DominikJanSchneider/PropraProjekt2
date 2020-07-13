@@ -561,6 +561,11 @@ public class PersonManager {
 			pstmt.execute();
 			pstmt.close();
 			con.commit();
+			
+			pstmt = con.prepareStatement("UPDATE sqlite_sequence SET seq='"+(id-1)+"' WHERE name='Personen';");
+			con.setAutoCommit(false);
+			pstmt.executeUpdate();
+			con.commit();
 
 		} catch (SQLException e) {
 			e.printStackTrace();

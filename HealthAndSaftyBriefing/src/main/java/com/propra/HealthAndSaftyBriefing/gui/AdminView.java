@@ -215,7 +215,6 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	}
 	
 	private void editDataPressed() {
-		// TODO Auto-generated method stub
 		UI.getCurrent().navigate("PersonManagementView");
 	}
 
