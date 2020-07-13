@@ -24,10 +24,12 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 @SuppressWarnings("serial")
 @Route("DeviceStatsView")
+@PageTitle("Ger\u00e4testatistik | Sicherheitsunterweisung")
 public class DeviceStatsView extends VerticalLayout implements HasUrlParameter<String> {
 	private DeviceStatsManager deviceStatsM;
 	private TextField tfSearch;
