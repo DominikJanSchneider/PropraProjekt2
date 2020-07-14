@@ -1,12 +1,10 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
 import com.propra.HealthAndSaftyBriefing.backend.data.Person;
 import com.propra.HealthAndSaftyBriefing.database.DBConnector;
@@ -243,10 +241,8 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	}
 
 	private void printPressed() {
-		Set<Person> personSet = personView.getSelectedPerson();
-		Iterator<Person> it = personSet.iterator();
-		if(it.hasNext()) {
-			Person person = it.next();
+		Person person = personView.getSelectedPerson();
+		if(person != null) {
 			UI.getCurrent().getPage().open("PrintView/"+person.getId());
 		}
 		else {

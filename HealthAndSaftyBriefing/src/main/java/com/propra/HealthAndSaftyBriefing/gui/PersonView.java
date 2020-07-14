@@ -283,9 +283,8 @@ public class PersonView extends VerticalLayout {
         personGrid.setItems(persons);
 	}
 	
-	public Set<Person> getSelectedPerson() {
-		Set<Person> personSet = personGrid.getSelectedItems();
-		return personSet;
+	public Person getSelectedPerson() {
+		return personGrid.asSingleSelect().getValue();
 
 	}
 	
