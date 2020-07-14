@@ -16,10 +16,8 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
@@ -41,14 +39,14 @@ public class PersonManagementView extends VerticalLayout {
 	private Button btnDeletePerson;
 	private Button btnSearch;
 	private Button btnBack;
+	private Button btnDeviceAssignment;
+	private Button btnDangerSubstAssignment;
 	private PersonAddForm addForm;
 	private PersonEditForm editForm;
 	private TextField tfSearch;
 	protected ShortcutRegistration shortReg;
 
 	public PersonManagementView() {
-
-		
 		personM = new PersonManager();
 		addForm = new PersonAddForm(this, personM);
 		editForm = new PersonEditForm(this, personM);
@@ -71,44 +69,65 @@ public class PersonManagementView extends VerticalLayout {
 		btnAddPerson = new Button("Neue Person anlegen");
 		btnAddPerson.setIcon(VaadinIcon.PLUS_CIRCLE.create());
 		btnAddPerson.addClickListener(e -> {
-			
 			editForm.setVisible(false);
 			addForm.setVisible(true);
-					
-				addForm.setVisible(true);
-				addForm.setLName("");
-				addForm.setFName("");
-				addForm.setDate("");
-				addForm.setIfwt("");
-				addForm.setMNaF("");
-				addForm.setIntern("");
-				addForm.setExtern("");
-				addForm.setEmployment("");
-				addForm.setEmail("");
-				addForm.setBegin("");
-				addForm.setEnd("");
-				addForm.setGeneralInstruction("");
-				addForm.setLabComment("");
-				addForm.setDangerSubstComment("");
+			addForm.setVisible(true);
+			addForm.setLName("");
+			addForm.setFName("");
+			addForm.setDate("");
+			addForm.setIfwt("");
+			addForm.setMNaF("");
+			addForm.setIntern("");
+			addForm.setExtern("");
+			addForm.setEmployment("");
+			addForm.setEmail("");
+			addForm.setBegin("");
+			addForm.setEnd("");
+			addForm.setGeneralInstruction("");
+			addForm.setLabComment("");
+			addForm.setDangerSubstComment("");
 		});
 
 		// button delete User
 		btnDeletePerson = new Button("Person löschen", e -> {
-			try {
-				SingleSelect<Grid<Person>, Person> selectedPerson = personGrid.asSingleSelect();
-				personM.deletePerson(selectedPerson.getValue().getId());
+			Person selectedPerson = personGrid.asSingleSelect().getValue();
+			if(selectedPerson != null) {
+				personM.deletePerson(selectedPerson.getId());
 				updatePersonGrid();
-				selectedPerson = null;
 				Notification.show("Person wurde aus der Datenbank entfernt!");
-			} catch (Exception ex) {
+			}
+			else {
 				Notification.show("Wähle eine Person aus, um sie zu löschen!");
 			}
-
 		});
 		btnDeletePerson.addThemeVariants(ButtonVariant.LUMO_ERROR, ButtonVariant.LUMO_PRIMARY);
 		btnDeletePerson.setIcon(VaadinIcon.MINUS_CIRCLE.create());
+		
+		//button device assignment
+		btnDeviceAssignment = new Button("Gerätezuordung bearbeiten", e -> {
+			Person selectedPerson = personGrid.asSingleSelect().getValue();
+			if(selectedPerson != null) {
+				UI.getCurrent().navigate("DeviceAssignmentView/"+selectedPerson.getId());
+			}
+			else {
+				Notification.show("Wähle eine Person aus, um die Geräte zu bearbeiten!");
+			}
+		});
+		btnDeviceAssignment.setIcon(VaadinIcon.AUTOMATION.create());
+		
+		//button dangerous substances assignment
+		btnDangerSubstAssignment = new Button("Gefahrstoffzuordnung bearbeiten", e -> {
+			Person selectedPerson = personGrid.asSingleSelect().getValue();
+			if(selectedPerson != null) {
+				UI.getCurrent().navigate("DangerSubstAssignmentView/"+selectedPerson.getId());
+			}
+			else {
+				Notification.show("Wähle eine Person aus, um die Gefahrstoffe zu bearbeiten!");
+			}
+		});
+		btnDangerSubstAssignment.setIcon(VaadinIcon.BOMB.create());
 
-		add(new HorizontalLayout(btnAddPerson, btnDeletePerson));
+		add(new HorizontalLayout(btnAddPerson, btnDeletePerson, btnDeviceAssignment, btnDangerSubstAssignment));
 
 		// Building the UserGrid
 		configurePersonGrid();
