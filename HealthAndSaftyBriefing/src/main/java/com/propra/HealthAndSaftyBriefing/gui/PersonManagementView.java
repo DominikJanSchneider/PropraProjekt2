@@ -62,20 +62,20 @@ public class PersonManagementView extends VerticalLayout {
 			addForm.setVisible(true);
 					
 				addForm.setVisible(true);
-				addForm.setPersonName("");
-				addForm.setPersonVorname("");
-				addForm.setPersonDatum("");
-				addForm.setPersonIfwt("");
-				addForm.setPersonMNaF("");
-				addForm.setPersonIntern("");
-				addForm.setPersonExtern("");
-				addForm.setPersonBeschaeftigungsverhaeltnis("");
-				addForm.setPersonEmail("");
-				addForm.setPersonBeginn("");
-				addForm.setPersonEnde("");
-				addForm.setPersonAu("");
-				addForm.setPersonLabKommentar("");
-				addForm.setPersonGefKommentar("");
+				addForm.setLName("");
+				addForm.setFName("");
+				addForm.setDate("");
+				addForm.setIfwt("");
+				addForm.setMNaF("");
+				addForm.setIntern("");
+				addForm.setExtern("");
+				addForm.setEmployment("");
+				addForm.setEmail("");
+				addForm.setBegin("");
+				addForm.setEnd("");
+				addForm.setGeneralInstruction("");
+				addForm.setLabComment("");
+				addForm.setDangerSubstComment("");
 		});
 
 		// button delete User
@@ -178,7 +178,6 @@ public class PersonManagementView extends VerticalLayout {
 	}
 	
 	private void showEditPersonForm() {
-		
 	    SingleSelect<Grid<Person>, Person> selectedPerson = personGrid.asSingleSelect();	
 		if (selectedPerson.isEmpty()) {
 			return;
@@ -186,20 +185,20 @@ public class PersonManagementView extends VerticalLayout {
 		addForm.setVisible(false);
 		editForm.setVisible(true);
 		editForm.setId(selectedPerson.getValue().getId());
-		editForm.setTfLName(selectedPerson.getValue().getLName());
-		editForm.setTfFName(selectedPerson.getValue().getFName());
-		editForm.setTfDate(selectedPerson.getValue().getDate());
-		editForm.setTfIfwt(selectedPerson.getValue().getIfwt());
-		editForm.setTfMnaf(selectedPerson.getValue().getMNaF());
-		editForm.setTfIntern(selectedPerson.getValue().getIntern());
-		editForm.setTfExtern(selectedPerson.getValue().getExtern());
-		editForm.setTfEmployment(selectedPerson.getValue().getEmployment());
-		editForm.setTfEmail(selectedPerson.getValue().getEMail());
-		editForm.setTfBegin(selectedPerson.getValue().getBegin());
-		editForm.setTfEnd(selectedPerson.getValue().getEnd());
-		editForm.setTaGeneralInstruction(selectedPerson.getValue().getGenInstr());
-		editForm.setTaLabComment(selectedPerson.getValue().getLabComment());
-		editForm.setTaDangerSubstComment(selectedPerson.getValue().getDangerSubstComment());
+		editForm.setLName(selectedPerson.getValue().getLName());
+		editForm.setFName(selectedPerson.getValue().getFName());
+		editForm.setDate(selectedPerson.getValue().getDate());
+		editForm.setIfwt(selectedPerson.getValue().getIfwt());
+		editForm.setMnaf(selectedPerson.getValue().getMNaF());
+		editForm.setIntern(selectedPerson.getValue().getIntern());
+		editForm.setExtern(selectedPerson.getValue().getExtern());
+		editForm.setEmployment(selectedPerson.getValue().getEmployment());
+		editForm.setEmail(selectedPerson.getValue().getEMail());
+		editForm.setBegin(selectedPerson.getValue().getBegin());
+		editForm.setEnd(selectedPerson.getValue().getEnd());
+		editForm.setGeneralInstruction(selectedPerson.getValue().getGenInstr());
+		editForm.setLabComment(selectedPerson.getValue().getLabComment());
+		editForm.setDangerSubstComment(selectedPerson.getValue().getDangerSubstComment());
 		
 		}
 	}
@@ -262,60 +261,60 @@ public class PersonManagementView extends VerticalLayout {
 			save.setIcon(VaadinIcon.ADD_DOCK.create());
 			Button cancel = new Button("Schließen", e -> this.setVisible(false));
 			add(tfLName, tfFName, tfDate, tfIfwt, tfMnaf, tfIntern,
-					tfExtern, tfEmployment, tfEmail, tfBegin, tfEnd, taGenInstr, /*taPersonLk,*/
+					tfExtern, tfEmployment, tfEmail, tfBegin, tfEnd, taGenInstr,
 					taLabComment, taDangerSubstComment, new HorizontalLayout(save, cancel));
 			cancel.setIcon(VaadinIcon.CLOSE_CIRCLE.create());
 		}
 
-		public void setTfEnd(String end) {
+		public void setEnd(String end) {
 			tfEnd.setValue(end);
 		}
 		
-		public void setTfMnaf(String mnaf) {
+		public void setMnaf(String mnaf) {
 			tfMnaf.setValue(mnaf);
 		}
 
-		public void setTfBegin(String begin) {
+		public void setBegin(String begin) {
 			tfBegin.setValue(begin);
 		}
 
-		public void setTaDangerSubstComment(String dangerSubstComment) {
+		public void setDangerSubstComment(String dangerSubstComment) {
 			taDangerSubstComment.setValue(dangerSubstComment);
 		}
 
-		public void setTfEmail(String eMail) {
+		public void setEmail(String eMail) {
 			tfEmail.setValue(eMail);
 		}
 
-		public void setTaLabComment(String labComment) {
+		public void setLabComment(String labComment) {
 			taLabComment.setValue(labComment);
 		}
 
-		public void setTaGeneralInstruction(String dangerSubsts) {
-			taGenInstr.setValue(dangerSubsts);
+		public void setGeneralInstruction(String genInstr) {
+			taGenInstr.setValue(genInstr);
 		}
 
-		public void setTfEmployment(String employment) {
+		public void setEmployment(String employment) {
 			tfEmployment.setValue(employment);
 		}
 
-		public void setTfExtern(String extern) {
+		public void setExtern(String extern) {
 			tfExtern.setValue(extern);
 		}
 
-		public void setTfIntern(String intern) {
+		public void setIntern(String intern) {
 			tfIntern.setValue(intern);
 		}
 
-		public void setTfIfwt(String ifwt) {
+		public void setIfwt(String ifwt) {
 			tfIfwt.setValue(ifwt);
 		}
 
-		public void setTfDate(String date) {
+		public void setDate(String date) {
 			tfDate.setValue(date);
 		}
 
-		public void setTfFName(String fName) {
+		public void setFName(String fName) {
 			tfFName.setValue(fName);
 		}
 
@@ -323,58 +322,55 @@ public class PersonManagementView extends VerticalLayout {
 			this.id = i;
 		}
 
-		public void setTfLName(String name) {
-			tfLName.setValue(name);
+		public void setLName(String lName) {
+			tfLName.setValue(lName);
 		}
 
 	}
  
  class PersonAddForm extends FormLayout {
-		private TextField tfPersonName;
-		private TextField tfPersonVorname;
-		private TextField tfPersonDatum;
-		private TextField tfPersonIfwt;
-		private TextField tfPersonMNaF;
-		private TextField tfPersonIntern;
-		private TextField tfPersonExtern;
-		private TextField tfPersonBv;
-		private TextField tfPersonEmail;
-		private TextField tfPersonBeginn;
-		private TextField tfPersonEnde;
-		private TextArea taPersonAu;
-		private TextArea taPersonLk;
-		private TextArea taPersonGk;
+		private TextField tfLName;
+		private TextField tfFName;
+		private TextField tfDate;
+		private TextField tfIfwt;
+		private TextField tfMNaF;
+		private TextField tfIntern;
+		private TextField tfExtern;
+		private TextField tfEmployment;
+		private TextField tfEmail;
+		private TextField tfBegin;
+		private TextField tfEnd;
+		private TextArea taGenInstr;
+		private TextArea taLabComment;
+		private TextArea taDangerSubstComment;
 
 		PersonAddForm(PersonManagementView personManagementView, PersonManager personM) {
 			// addClassName("contact-form");
 			this.setVisible(true);
-			tfPersonName = new TextField("Name");
-			tfPersonVorname = new TextField("Vorname");
-			tfPersonDatum = new TextField("Datum");
-			tfPersonIfwt = new TextField("Ifwt");
-			tfPersonMNaF = new TextField("MNaF");
-			tfPersonIntern = new TextField("Intern");
-			tfPersonExtern = new TextField("Extern");
-			tfPersonBv = new TextField("Beschäftigungsverhältnis");
-			tfPersonEmail = new TextField("E-Mail");
-			tfPersonBeginn = new TextField("Beginn");
-			tfPersonEnde = new TextField("Ende");
-			taPersonAu = new TextArea("Allgemeine Unterweisung");
-			taPersonLk = new TextArea("Laboreinrichtungen (Kommentar)");
-			taPersonGk = new TextArea("Gefahrstoffe (Kommentar)");
+			tfLName = new TextField("Name");
+			tfFName = new TextField("Vorname");
+			tfDate = new TextField("Datum");
+			tfIfwt = new TextField("Ifwt");
+			tfMNaF = new TextField("MNaF");
+			tfIntern = new TextField("Intern");
+			tfExtern = new TextField("Extern");
+			tfEmployment = new TextField("Beschäftigungsverhältnis");
+			tfEmail = new TextField("E-Mail");
+			tfBegin = new TextField("Beginn");
+			tfEnd = new TextField("Ende");
+			taGenInstr = new TextArea("Allgemeine Unterweisung");
+			taLabComment = new TextArea("Laboreinrichtungen (Kommentar)");
+			taDangerSubstComment = new TextArea("Gefahrstoffe (Kommentar)");
 
 			Button save = new Button("Speichern", e -> {
-
 				try {
-
-					personM.addPerson(tfPersonName.getValue(), tfPersonVorname.getValue(), tfPersonDatum.getValue(),
-							tfPersonIfwt.getValue(), tfPersonMNaF.getValue(), tfPersonIntern.getValue(),
-							tfPersonExtern.getValue(), tfPersonBv.getValue(), tfPersonEmail.getValue(),
-							tfPersonBeginn.getValue(), tfPersonEnde.getValue(), taPersonAu.getValue(),
-							taPersonLk.getValue(), taPersonGk.getValue());
+					personM.addPerson(tfLName.getValue(), tfFName.getValue(), tfDate.getValue(),
+							tfIfwt.getValue(), tfMNaF.getValue(), tfIntern.getValue(),
+							tfExtern.getValue(), tfEmployment.getValue(), tfEmail.getValue(),
+							tfBegin.getValue(), tfEnd.getValue(), taGenInstr.getValue(),
+							taLabComment.getValue(), taDangerSubstComment.getValue());
 					Notification.show("Person wurde hinzugefügt!");
 				}
-
 				catch (NoSuchAlgorithmException ex) {
 					ex.printStackTrace();
 				}
@@ -384,66 +380,66 @@ public class PersonManagementView extends VerticalLayout {
 			save.setIcon(VaadinIcon.ADD_DOCK.create());
 			Button close = new Button("Schließen", e -> this.setVisible(false));
 
-			add(tfPersonName, tfPersonVorname, tfPersonDatum, tfPersonIfwt, tfPersonMNaF, tfPersonIntern,
-					tfPersonExtern, tfPersonBv, tfPersonEmail, tfPersonBeginn, tfPersonEnde, taPersonAu, taPersonLk,
-					taPersonGk, new HorizontalLayout(save, close));
+			add(tfLName, tfFName, tfDate, tfIfwt, tfMNaF, tfIntern,
+					tfExtern, tfEmployment, tfEmail, tfBegin, tfEnd, taGenInstr, taLabComment,
+					taDangerSubstComment, new HorizontalLayout(save, close));
 			close.setIcon(VaadinIcon.CLOSE_CIRCLE.create());
 		}
 
-		public void setPersonEnde(String ende) {
-			tfPersonEnde.setValue(ende);
+		public void setEnd(String end) {
+			tfEnd.setValue(end);
 		}
 
-		public void setPersonBeginn(String beginn) {
-			tfPersonBeginn.setValue(beginn);
+		public void setBegin(String begin) {
+			tfBegin.setValue(begin);
 		}
 
-		public void setPersonGefKommentar(String gk) {
-			taPersonGk.setValue(gk);
+		public void setDangerSubstComment(String dangerSubstComment) {
+			taDangerSubstComment.setValue(dangerSubstComment);
 		}
 
-		public void setPersonLabKommentar(String lk) {
-			taPersonLk.setValue(lk);
+		public void setLabComment(String labComment) {
+			taLabComment.setValue(labComment);
 		}
 
-		public void setPersonAu(String au) {
-			taPersonAu.setValue(au);
+		public void setGeneralInstruction(String genInstr) {
+			taGenInstr.setValue(genInstr);
 		}
 
-		public void setPersonEmail(String email) {
-			tfPersonEmail.setValue(email);
+		public void setEmail(String email) {
+			tfEmail.setValue(email);
 		}
 
-		public void setPersonBeschaeftigungsverhaeltnis(String bv) {
-			tfPersonBv.setValue(bv);
+		public void setEmployment(String employment) {
+			tfEmployment.setValue(employment);
 		}
 
-		public void setPersonExtern(String extern) {
-			tfPersonExtern.setValue(extern);
+		public void setExtern(String extern) {
+			tfExtern.setValue(extern);
 		}
 
-		public void setPersonIntern(String intern) {
-			tfPersonIntern.setValue(intern);
+		public void setIntern(String intern) {
+			tfIntern.setValue(intern);
 		}
 
-		public void setPersonMNaF(String mnaf) {
-			tfPersonMNaF.setValue(mnaf);
+		public void setMNaF(String mnaf) {
+			tfMNaF.setValue(mnaf);
 		}
 
-		public void setPersonIfwt(String ifwt) {
-			tfPersonIfwt.setValue(ifwt);
+		public void setIfwt(String ifwt) {
+			tfIfwt.setValue(ifwt);
 		}
 
-		public void setPersonVorname(String vorname) {
-			tfPersonVorname.setValue(vorname);
+		public void setFName(String fName) {
+			tfFName.setValue(fName);
 		}
 
-		public void setPersonDatum(String datum) {
-			tfPersonDatum.setValue(datum);
+		public void setDate(String date) {
+			tfDate.setValue(date);
 		}
 
-		public void setPersonName(String name) {
-			tfPersonName.setValue(name);
+		public void setLName(String lName) {
+			tfLName.setValue(lName);
 		}
 	}
 }

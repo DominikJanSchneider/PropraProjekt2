@@ -581,19 +581,19 @@ public class PersonManager {
 		}
 	}
 	
-	public void editPerson(int id, String name, String vorname, String datum, String ifwt, String mnaf, String intern,
-			String extern, String bv, String beginn, String ende, String email, String gs, String lk, String gk)
+	public void editPerson(int id, String lName, String fName, String date, String ifwt, String mnaf, String intern,
+			String extern, String employment, String begin, String end, String email, String gI, String lC, String dC)
 			throws NoSuchAlgorithmException {
 		String tableName = "Personen";
 		Connection con = DBConnector.connectCore();
 		PreparedStatement pstmt = null;
 
 		try {
-			pstmt = con.prepareStatement("UPDATE " + tableName + " SET Name='" + name + "', Vorname='" + vorname
-					+ "' ,Datum= '" + datum + "', Ifwt='" + ifwt + "', MNaF='" + mnaf + "', Intern='" + intern
-					+ "', Extern='" + extern + "', Beschaeftigungsverhaeltnis='" + bv + "', Beginn='" + beginn
-					+ "', Ende='" + ende + "', 'E-Mail Adresse'='" + email + "', 'Allgemeine Unterweisung'='" + gs
-					+ "', LabKommentar='" + lk + "', GefKommentar='" + gk + "' WHERE ID=" + id);
+			pstmt = con.prepareStatement("UPDATE " + tableName + " SET Name='" + lName + "', Vorname='" + fName
+					+ "' ,Datum= '" + date + "', Ifwt='" + ifwt + "', MNaF='" + mnaf + "', Intern='" + intern
+					+ "', Extern='" + extern + "', Beschaeftigungsverhaeltnis='" + employment + "', Beginn='" + begin
+					+ "', Ende='" + end + "', 'E-Mail Adresse'='" + email + "', 'Allgemeine Unterweisung'='" + gI
+					+ "', LabKommentar='" + lC + "', GefKommentar='" + dC + "' WHERE ID=" + id);
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -610,8 +610,8 @@ public class PersonManager {
 		}
 	}
 	
-	public void addPerson(String name, String vorname, String datum, String ifwt, String mnaf, String intern,
-			String extern, String bv, String beginn, String ende, String email, String au, String lk, String gk)
+	public void addPerson(String lName, String fName, String date, String ifwt, String mnaf, String intern,
+			String extern, String employment, String begin, String end, String email, String gI, String lC, String dC)
 			throws NoSuchAlgorithmException {
 		String tableName = "Personen";
 		Connection con = DBConnector.connectCore();
@@ -621,20 +621,20 @@ public class PersonManager {
 			pstmt = con.prepareStatement("INSERT INTO " + tableName
 					+ "(Name, Vorname, Datum, Ifwt, MNaF, Intern, Extern, Beschaeftigungsverhaeltnis, Beginn, Ende, 'E-Mail Adresse', 'Allgemeine Unterweisung', LabKommentar, GefKommentar) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-			pstmt.setString(1, name);
-			pstmt.setString(2, vorname);
-			pstmt.setString(3, datum);
+			pstmt.setString(1, lName);
+			pstmt.setString(2, fName);
+			pstmt.setString(3, date);
 			pstmt.setString(4, ifwt);
 			pstmt.setString(5, mnaf);
 			pstmt.setString(6, intern);
 			pstmt.setString(7, extern);
-			pstmt.setString(8, bv);
-			pstmt.setString(9, beginn);
-			pstmt.setString(10, ende);
+			pstmt.setString(8, employment);
+			pstmt.setString(9, begin);
+			pstmt.setString(10, end);
 			pstmt.setString(11, email);
-			pstmt.setString(12, au);
-			pstmt.setString(13, lk);
-			pstmt.setString(14, gk);
+			pstmt.setString(12, gI);
+			pstmt.setString(13, lC);
+			pstmt.setString(14, dC);
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
