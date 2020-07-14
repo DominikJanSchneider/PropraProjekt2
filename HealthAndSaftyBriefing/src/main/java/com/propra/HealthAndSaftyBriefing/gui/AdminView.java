@@ -199,14 +199,20 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	
 	private void loadDBPressed() {
 		String selFile = selDatabase.getValue();
-		System.out.println(selFile);
 		DBConnector.setURLCore("jdbc:sqlite:src/main/resources/upload/"+selFile);
-		System.out.println(DBConnector.getURLCore());
+		personView.reloadGrid();
+		deviceView.reloadGrid();
+		dangerSubstView.reloadGrid();
+		roomsView.reloadGrid();
 		settingsDialog.close();
 	}
 	
 	private void loadDefaultDBPressed() {
 		DBConnector.setURLCore("jdbc:sqlite:src/main/resources/database/CoreDatabase.db");
+		personView.reloadGrid();
+		deviceView.reloadGrid();
+		dangerSubstView.reloadGrid();
+		roomsView.reloadGrid();
 		settingsDialog.close();
 	}
 

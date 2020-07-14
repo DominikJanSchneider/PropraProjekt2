@@ -96,5 +96,10 @@ public class RoomsView extends VerticalLayout {
 		String searchTxt = tfSearch.getValue();
 		updateRoomGridByName(searchTxt);
 	}
+	
+	public void reloadGrid() {
+		List<Room> rooms = roomM.getRoomsData();
+		roomGrid.setItems(rooms);
+	}
 
 }

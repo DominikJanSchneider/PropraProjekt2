@@ -87,4 +87,9 @@ public class DangerSubstView extends  VerticalLayout {
 		String searchTxt = tfSearch.getValue();
 		updateDangerSubstGridByName(searchTxt);
 	}
+	
+	public void reloadGrid() {
+		List<DangerSubst> dangerSubst = dangerSubstM.getDangerSubstsData();
+		dangerSubstGrid.setItems(dangerSubst);
+	}
 }
