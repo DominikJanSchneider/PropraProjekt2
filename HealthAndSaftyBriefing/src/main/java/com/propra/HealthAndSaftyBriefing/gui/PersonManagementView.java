@@ -208,7 +208,7 @@ public class PersonManagementView extends VerticalLayout {
 		private TextField tfFName;
 		private TextField tfDate;
 		private TextField tfIfwt;
-		private TextField tfMnaf;
+		private TextField tfMNaF;
 		private TextField tfIntern;
 		private TextField tfExtern;
 		private TextField tfEmployment;
@@ -228,7 +228,7 @@ public class PersonManagementView extends VerticalLayout {
 			tfFName = new TextField("Vorname");
 			tfDate = new TextField("Datum");
 			tfIfwt = new TextField("Ifwt");
-			tfMnaf = new TextField("MNaF");
+			tfMNaF = new TextField("MNaF");
 			tfIntern = new TextField("Intern");
 			tfExtern = new TextField("Extern");
 			tfEmployment = new TextField("Beschäftigungsverhältnis");
@@ -239,12 +239,21 @@ public class PersonManagementView extends VerticalLayout {
 			taLabComment = new TextArea("Laboreinrichtungen (Kommentar)");
 			taDangerSubstComment = new TextArea("Gefahrstoffe (Kommentar)");
 			
+			String height = "150px";
+			String width = "450px";
+			taGenInstr.setHeight(height);
+			taGenInstr.setWidth(width);
+			taLabComment.setHeight(height);
+			taLabComment.setWidth(width);
+			taDangerSubstComment.setHeight(height);
+			taDangerSubstComment.setWidth(width);
+			tfEmail.setWidth("350px");
 
 			Button save = new Button("Speichern", e -> {
 				if (!tfLName.isEmpty() && !tfFName.isEmpty() && !tfEmail.isEmpty()) {
 					try {
 						personM.editPerson(this.id, tfLName.getValue(), tfFName.getValue(),
-								tfDate.getValue(), tfIfwt.getValue(), tfMnaf.getValue(),
+								tfDate.getValue(), tfIfwt.getValue(), tfMNaF.getValue(),
 								tfIntern.getValue(), tfExtern.getValue(), tfEmployment.getValue(),
 								tfEmail.getValue(), tfBegin.getValue(), tfEnd.getValue(),
 								taGenInstr.getValue(), taLabComment.getValue(), taDangerSubstComment.getValue());
@@ -259,11 +268,15 @@ public class PersonManagementView extends VerticalLayout {
 				}
 			});
 			save.setIcon(VaadinIcon.ADD_DOCK.create());
-			Button cancel = new Button("Schließen", e -> this.setVisible(false));
-			add(tfLName, tfFName, tfDate, tfIfwt, tfMnaf, tfIntern,
-					tfExtern, tfEmployment, tfEmail, tfBegin, tfEnd, taGenInstr,
-					taLabComment, taDangerSubstComment, new HorizontalLayout(save, cancel));
-			cancel.setIcon(VaadinIcon.CLOSE_CIRCLE.create());
+			Button close = new Button("Schließen", e -> this.setVisible(false));
+			add( new VerticalLayout(
+						new HorizontalLayout(tfLName, tfFName, tfEmail, tfDate),
+						new HorizontalLayout(tfIfwt, tfMNaF, tfIntern, tfExtern),
+						new HorizontalLayout(tfEmployment, tfBegin, tfEnd),
+						new HorizontalLayout(taGenInstr, taLabComment, taDangerSubstComment),
+						new HorizontalLayout(save, close)
+					));
+			close.setIcon(VaadinIcon.CLOSE_CIRCLE.create());
 		}
 
 		public void setEnd(String end) {
@@ -271,7 +284,7 @@ public class PersonManagementView extends VerticalLayout {
 		}
 		
 		public void setMnaf(String mnaf) {
-			tfMnaf.setValue(mnaf);
+			tfMNaF.setValue(mnaf);
 		}
 
 		public void setBegin(String begin) {
@@ -361,6 +374,16 @@ public class PersonManagementView extends VerticalLayout {
 			taGenInstr = new TextArea("Allgemeine Unterweisung");
 			taLabComment = new TextArea("Laboreinrichtungen (Kommentar)");
 			taDangerSubstComment = new TextArea("Gefahrstoffe (Kommentar)");
+			
+			String height = "150px";
+			String width = "450px";
+			taGenInstr.setHeight(height);
+			taGenInstr.setWidth(width);
+			taLabComment.setHeight(height);
+			taLabComment.setWidth(width);
+			taDangerSubstComment.setHeight(height);
+			taDangerSubstComment.setWidth(width);
+			tfEmail.setWidth("350px");
 
 			Button save = new Button("Speichern", e -> {
 				try {
@@ -379,10 +402,13 @@ public class PersonManagementView extends VerticalLayout {
 			});
 			save.setIcon(VaadinIcon.ADD_DOCK.create());
 			Button close = new Button("Schließen", e -> this.setVisible(false));
-
-			add(tfLName, tfFName, tfDate, tfIfwt, tfMNaF, tfIntern,
-					tfExtern, tfEmployment, tfEmail, tfBegin, tfEnd, taGenInstr, taLabComment,
-					taDangerSubstComment, new HorizontalLayout(save, close));
+			add( new VerticalLayout(
+					new HorizontalLayout(tfLName, tfFName, tfEmail, tfDate),
+					new HorizontalLayout(tfIfwt, tfMNaF, tfIntern, tfExtern),
+					new HorizontalLayout(tfEmployment, tfBegin, tfEnd),
+					new HorizontalLayout(taGenInstr, taLabComment, taDangerSubstComment),
+					new HorizontalLayout(save, close)
+				));
 			close.setIcon(VaadinIcon.CLOSE_CIRCLE.create());
 		}
 
