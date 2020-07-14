@@ -64,7 +64,7 @@ Geräte mit denen gearbeitet wird:
 Gefahrstoffe mit denen gearbeitet wird:
 -Laborabzüge; test; test;
 12; Maurer; Fred; 20.05.2020; ; MNaF; ; Wissenschaftlicher Mitarbeiter; 01.10.2019; 01.10.2020; ; fred.maurer@beispiel-uni.de; Test; Test; Test; ; ;
-13; Nauen; Sina; 14.04.2020; ; ; ; Arbeiterin; ; ; ExterneArbeiterin; sina.nauen@externe-uni.de; test1; test1; test1; ; ;
+13; Nauen; Sina; 14.04.2020; ; ; ; Arbeiterin; sina.nauen@externe-uni.de; ; ExterneArbeiterin; ; test2; test1; test1; ; ;
 
 
 GeräteID; Name; Beschreibung; Raum;
@@ -90,29 +90,29 @@ PB-A 225; ;
 
 
 GeräteID; PersonenID; Nutzungszeit;
-1; 1; 0.000000;
-2; 2; 0.000000;
-4; 4; 0.000000;
-1; 2; 0.000000;
-4; 2; 0.000000;
-3; 2; 0.000000;
-5; 3; 6.000000;
-6; 3; 7.000000;
-7; 3; 4.000000;
-8; 3; 0.000000;
-9; 5; 0.000000;
-8; 5; 0.000000;
-7; 5; 0.000000;
-6; 5; 0.000000;
-5; 5; 0.000000;
-10; 6; 0.000000;
-11; 7; 0.000000;
-6; 8; 0.000000;
-5; 8; 0.000000;
-7; 8; 0.000000;
-8; 8; 0.000000;
-12; 9; 0.000000;
-1; 11; 0.000000;
+1; 1; 0,000000;
+2; 2; 0,000000;
+4; 4; 0,000000;
+1; 2; 0,000000;
+4; 2; 0,000000;
+3; 2; 0,000000;
+5; 3; 6,000000;
+6; 3; 7,000000;
+7; 3; 4,000000;
+8; 3; 0,000000;
+9; 5; 0,000000;
+8; 5; 0,000000;
+7; 5; 0,000000;
+6; 5; 0,000000;
+5; 5; 0,000000;
+10; 6; 0,000000;
+11; 7; 0,000000;
+6; 8; 0,000000;
+5; 8; 0,000000;
+7; 8; 0,000000;
+8; 8; 0,000000;
+12; 9; 0,000000;
+1; 11; 0,000000;
 
 
 Name;
@@ -138,6 +138,8 @@ Säuren; 8;
 Laugen; 8;
 Radioaktives Material; 9;
 Laborabzüge; 11;
+Laugen; 4;
+Milch; 4;
 
 
 name; seq;

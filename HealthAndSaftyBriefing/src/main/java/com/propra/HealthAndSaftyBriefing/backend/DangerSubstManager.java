@@ -114,6 +114,41 @@ public class DangerSubstManager {
       }
 	}
 	
+	public List<AssignedDangerSubst> getAssignedDangerSubstByName(int pID, String name) {
+		String tableName1 = "Gefahrstoffzuordnung";
+		String tableName2 = "Gefahrstoffe";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null;
+		List<AssignedDangerSubst> list = new LinkedList<AssignedDangerSubst>();
+		try {
+			pstmt = con.prepareStatement("SELECT "+tableName1+".Gefahrstoff, PersonenID FROM "+tableName1+" INNER JOIN "+tableName2+" ON "+tableName1+".Gefahrstoff = "+tableName2+".name WHERE PersonenID='"+pID+"' AND "+tableName2+".Name LIKE '%"+name+"%'");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				AssignedDangerSubst dangerSubst = new AssignedDangerSubst(
+						rs.getString("Gefahrstoff"),
+						rs.getInt("PersonenID")
+						);
+				list.add(dangerSubst);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return list;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
+	
 	public List<DangerSubst> getUnassignedDangerSubst(int pID) {
 		String tableName1 = "Gefahrstoffzuordnung";
 		String tableName2 = "Gefahrstoffe";
@@ -128,7 +163,43 @@ public class DangerSubstManager {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				DangerSubst dangerSubst = new DangerSubst(
-						rs.getString("Gefahrstoff")
+						rs.getString("Name")
+						);
+				list.add(dangerSubst);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return list;
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
+	
+	public List<DangerSubst> getUnassignedDangerSubstByName(int pID, String name) {
+		String tableName1 = "Gefahrstoffzuordnung";
+		String tableName2 = "Gefahrstoffe";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null;
+		List<DangerSubst> list = new LinkedList<DangerSubst>();
+		try {
+			pstmt = con.prepareStatement("SELECT Name FROM "+tableName2+" WHERE "+tableName2+".Name LIKE '%"+name+"%' AND"
+					+ "("+tableName2+".Name IN ("
+						+"SELECT "+tableName2+".Name FROM "+tableName2+" EXCEPT SELECT "+tableName1+".Gefahrstoff FROM "+tableName1+" WHERE PersonenID='"+pID+"'))");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				DangerSubst dangerSubst = new DangerSubst(
+						rs.getString("Name")
 						);
 				list.add(dangerSubst);
 			}
