@@ -182,7 +182,9 @@ public class RoomsView extends VerticalLayout {
 			Button btnSave = new Button("Speichern", e -> {
 				if (!tfRoomName.isEmpty()) {
 					try {
-						roomM.editRoom(tfRoomName.getValue(), tfRoomDescription.getValue());
+						SingleSelect<Grid<Room>, Room> selectedRoom = roomGrid.asSingleSelect();
+						String oldName = selectedRoom.getValue().getName();
+						roomM.editRoom(oldName, tfRoomName.getValue(), tfRoomDescription.getValue());
 						Notification.show("Raumdaten wurden erfolgreich bearbeitet");
 					} catch (NoSuchAlgorithmException ex) {
 						ex.printStackTrace();

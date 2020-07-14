@@ -248,7 +248,6 @@ public class RoomManager {
 		Connection con = DBConnector.connectCore();
 		PreparedStatement pstmt = null;
 		
-		
 		try {
 			pstmt = con.prepareStatement("INSERT INTO "+tableName+ "(Name, Beschreibung) VALUES(?, ?)");
 			
@@ -304,13 +303,12 @@ public class RoomManager {
       }
 	}
 	
-	public void editRoom(String roomName, String description) throws NoSuchAlgorithmException {
+	public void editRoom(String roomName, String newName, String description) throws NoSuchAlgorithmException {
 		String tableName = "R\u00e4ume";
 		Connection con = DBConnector.connectCore();
 		PreparedStatement pstmt = null;
-		
 		try {
-			pstmt = con.prepareStatement("UPDATE "+tableName+" SET Name='"+roomName+"', Beschreibung='"+description+"' WHERE Name='"+roomName+"'");
+			pstmt = con.prepareStatement("UPDATE "+tableName+" SET Name='"+newName+"', Beschreibung='"+description+"' WHERE Name='"+roomName+"'");
 			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
