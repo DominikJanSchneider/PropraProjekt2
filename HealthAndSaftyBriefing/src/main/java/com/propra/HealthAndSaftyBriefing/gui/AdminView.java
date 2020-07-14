@@ -145,8 +145,6 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 		menuBar = new MenuBar();
 		MenuItem fileMenu = menuBar.addItem("Datei");
 		fileMenu.addComponentAsFirst(VaadinIcon.FOLDER.create());
-		MenuItem editDataMenu = menuBar.addItem("Daten bearbeiten", e -> editDataPressed());
-		editDataMenu.addComponentAsFirst(VaadinIcon.DATABASE.create());
 		printMenu = menuBar.addItem("Drucken", e -> printPressed());
 		printMenu.addComponentAsFirst(VaadinIcon.PRINT.create());
 		MenuItem editUserMenu = menuBar.addItem("Benutzerverwaltung", e -> editUserPressed());
@@ -217,10 +215,6 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 
 	private void settingsPressed() {
 		configureSettingsMenu();
-	}
-	
-	private void editDataPressed() {
-		UI.getCurrent().navigate("PersonManagementView");
 	}
 
 	private void editUserPressed() {

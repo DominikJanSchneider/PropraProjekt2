@@ -13,6 +13,7 @@ import com.vaadin.flow.component.FocusNotifier;
 import com.vaadin.flow.component.FocusNotifier.FocusEvent;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.ShortcutRegistration;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
@@ -35,6 +36,7 @@ public class PersonView extends VerticalLayout {
 	private TextArea taDangerSubst;
 	private TextField tfSearch;
 	private Button btnSearch;
+	private Button btnEditPersons;
 	private Button btnAll;
 	private Button btnIfwt;
 	private Button btnLMN;
@@ -52,6 +54,11 @@ public class PersonView extends VerticalLayout {
 		//Building searchComponents
 		Component searchComponents = configureSearchComponents();
 		add(searchComponents);
+		
+		//edit button
+		btnEditPersons = new Button("Personen bearbeiten", e -> editPersonsPressed());
+		btnEditPersons.setIcon(VaadinIcon.DATABASE.create());
+		add(btnEditPersons);
 
 		//Building the personGrid
 		configurePersonGrid();
@@ -296,5 +303,9 @@ public class PersonView extends VerticalLayout {
 	public void reloadGrid() {
 		List<Person> persons = personM.getPersonsData();
 		personGrid.setItems(persons);
+	}
+	
+	private void editPersonsPressed() {
+		UI.getCurrent().navigate("PersonManagementView");
 	}
 }

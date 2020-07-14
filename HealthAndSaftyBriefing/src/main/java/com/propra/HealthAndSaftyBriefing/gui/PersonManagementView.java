@@ -60,7 +60,7 @@ public class PersonManagementView extends VerticalLayout {
 		//btnBack
 		btnBack = new Button("Zurück");
 		btnBack.setIcon(VaadinIcon.ARROW_BACKWARD.create());
-		btnBack.addClickListener(e -> { UI.getCurrent().navigate("AdminView");});
+		btnBack.addClickListener(e -> { UI.getCurrent().navigate("AdminView/PersonTab");});
 		add(btnBack);
 		
 		add(configureSearchComponents());
