@@ -55,18 +55,19 @@ ID; Name; Vorname; Datum; Ifwt; MNaF; Intern; Beschaeftigungsverhaeltnis; Beginn
 
 
 GeräteID; Name; Beschreibung; Raum;
-1; Schleifeinrich; z; BR-A 001; 
-2; Schleifeinrichtung; sds; BR-A 002; 
-3; Schleifeinrichtung; sds; BR-A 001; 
-4; Schleifeinrichtung; sds; BR-A 003; 
-5; Schleifeinrichtung; sds; PB-A 225; 
-6; Schleifeinrichtung; sds; PB-A 225; 
-7; Schleifeinrichtung; sds; PB-A 225; 
-8; Schleifeinrichtung; sds; PB-A 225; 
-9; Schleifeinrichtung; sds; PB-A 225; 
-10; Schleifeinrichtung; sds; PB-A 225; 
-11; Schleifeinrichtung; sds; BR-A 003; 
-12; Schleifeinrichtung; sds; PB-A 225; 
+1; Materialtrennschneider; ; BR-A 001; 
+2; Schleifeinrichtung; ; BR-A 002; 
+3; Ultraschall-Reinigungsgerät; ; BR-A 001; 
+4; Ständerbohrmaschine; ; BR-A 003; 
+5; Materialtrennschneider; ; PB-A 225; 
+6; Schleifeinrichtung; ; PB-A 225; 
+7; Ultraschall-Reinigungsgerät; ; PB-A 225; 
+8; Ständerbohrmaschine; ; PB-A 225; 
+9; Laser; ; PB-A 225; 
+10; Atom-Uboot; ; PB-A 225; 
+11; synthetische Kuh; ; BR-A 003; 
+12; Zentrifuge; ; PB-A 225; 
+13; test; test; PB-A 225; 
 
 
 Name; Beschreibung;
@@ -74,6 +75,7 @@ BR-A 001; Beispielraum 1;
 BR-A 002; Beispielraum 2;
 BR-A 003; Beispielraum 3;
 PB-A 225; ;
+TR-A 001; Testraum Bearbeitung 1;
 
 
 GeräteID; PersonenID; Nutzungszeit;
@@ -133,5 +135,5 @@ Laugen; 13;
 
 
 name; seq;
-Geräte; 12;
+Geräte; 13;
 Personen; 13;
