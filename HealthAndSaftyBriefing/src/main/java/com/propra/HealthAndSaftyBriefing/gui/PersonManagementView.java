@@ -4,13 +4,22 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import com.propra.HealthAndSaftyBriefing.backend.PersonManager;
 import com.propra.HealthAndSaftyBriefing.backend.data.Person;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.FocusNotifier;
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.ShortcutRegistration;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.BlurNotifier.BlurEvent;
+import com.vaadin.flow.component.FocusNotifier.FocusEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
@@ -30,9 +39,12 @@ public class PersonManagementView extends VerticalLayout {
 	private PersonManager personM;
 	private Button btnAddPerson;
 	private Button btnDeletePerson;
+	private Button btnSearch;
+	private Button btnBack;
 	private PersonAddForm addForm;
 	private PersonEditForm editForm;
-	private Button btnBack;
+	private TextField tfSearch;
+	protected ShortcutRegistration shortReg;
 
 	public PersonManagementView() {
 
@@ -52,6 +64,8 @@ public class PersonManagementView extends VerticalLayout {
 		btnBack.setIcon(VaadinIcon.ARROW_BACKWARD.create());
 		btnBack.addClickListener(e -> { UI.getCurrent().navigate("AdminView");});
 		add(btnBack);
+		
+		add(configureSearchComponents());
 		
 		// addPerson
 		btnAddPerson = new Button("Neue Person anlegen");
@@ -172,8 +186,41 @@ public class PersonManagementView extends VerticalLayout {
 		});
 	}
 	
+	private Component configureSearchComponents() {
+		tfSearch = new TextField();
+		btnSearch = new Button("Suchen");
+		btnSearch.setIcon(VaadinIcon.SEARCH.create());
+		btnSearch.addClickListener(e -> searchPressed());
+		tfSearch.setWidth("200px");
+		tfSearch.setPlaceholder("Suche nach Name");
+		tfSearch.setAutoselect(true);
+		tfSearch.addFocusListener(new ComponentEventListener<FocusNotifier.FocusEvent<TextField>>() {
+
+			@Override
+			public void onComponentEvent(FocusEvent<TextField> event) {
+				shortReg = btnSearch.addClickShortcut(Key.ENTER);
+			}
+			
+		});
+		tfSearch.addBlurListener(new ComponentEventListener<BlurEvent<TextField>>() {
+
+			@Override
+			public void onComponentEvent(BlurEvent<TextField> event) {
+				shortReg.remove();
+			}
+			
+		});
+		VerticalLayout searchComponent = new VerticalLayout(tfSearch, btnSearch);
+		return searchComponent;
+	}
+	
 	public void updatePersonGrid() {
 		List<Person> persons = personM.getPersonsData();
+		personGrid.setItems(persons);
+	}
+	
+	private void updatePersonGridByName(String name) {
+		List<Person> persons = personM.getPersonsByName(name);
 		personGrid.setItems(persons);
 	}
 	
@@ -467,5 +514,10 @@ public class PersonManagementView extends VerticalLayout {
 		public void setLName(String lName) {
 			tfLName.setValue(lName);
 		}
+	}
+ 
+	private void searchPressed() {
+		String searchTxt = tfSearch.getValue();
+		updatePersonGridByName(searchTxt);
 	}
 }
