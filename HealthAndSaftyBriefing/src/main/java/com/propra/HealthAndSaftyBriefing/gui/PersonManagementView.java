@@ -237,8 +237,8 @@ public class PersonManagementView extends VerticalLayout {
 			tfBegin = new TextField("Beginn");
 			tfEnd = new TextField("Ende");
 			taGenInstr = new TextArea("Allgemeine Unterweisung");
-			taLabComment = new TextArea("LabKommentar");
-			taDangerSubstComment = new TextArea("GefKommentar");
+			taLabComment = new TextArea("Laboreinrichtungen (Kommentar)");
+			taDangerSubstComment = new TextArea("Gefahrstoffe (Kommentar)");
 			
 
 			Button save = new Button("Speichern", e -> {
@@ -360,8 +360,8 @@ public class PersonManagementView extends VerticalLayout {
 			tfPersonBeginn = new TextField("Beginn");
 			tfPersonEnde = new TextField("Ende");
 			taPersonAu = new TextArea("Allgemeine Unterweisung");
-			taPersonLk = new TextArea("LabKommentar");
-			taPersonGk = new TextArea("GefKommentar");
+			taPersonLk = new TextArea("Laboreinrichtungen (Kommentar)");
+			taPersonGk = new TextArea("Gefahrstoffe (Kommentar)");
 
 			Button save = new Button("Speichern", e -> {
 
