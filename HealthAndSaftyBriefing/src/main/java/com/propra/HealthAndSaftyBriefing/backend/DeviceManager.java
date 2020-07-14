@@ -1,5 +1,6 @@
 package com.propra.HealthAndSaftyBriefing.backend;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -545,5 +546,89 @@ public class DeviceManager {
 			}
 			DBConnector.deconnect();
        }
+	}
+	
+	public void deleteDevice(int id) {
+		String tableName = "Ger\u00e4te";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+		try {
+
+			pstmt = con.prepareStatement("DELETE FROM "+tableName+" WHERE Ger\u00e4teID ="+id);
+			con.setAutoCommit(false);
+			pstmt.execute();
+			pstmt.close();
+			con.commit();
+			
+			pstmt = con.prepareStatement("UPDATE sqlite_sequence SET seq='"+(id-1)+"' WHERE name='Ger\u00e4te';");
+			con.setAutoCommit(false);
+			pstmt.executeUpdate();
+			con.commit();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+		}
+	}
+	
+	public void editDevice(int id, String name, String descript) throws NoSuchAlgorithmException {
+		String tableName = "Ger\u00e4te";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+
+		try {
+			pstmt = con.prepareStatement("UPDATE " + tableName + " SET Name='"+name +"', Beschreibung='"+descript+"' WHERE Ger\u00e4teID='"+id+"'");
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+		}
+	}
+	
+	public void addDevice(String name, String descript) throws NoSuchAlgorithmException {
+		String tableName = "Ger\u00e4te";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+
+		try {
+			pstmt = con.prepareStatement("INSERT INTO " + tableName
+					+ "(Name, Beschreibung, Raum) VALUES(?, ?, ?)");
+
+			pstmt.setString(1, name);
+			pstmt.setString(2, descript);
+			pstmt.setString(3, "");
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getErrorCode());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+		}
 	}
 }

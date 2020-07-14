@@ -179,7 +179,6 @@ public class RoomAssignmentView extends VerticalLayout implements HasUrlParamete
 	}
 	
 	private void backButtonPressed() {
-		//TODO route
-		UI.getCurrent().navigate("");
+		UI.getCurrent().navigate("AdminView/DeviceTab");
 	}
 }

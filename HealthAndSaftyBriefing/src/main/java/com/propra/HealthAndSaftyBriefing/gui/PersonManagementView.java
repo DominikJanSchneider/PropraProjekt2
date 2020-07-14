@@ -39,8 +39,6 @@ public class PersonManagementView extends VerticalLayout {
 	private Button btnDeletePerson;
 	private Button btnSearch;
 	private Button btnBack;
-	private Button btnDeviceAssignment;
-	private Button btnDangerSubstAssignment;
 	private PersonAddForm addForm;
 	private PersonEditForm editForm;
 	private TextField tfSearch;
@@ -60,7 +58,7 @@ public class PersonManagementView extends VerticalLayout {
 		//btnBack
 		btnBack = new Button("Zurück");
 		btnBack.setIcon(VaadinIcon.ARROW_BACKWARD.create());
-		btnBack.addClickListener(e -> { UI.getCurrent().navigate("AdminView");});
+		btnBack.addClickListener(e -> { UI.getCurrent().navigate("AdminView/PersonTab");});
 		add(btnBack);
 		
 		add(configureSearchComponents());
@@ -224,25 +222,25 @@ public class PersonManagementView extends VerticalLayout {
 	    SingleSelect<Grid<Person>, Person> selectedPerson = personGrid.asSingleSelect();	
 		if (selectedPerson.isEmpty()) {
 			return;
-		}else {
-		addForm.setVisible(false);
-		editForm.setVisible(true);
-		editForm.setId(selectedPerson.getValue().getId());
-		editForm.setLName(selectedPerson.getValue().getLName());
-		editForm.setFName(selectedPerson.getValue().getFName());
-		editForm.setDate(selectedPerson.getValue().getDate());
-		editForm.setIfwt(selectedPerson.getValue().getIfwt());
-		editForm.setMnaf(selectedPerson.getValue().getMNaF());
-		editForm.setIntern(selectedPerson.getValue().getIntern());
-		editForm.setExtern(selectedPerson.getValue().getExtern());
-		editForm.setEmployment(selectedPerson.getValue().getEmployment());
-		editForm.setEmail(selectedPerson.getValue().getEMail());
-		editForm.setBegin(selectedPerson.getValue().getBegin());
-		editForm.setEnd(selectedPerson.getValue().getEnd());
-		editForm.setGeneralInstruction(selectedPerson.getValue().getGenInstr());
-		editForm.setLabComment(selectedPerson.getValue().getLabComment());
-		editForm.setDangerSubstComment(selectedPerson.getValue().getDangerSubstComment());
-		
+		}
+		else {
+			addForm.setVisible(false);
+			editForm.setVisible(true);
+			editForm.setId(selectedPerson.getValue().getId());
+			editForm.setLName(selectedPerson.getValue().getLName());
+			editForm.setFName(selectedPerson.getValue().getFName());
+			editForm.setDate(selectedPerson.getValue().getDate());
+			editForm.setIfwt(selectedPerson.getValue().getIfwt());
+			editForm.setMnaf(selectedPerson.getValue().getMNaF());
+			editForm.setIntern(selectedPerson.getValue().getIntern());
+			editForm.setExtern(selectedPerson.getValue().getExtern());
+			editForm.setEmployment(selectedPerson.getValue().getEmployment());
+			editForm.setEmail(selectedPerson.getValue().getEMail());
+			editForm.setBegin(selectedPerson.getValue().getBegin());
+			editForm.setEnd(selectedPerson.getValue().getEnd());
+			editForm.setGeneralInstruction(selectedPerson.getValue().getGenInstr());
+			editForm.setLabComment(selectedPerson.getValue().getLabComment());
+			editForm.setDangerSubstComment(selectedPerson.getValue().getDangerSubstComment());
 		}
 	}
 	
@@ -261,6 +259,8 @@ public class PersonManagementView extends VerticalLayout {
 		private TextArea taGenInstr;
 		private TextArea taLabComment;
 		private TextArea taDangerSubstComment;
+		private Button btnDeviceAssignment;
+		private Button btnDangerSubstAssignment;
 		private int id;
 
 		PersonEditForm(PersonManagementView personManagementView, PersonManager personM) {
@@ -389,8 +389,8 @@ public class PersonManagementView extends VerticalLayout {
 			tfFName.setValue(fName);
 		}
 
-		public void setId(int i) {
-			this.id = i;
+		public void setId(int id) {
+			this.id = id;
 		}
 
 		public void setLName(String lName) {
