@@ -2,18 +2,13 @@ package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-
 import com.propra.HealthAndSaftyBriefing.backend.PersonManager;
 import com.propra.HealthAndSaftyBriefing.backend.data.Person;
-import com.propra.HealthAndSaftyBriefing.backend.data.User;
-import com.propra.HealthAndSaftyBriefing.gui.UserManagementView.UserAddForm;
-import com.propra.HealthAndSaftyBriefing.gui.UserManagementView.UserEditForm;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -27,7 +22,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 @Route("PersonManagementView")
-@PageTitle("Personenverwaltung")
+@PageTitle("Personenverwaltung | Sicherheitsunterweisung")
 @SuppressWarnings("serial")
 public class PersonManagementView extends VerticalLayout {
 
@@ -35,15 +30,9 @@ public class PersonManagementView extends VerticalLayout {
 	private PersonManager personM;
 	private Button btnAddPerson;
 	private Button btnDeletePerson;
-	private Button btnEditPerson;
-	private Div content;
-	private Div editContent;
 	private PersonAddForm addForm;
 	private PersonEditForm editForm;
 	private Button btnBack;
-	
-		
-	
 
 	public PersonManagementView() {
 
@@ -87,11 +76,6 @@ public class PersonManagementView extends VerticalLayout {
 				addForm.setPersonAu("");
 				addForm.setPersonLabKommentar("");
 				addForm.setPersonGefKommentar("");
-
-				
-
-			
-			
 		});
 
 		// button delete User
@@ -109,8 +93,6 @@ public class PersonManagementView extends VerticalLayout {
 		});
 		btnDeletePerson.addThemeVariants(ButtonVariant.LUMO_ERROR, ButtonVariant.LUMO_PRIMARY);
 		btnDeletePerson.setIcon(VaadinIcon.MINUS_CIRCLE.create());
-
-		
 
 		add(new HorizontalLayout(btnAddPerson, btnDeletePerson));
 
@@ -182,30 +164,18 @@ public class PersonManagementView extends VerticalLayout {
 						.setKey("eMail")
 						.setSortable(true);
 		personGrid.addSelectionListener(new SelectionListener<Grid<Person>, Person>(){
-
 			@Override
 			public void selectionChange(SelectionEvent<Grid<Person>, Person> event) {
-				// TODO Auto-generated method stub
 				if(event.isFromClient())
 					showEditPersonForm();
 			}
-
-			
-				
-			}
-		);
+		});
+	}
 	
-		
-		 
-		}
-	
-
 	public void updatePersonGrid() {
 		List<Person> persons = personM.getPersonsData();
 		personGrid.setItems(persons);
 	}
-	
-
 	
 	private void showEditPersonForm() {
 		
@@ -289,14 +259,15 @@ public class PersonManagementView extends VerticalLayout {
 					Notification.show("Bitte geben Sie sowohl einen Namen als auch einen Vornamen ein!");
 				}
 			});
-			Button close = new Button("Beenden", e -> this.setVisible(false));
+			save.setIcon(VaadinIcon.ADD_DOCK.create());
+			Button cancel = new Button("Schließen", e -> this.setVisible(false));
 			add(tfLName, tfFName, tfDate, tfIfwt, tfMnaf, tfIntern,
 					tfExtern, tfEmployment, tfEmail, tfBegin, tfEnd, taGenInstr, /*taPersonLk,*/
-					taLabComment, taDangerSubstComment, new HorizontalLayout(save, close));
+					taLabComment, taDangerSubstComment, new HorizontalLayout(save, cancel));
+			cancel.setIcon(VaadinIcon.CLOSE_CIRCLE.create());
 		}
 
 		public void setTfEnd(String end) {
-			// TODO Auto-generated method stub
 			tfEnd.setValue(end);
 		}
 		
@@ -305,57 +276,46 @@ public class PersonManagementView extends VerticalLayout {
 		}
 
 		public void setTfBegin(String begin) {
-			// TODO Auto-generated method stub
 			tfBegin.setValue(begin);
 		}
 
 		public void setTaDangerSubstComment(String dangerSubstComment) {
-			// TODO Auto-generated method stub
 			taDangerSubstComment.setValue(dangerSubstComment);
 		}
 
 		public void setTfEmail(String eMail) {
-			// TODO Auto-generated method stub
 			tfEmail.setValue(eMail);
 		}
 
 		public void setTaLabComment(String labComment) {
-			// TODO Auto-generated method stub
 			taLabComment.setValue(labComment);
 		}
 
 		public void setTaGeneralInstruction(String dangerSubsts) {
-			// TODO Auto-generated method stub
 			taGenInstr.setValue(dangerSubsts);
 		}
 
 		public void setTfEmployment(String employment) {
-			// TODO Auto-generated method stub
 			tfEmployment.setValue(employment);
 		}
 
 		public void setTfExtern(String extern) {
-			// TODO Auto-generated method stub
 			tfExtern.setValue(extern);
 		}
 
 		public void setTfIntern(String intern) {
-			// TODO Auto-generated method stub
 			tfIntern.setValue(intern);
 		}
 
 		public void setTfIfwt(String ifwt) {
-			// TODO Auto-generated method stub
 			tfIfwt.setValue(ifwt);
 		}
 
 		public void setTfDate(String date) {
-			// TODO Auto-generated method stub
 			tfDate.setValue(date);
 		}
 
 		public void setTfFName(String fName) {
-			// TODO Auto-generated method stub
 			tfFName.setValue(fName);
 		}
 
@@ -421,76 +381,64 @@ public class PersonManagementView extends VerticalLayout {
 				personManagementView.updatePersonGrid();
 
 			});
-
-			Button close = new Button("Beenden", e -> this.setVisible(false));
+			save.setIcon(VaadinIcon.ADD_DOCK.create());
+			Button close = new Button("Schließen", e -> this.setVisible(false));
 
 			add(tfPersonName, tfPersonVorname, tfPersonDatum, tfPersonIfwt, tfPersonMNaF, tfPersonIntern,
 					tfPersonExtern, tfPersonBv, tfPersonEmail, tfPersonBeginn, tfPersonEnde, taPersonAu, taPersonLk,
 					taPersonGk, new HorizontalLayout(save, close));
+			close.setIcon(VaadinIcon.CLOSE_CIRCLE.create());
 		}
 
 		public void setPersonEnde(String ende) {
-			// TODO Auto-generated method stub
 			tfPersonEnde.setValue(ende);
 		}
 
 		public void setPersonBeginn(String beginn) {
-			// TODO Auto-generated method stub
 			tfPersonBeginn.setValue(beginn);
 		}
 
 		public void setPersonGefKommentar(String gk) {
-			// TODO Auto-generated method stub
 			taPersonGk.setValue(gk);
 		}
 
 		public void setPersonLabKommentar(String lk) {
-			// TODO Auto-generated method stub
 			taPersonLk.setValue(lk);
 		}
 
 		public void setPersonAu(String au) {
-			// TODO Auto-generated method stub
 			taPersonAu.setValue(au);
 		}
 
 		public void setPersonEmail(String email) {
-			// TODO Auto-generated method stub
 			tfPersonEmail.setValue(email);
 		}
 
 		public void setPersonBeschaeftigungsverhaeltnis(String bv) {
-			// TODO Auto-generated method stub
 			tfPersonBv.setValue(bv);
 		}
 
 		public void setPersonExtern(String extern) {
-			// TODO Auto-generated method stub
 			tfPersonExtern.setValue(extern);
 		}
 
 		public void setPersonIntern(String intern) {
-			// TODO Auto-generated method stub
 			tfPersonIntern.setValue(intern);
 		}
 
 		public void setPersonMNaF(String mnaf) {
-			// TODO Auto-generated method stub
 			tfPersonMNaF.setValue(mnaf);
 		}
 
 		public void setPersonIfwt(String ifwt) {
-			// TODO Auto-generated method stub
 			tfPersonIfwt.setValue(ifwt);
 		}
 
 		public void setPersonVorname(String vorname) {
-			// TODO Auto-generated method stub
 			tfPersonVorname.setValue(vorname);
 		}
 
 		public void setPersonDatum(String datum) {
-			// TODO Auto-generated method stub
 			tfPersonDatum.setValue(datum);
 		}
 

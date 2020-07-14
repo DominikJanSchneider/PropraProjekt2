@@ -2,21 +2,14 @@ package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-
-
-
-import javax.swing.SingleSelectionModel;
-import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.UI;
 import com.propra.HealthAndSaftyBriefing.backend.UserManager;
 import com.propra.HealthAndSaftyBriefing.backend.data.User;
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.FocusNotifier;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.ShortcutRegistration;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.BlurNotifier.BlurEvent;
 import com.vaadin.flow.component.FocusNotifier.FocusEvent;
 import com.vaadin.flow.component.button.Button;
@@ -42,8 +35,6 @@ import com.vaadin.flow.router.Route;
 @PageTitle("Benutzerverwaltung | Sicherheitsunterweisung")
 @SuppressWarnings("serial")
 public class UserManagementView extends VerticalLayout{
-	
-
 	private Grid<User> userGrid;
 	private UserManager userM;
 	private Button btnAddUser;
@@ -292,9 +283,9 @@ public class UserManagementView extends VerticalLayout{
 			    	}
 			    });
 			    save.setIcon(VaadinIcon.ADD_DOCK.create());
-			    Button cancel = new Button("Schließen", e -> this.setVisible(false));
-			    cancel.setIcon(VaadinIcon.CLOSE_CIRCLE.create());
-			    add(tfUserName, tfPassword, slRole, new HorizontalLayout(save, cancel));
+			    Button close = new Button("Schließen", e -> this.setVisible(false));
+			    close.setIcon(VaadinIcon.CLOSE_CIRCLE.create());
+			    add(tfUserName, tfPassword, slRole, new HorizontalLayout(save, close));
 		  } 
 		  
 		  public void setUserName(String name) {
@@ -354,9 +345,9 @@ public class UserManagementView extends VerticalLayout{
 		    	}
 		    });
 		    save.setIcon(VaadinIcon.ADD_DOCK.create());
-		    Button cancel = new Button("Schließen", e -> this.setVisible(false));
-		    cancel.setIcon(VaadinIcon.CLOSE_CIRCLE.create());
-		    add(tfUserName, tfPassword, slRole, new HorizontalLayout(save, cancel));
+		    Button close = new Button("Schließen", e -> this.setVisible(false));
+		    close.setIcon(VaadinIcon.CLOSE_CIRCLE.create());
+		    add(tfUserName, tfPassword, slRole, new HorizontalLayout(save, close));
 		  }
 		  
 		  public void setUserName(String name) {
