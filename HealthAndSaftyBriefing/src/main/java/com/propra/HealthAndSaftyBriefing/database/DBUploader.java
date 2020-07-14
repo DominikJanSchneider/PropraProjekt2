@@ -3,9 +3,6 @@ package com.propra.HealthAndSaftyBriefing.database;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import com.vaadin.flow.component.upload.Receiver;
 
