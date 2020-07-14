@@ -248,8 +248,22 @@ public class UserView extends VerticalLayout {
 		tfEnd.setValue(userData.getEnd());
 		tfEMail.setValue(userData.getEMail());
 		taGeneralInstruction.setValue(userData.getGenInstr());
-		taLabSetup.setValue(userData.getLabSetup());
-		taDangerSubst.setValue(userData.getDangerSubsts());
+		String labComment = userData.getLabComment();
+		String labSetup = userData.getLabSetup();
+		String dangerSubstComment = userData.getDangerSubstComment();
+		String dangerSubsts = userData.getDangerSubsts();
+		if(labComment.isEmpty()) {
+			taLabSetup.setValue(labSetup);
+		}
+		else {
+			taLabSetup.setValue(labComment+"\n"+labSetup);
+		}
+		if(dangerSubstComment.isEmpty()) {
+			taDangerSubst.setValue(dangerSubsts);
+		}
+		else {
+			taDangerSubst.setValue(dangerSubstComment+"\n"+dangerSubsts);
+		}
 	}
 	
 	private void updateUserDeviceGrid() {

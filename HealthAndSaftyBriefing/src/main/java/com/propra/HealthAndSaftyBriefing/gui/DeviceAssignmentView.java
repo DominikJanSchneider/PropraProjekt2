@@ -1,8 +1,10 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Comparator;
 import java.util.List;
 import com.propra.HealthAndSaftyBriefing.backend.DeviceManager;
+import com.propra.HealthAndSaftyBriefing.backend.PersonManager;
 import com.propra.HealthAndSaftyBriefing.backend.data.AssignedDevice;
 import com.propra.HealthAndSaftyBriefing.backend.data.Device;
 import com.vaadin.flow.component.Component;
@@ -46,11 +48,12 @@ public class DeviceAssignmentView extends VerticalLayout implements HasUrlParame
 	private TextField tfSearch;
 	private TextField tfUsageTime;
 	private DeviceManager deviceM;
+	private PersonManager personM;
 	protected ShortcutRegistration shortReg;
-	
 	
 	public DeviceAssignmentView() {
 		deviceM = new DeviceManager();
+		personM = new PersonManager();
 		//back button
 		btnBack = new Button("Zurück", e -> backButtonPressed());
 		btnBack.setIcon(VaadinIcon.ARROW_BACKWARD.create());
@@ -88,6 +91,13 @@ public class DeviceAssignmentView extends VerticalLayout implements HasUrlParame
 			deviceM.unassignDevice(dID, pID);
 			updateAssignedGrid(pID);
 			updateUnassignedGrid(pID);
+			try {
+				String labSetupTxt = getLabSetupTxt(pID);
+				personM.setLabSetup(pID, labSetupTxt);
+			}
+			catch(NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
 		}
 		else {
 			Notification.show("Kein Eintrag Ausgewählt!");
@@ -101,6 +111,13 @@ public class DeviceAssignmentView extends VerticalLayout implements HasUrlParame
 			deviceM.assignDevice(dID, pID);
 			updateAssignedGrid(pID);
 			updateUnassignedGrid(pID);
+			try {
+				String labSetupTxt = getLabSetupTxt(pID);
+				personM.setLabSetup(pID, labSetupTxt);
+			}
+			catch(NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
 		}
 		else {
 			Notification.show("Kein Eintrag Ausgewählt!");
@@ -336,5 +353,18 @@ public class DeviceAssignmentView extends VerticalLayout implements HasUrlParame
 	
 	private void backButtonPressed() {
 		UI.getCurrent().navigate("PersonManagementView");
+	}
+	
+	private String getLabSetupTxt(int pID)
+	{
+		String res = "Ger\u00e4te mit denen gearbeitet wird:";
+		List<AssignedDevice> devices = deviceM.getAssignedDevices(pID);
+		for(AssignedDevice device : devices) {
+			int id = device.getId();
+			String name = device.getName();
+			String room = device.getRoom();
+			res = res.concat("\n-Ger\u00e4teID: "+id+", Name: "+name+", Raum: "+room);
+		}
+		return res;
 	}
 }

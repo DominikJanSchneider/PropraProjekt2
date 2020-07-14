@@ -162,11 +162,23 @@ public class PersonView extends VerticalLayout {
 		if(it.hasNext()) {
 			Person person = it.next();
 			String genInstr = person.getGenInstr();
+			String labComment = person.getLabComment();
 			String labSetup = person.getLabSetup();
+			String dangerSubstComment = person.getDangerSubstComment();
 			String dangerSubsts = person.getDangerSubsts();
 			taGeneralInstruction.setValue(genInstr);
-			taLabSetup.setValue(labSetup);
-			taDangerSubst.setValue(dangerSubsts);
+			if(labComment.isEmpty()) {
+				taLabSetup.setValue(labSetup);
+			}
+			else {
+				taLabSetup.setValue(labComment+"\n"+labSetup);
+			}
+			if(dangerSubstComment.isEmpty()) {
+				taDangerSubst.setValue(dangerSubsts);
+			}
+			else {
+				taDangerSubst.setValue(dangerSubstComment+"\n"+dangerSubsts);
+			}
 		}
 	}
 

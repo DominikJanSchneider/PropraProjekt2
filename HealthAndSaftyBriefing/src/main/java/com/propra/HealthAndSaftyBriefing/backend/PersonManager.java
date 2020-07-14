@@ -652,4 +652,54 @@ public class PersonManager {
 			DBConnector.deconnect();
 		}
 	}
+	
+	public void setLabSetup(int pID, String labSetup) throws NoSuchAlgorithmException {
+		String tableName = "Personen";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+
+		try {
+			pstmt = con.prepareStatement("UPDATE "+tableName+" SET Laboreinrichtungen='"+labSetup+"' WHERE ID=" +pID);
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getErrorCode());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+		}
+	}
+	
+	public void setDangerSubst(int pID, String dangerSubst) throws NoSuchAlgorithmException {
+		String tableName = "Personen";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+
+		try {
+			pstmt = con.prepareStatement("UPDATE "+tableName+" SET Gefahrstoffe='"+dangerSubst+"' WHERE ID=" +pID);
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getErrorCode());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+		}
+	}
 }

@@ -1,9 +1,11 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Comparator;
 import java.util.List;
 
 import com.propra.HealthAndSaftyBriefing.backend.DangerSubstManager;
+import com.propra.HealthAndSaftyBriefing.backend.PersonManager;
 import com.propra.HealthAndSaftyBriefing.backend.data.AssignedDangerSubst;
 import com.propra.HealthAndSaftyBriefing.backend.data.DangerSubst;
 import com.vaadin.flow.component.Component;
@@ -44,11 +46,13 @@ public class DangerSubstAssignmentView extends VerticalLayout implements HasUrlP
 	private Tabs searchTabs;
 	private TextField tfSearch;
 	private DangerSubstManager dangerSubstM;
+	private PersonManager personM;
 	protected ShortcutRegistration shortReg;
 	
 	
 	public DangerSubstAssignmentView() {
 		dangerSubstM = new DangerSubstManager();
+		personM = new PersonManager();
 		//back button
 		btnBack = new Button("Zurück", e -> backButtonPressed());
 		btnBack.setIcon(VaadinIcon.ARROW_BACKWARD.create());
@@ -86,6 +90,13 @@ public class DangerSubstAssignmentView extends VerticalLayout implements HasUrlP
 			dangerSubstM.unassignDangerSubst(name, pID);
 			updateAssignedGrid(pID);
 			updateUnassignedGrid(pID);
+			try {
+				String dangerSubstTxt = getDangerSubstTxt(pID);
+				personM.setDangerSubst(pID, dangerSubstTxt);
+			}
+			catch(NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
 		}
 		else {
 			Notification.show("Kein Eintrag Ausgewählt!");
@@ -99,6 +110,13 @@ public class DangerSubstAssignmentView extends VerticalLayout implements HasUrlP
 			dangerSubstM.assignDangerSubst(name, pID);
 			updateAssignedGrid(pID);
 			updateUnassignedGrid(pID);
+			try {
+				String dangerSubstTxt = getDangerSubstTxt(pID);
+				personM.setDangerSubst(pID, dangerSubstTxt);
+			}
+			catch(NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
 		}
 		else {
 			Notification.show("Kein Eintrag Ausgewählt!");
@@ -202,5 +220,16 @@ public class DangerSubstAssignmentView extends VerticalLayout implements HasUrlP
 	
 	private void backButtonPressed() {
 		UI.getCurrent().navigate("PersonManagementView");
+	}
+	
+	private String getDangerSubstTxt(int pID)
+	{
+		String res = "Gefahrstoffe mit denen gearbeitet wird:";
+		List<AssignedDangerSubst> dangerSubsts = dangerSubstM.getAssignedDangerSubst(pID);
+		for(AssignedDangerSubst dangerSubst : dangerSubsts) {
+			String name = dangerSubst.getName();
+			res = res.concat("\n-"+name);
+		}
+		return res;
 	}
 }

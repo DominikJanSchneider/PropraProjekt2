@@ -102,32 +102,8 @@ public class PersonManagementView extends VerticalLayout {
 		});
 		btnDeletePerson.addThemeVariants(ButtonVariant.LUMO_ERROR, ButtonVariant.LUMO_PRIMARY);
 		btnDeletePerson.setIcon(VaadinIcon.MINUS_CIRCLE.create());
-		
-		//button device assignment
-		btnDeviceAssignment = new Button("Gerätezuordung bearbeiten", e -> {
-			Person selectedPerson = personGrid.asSingleSelect().getValue();
-			if(selectedPerson != null) {
-				UI.getCurrent().navigate("DeviceAssignmentView/"+selectedPerson.getId());
-			}
-			else {
-				Notification.show("Wähle eine Person aus, um die Geräte zu bearbeiten!");
-			}
-		});
-		btnDeviceAssignment.setIcon(VaadinIcon.AUTOMATION.create());
-		
-		//button dangerous substances assignment
-		btnDangerSubstAssignment = new Button("Gefahrstoffzuordnung bearbeiten", e -> {
-			Person selectedPerson = personGrid.asSingleSelect().getValue();
-			if(selectedPerson != null) {
-				UI.getCurrent().navigate("DangerSubstAssignmentView/"+selectedPerson.getId());
-			}
-			else {
-				Notification.show("Wähle eine Person aus, um die Gefahrstoffe zu bearbeiten!");
-			}
-		});
-		btnDangerSubstAssignment.setIcon(VaadinIcon.BOMB.create());
 
-		add(new HorizontalLayout(btnAddPerson, btnDeletePerson, btnDeviceAssignment, btnDangerSubstAssignment));
+		add(new HorizontalLayout(btnAddPerson, btnDeletePerson));
 
 		// Building the UserGrid
 		configurePersonGrid();
@@ -314,6 +290,7 @@ public class PersonManagementView extends VerticalLayout {
 			taDangerSubstComment.setHeight(height);
 			taDangerSubstComment.setWidth(width);
 			tfEmail.setWidth("350px");
+			tfEmployment.setWidth("300px");
 
 			Button save = new Button("Speichern", e -> {
 				if (!tfLName.isEmpty() && !tfFName.isEmpty() && !tfEmail.isEmpty()) {
@@ -333,6 +310,19 @@ public class PersonManagementView extends VerticalLayout {
 					Notification.show("Bitte geben Sie sowohl einen Namen als auch einen Vornamen ein!");
 				}
 			});
+			
+			//button device assignment
+			btnDeviceAssignment = new Button("Gerätezuordung bearbeiten", e -> {
+				UI.getCurrent().navigate("DeviceAssignmentView/"+id);
+			});
+			btnDeviceAssignment.setIcon(VaadinIcon.AUTOMATION.create());
+			
+			//button dangerous substances assignment
+			btnDangerSubstAssignment = new Button("Gefahrstoffzuordnung bearbeiten", e -> {
+				UI.getCurrent().navigate("DangerSubstAssignmentView/"+id);
+			});
+			btnDangerSubstAssignment.setIcon(VaadinIcon.BOMB.create());
+			
 			save.setIcon(VaadinIcon.ADD_DOCK.create());
 			Button close = new Button("Schließen", e -> this.setVisible(false));
 			add( new VerticalLayout(
@@ -340,6 +330,7 @@ public class PersonManagementView extends VerticalLayout {
 						new HorizontalLayout(tfIfwt, tfMNaF, tfIntern, tfExtern),
 						new HorizontalLayout(tfEmployment, tfBegin, tfEnd),
 						new HorizontalLayout(taGenInstr, taLabComment, taDangerSubstComment),
+						new HorizontalLayout(btnDangerSubstAssignment, btnDeviceAssignment),
 						new HorizontalLayout(save, close)
 					));
 			close.setIcon(VaadinIcon.CLOSE_CIRCLE.create());
@@ -450,6 +441,7 @@ public class PersonManagementView extends VerticalLayout {
 			taDangerSubstComment.setHeight(height);
 			taDangerSubstComment.setWidth(width);
 			tfEmail.setWidth("350px");
+			tfEmployment.setWidth("300px");
 
 			Button save = new Button("Speichern", e -> {
 				try {
