@@ -1,14 +1,17 @@
 package com.propra.HealthAndSaftyBriefing.backend;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+
 import com.propra.HealthAndSaftyBriefing.backend.data.AssignedRoom;
 import com.propra.HealthAndSaftyBriefing.backend.data.Room;
 import com.propra.HealthAndSaftyBriefing.database.DBConnector;
+import com.propra.HealthAndSaftyBriefing.security.pwEncrypt;
 
 public class RoomManager {
 	public List<Room> getRoomsData() {
@@ -238,5 +241,121 @@ public class RoomManager {
 			}
 			DBConnector.deconnect();
        }
+	}
+	
+	public void addRoom(String name, String description) throws NoSuchAlgorithmException {
+		String tableName = "R\u00e4ume";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+		
+		
+		try {
+			pstmt = con.prepareStatement("INSERT INTO "+tableName+ "(Name, Beschreibung) VALUES(?, ?)");
+			
+			pstmt.setString(1, name);
+			pstmt.setString(2, description);
+			
+			pstmt.executeUpdate();
+			
+				
+			}catch (SQLException e) {
+				System.out.println(e.getMessage());
+				System.out.println(e.getErrorCode());
+				e.printStackTrace();
+			}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
+	
+	public void deleteRoom(String name) {
+		String tableName = "R\u00e4ume";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+		try {
+			
+			pstmt = con.prepareStatement("DELETE FROM " +tableName+ " WHERE Name ='"+name+"'");
+			con.setAutoCommit(false);
+			pstmt.execute();
+			pstmt.close();
+			con.commit();
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
+	
+	public void editRoom(String roomName, String description) throws NoSuchAlgorithmException {
+		String tableName = "R\u00e4ume";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = con.prepareStatement("UPDATE "+tableName+" SET Name='"+roomName+"', Beschreibung='"+description+"' WHERE Name='"+roomName+"'");
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
+	
+	public boolean existsRoom(String name) {
+		String tableName = "R\u00e4ume";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = con.prepareStatement("SELECT * FROM "+tableName+" WHERE Name='"+name+"'");
+			rs = pstmt.executeQuery();
+			if (rs.isAfterLast()) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+		}
 	}
 }
