@@ -41,8 +41,17 @@ public class PrintView extends Div implements HasUrlParameter<String>{
 		String intern = person.getIntern();
 		String extern = person.getExtern();
 		String genInstr = person.getGenInstr();
+		String labComment = person.getLabComment();
 		String labSetup = person.getLabSetup();
-		String dangerSubst = person.getDangerSubsts();
+		String dangerSubstComment = person.getDangerSubstComment();
+		String dangerSubsts = person.getDangerSubsts();
+		
+		if(!labComment.isEmpty()) {
+			labSetup = labComment+"\n"+labSetup;
+		}
+		if(!dangerSubstComment.isEmpty()) {
+			dangerSubsts = dangerSubstComment+"\n"+dangerSubsts;
+		}
 			
 		//setup of printData
 		PrintData printData = new PrintData(
@@ -55,7 +64,7 @@ public class PrintView extends Div implements HasUrlParameter<String>{
 					extern,
 					genInstr,
 					labSetup,
-					dangerSubst
+					dangerSubsts
 				);
 		try {
 			FormDoc doc = new FormDoc(printData);

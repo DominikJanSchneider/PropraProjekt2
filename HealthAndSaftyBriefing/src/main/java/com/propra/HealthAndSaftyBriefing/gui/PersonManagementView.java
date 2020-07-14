@@ -92,6 +92,7 @@ public class PersonManagementView extends VerticalLayout {
 		btnDeletePerson = new Button("Person löschen", e -> {
 			Person selectedPerson = personGrid.asSingleSelect().getValue();
 			if(selectedPerson != null) {
+				editForm.setVisible(false);
 				personM.deletePerson(selectedPerson.getId());
 				updatePersonGrid();
 				Notification.show("Person wurde aus der Datenbank entfernt!");

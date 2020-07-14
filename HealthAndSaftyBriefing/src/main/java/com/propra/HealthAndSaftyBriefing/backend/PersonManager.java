@@ -619,7 +619,7 @@ public class PersonManager {
 
 		try {
 			pstmt = con.prepareStatement("INSERT INTO " + tableName
-					+ "(Name, Vorname, Datum, Ifwt, MNaF, Intern, Extern, Beschaeftigungsverhaeltnis, Beginn, Ende, 'E-Mail Adresse', 'Allgemeine Unterweisung', LabKommentar, GefKommentar) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					+ "(Name, Vorname, Datum, Ifwt, MNaF, Intern, Extern, Beschaeftigungsverhaeltnis, Beginn, Ende, 'E-Mail Adresse', 'Allgemeine Unterweisung', Laboreinrichtungen, Gefahrstoffe, LabKommentar, GefKommentar) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 			pstmt.setString(1, lName);
 			pstmt.setString(2, fName);
@@ -633,8 +633,10 @@ public class PersonManager {
 			pstmt.setString(10, end);
 			pstmt.setString(11, email);
 			pstmt.setString(12, gI);
-			pstmt.setString(13, lC);
-			pstmt.setString(14, dC);
+			pstmt.setString(13, "");
+			pstmt.setString(14, "");
+			pstmt.setString(15, lC);
+			pstmt.setString(16, dC);
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {

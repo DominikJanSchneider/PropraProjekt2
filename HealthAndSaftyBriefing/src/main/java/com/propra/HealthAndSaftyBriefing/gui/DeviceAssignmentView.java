@@ -357,13 +357,16 @@ public class DeviceAssignmentView extends VerticalLayout implements HasUrlParame
 	
 	private String getLabSetupTxt(int pID)
 	{
-		String res = "Ger\u00e4te mit denen gearbeitet wird:";
+		String res = "";
 		List<AssignedDevice> devices = deviceM.getAssignedDevices(pID);
-		for(AssignedDevice device : devices) {
-			int id = device.getId();
-			String name = device.getName();
-			String room = device.getRoom();
-			res = res.concat("\n-Ger\u00e4teID: "+id+", Name: "+name+", Raum: "+room);
+		if(!devices.isEmpty()) {
+			res = "Ger\u00e4te mit denen gearbeitet wird:";
+			for(AssignedDevice device : devices) {
+				int id = device.getId();
+				String name = device.getName();
+				String room = device.getRoom();
+				res = res.concat("\n-Ger\u00e4teID: "+id+", Name: "+name+", Raum: "+room);
+			}
 		}
 		return res;
 	}
