@@ -2,10 +2,8 @@ package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-
 import com.propra.HealthAndSaftyBriefing.backend.RoomManager;
 import com.propra.HealthAndSaftyBriefing.backend.data.Room;
-import com.propra.HealthAndSaftyBriefing.backend.data.User;
 import com.vaadin.flow.component.BlurNotifier.BlurEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;

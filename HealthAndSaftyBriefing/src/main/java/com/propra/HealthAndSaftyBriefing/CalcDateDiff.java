@@ -1,4 +1,4 @@
-package com.propra.HealthAndSaftyBriefing.gui;
+package com.propra.HealthAndSaftyBriefing;
 
 import java.text.DateFormat;
 import java.text.ParseException;

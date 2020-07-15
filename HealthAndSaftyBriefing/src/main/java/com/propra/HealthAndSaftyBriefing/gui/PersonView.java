@@ -1,10 +1,10 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
-import java.awt.Color;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.propra.HealthAndSaftyBriefing.CalcDateDiff;
 import com.propra.HealthAndSaftyBriefing.backend.PersonManager;
 import com.propra.HealthAndSaftyBriefing.backend.data.Person;
 import com.vaadin.flow.component.BlurNotifier.BlurEvent;
@@ -26,7 +26,6 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.selection.SelectionEvent;
 import com.vaadin.flow.data.selection.SelectionListener;
-import com.propra.HealthAndSaftyBriefing.gui.CalcDateDiff;
 
 @SuppressWarnings("serial")
 public class PersonView extends VerticalLayout {
