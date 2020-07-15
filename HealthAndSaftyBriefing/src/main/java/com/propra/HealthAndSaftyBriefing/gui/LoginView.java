@@ -20,6 +20,7 @@ import com.vaadin.flow.server.StreamResource;
 @Route("LoginView")
 @PageTitle("Login | Sicherheitsunterweisungen")
 @CssImport("./styles/shared-styles.css")
+@CssImport(value="./styles/grid-cell.css", themeFor="vaadin-grid")
 public class LoginView extends FlexLayout {
 	
 	private AccessControl accessControl; 

@@ -1,5 +1,6 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
+import java.awt.Color;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -25,6 +26,7 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.selection.SelectionEvent;
 import com.vaadin.flow.data.selection.SelectionListener;
+import com.propra.HealthAndSaftyBriefing.gui.CalcDateDiff;
 
 @SuppressWarnings("serial")
 public class PersonView extends VerticalLayout {
@@ -161,6 +163,29 @@ public class PersonView extends VerticalLayout {
 			}
         	
         });
+        
+        personGrid.getColumnByKey("date").setClassNameGenerator(item -> {
+        	String date = null;
+        	int daysDiff = 0;
+        	date = item.getDate();
+        	if (!item.getDate().isEmpty()) {
+     			//System.out.println(row);
+     			//System.out.println(date);
+     			daysDiff = CalcDateDiff.date(date);		// check difference between given date and actual date in CalcDateDiff-Class
+     			//System.out.println(daysDiff);
+     			if (daysDiff > 168 && daysDiff < 182) {		// paint yellow if instruction is outdated in less than 2 weeks
+     				return "yellow";
+     			}
+     			else if (daysDiff > 182) {			// paint red if instruction is outdated
+     				return "red";
+     			}
+     			else {
+     				return "green";		// paint green if instruction is up-to-date
+     			}
+     		}
+     			return "";			// paint white if no expiry date is given
+     		});
+        
 	}
 	
 	protected void updateBriefingInformationComponent() {
