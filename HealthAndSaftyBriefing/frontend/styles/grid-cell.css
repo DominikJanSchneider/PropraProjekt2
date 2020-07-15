@@ -1,0 +1,10 @@
+/* Background needs a stronger selector to not be overridden */
+[part~="cell"].green {
+  color: LimeGreen;
+}
+.red {
+  color: red;
+}
+.yellow {
+  color: #FF8500;
+}

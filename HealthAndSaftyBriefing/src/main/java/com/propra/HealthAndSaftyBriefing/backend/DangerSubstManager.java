@@ -1,5 +1,6 @@
 package com.propra.HealthAndSaftyBriefing.backend;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -254,7 +255,7 @@ public class DangerSubstManager {
 		Connection con = DBConnector.connectCore();
 		PreparedStatement pstmt = null;
 		try {
-			String stmt="delete from Gefahrstoffzuordnung where Gefahrstoff='"+dangerSubst+"' AND PersonenID='"+pID+"'";
+			String stmt="DELETE FROM Gefahrstoffzuordnung WHERE Gefahrstoff='"+dangerSubst+"' AND PersonenID='"+pID+"'";
 			pstmt = con.prepareStatement(stmt);
 			con.setAutoCommit(false);
 			pstmt.execute();
@@ -274,5 +275,114 @@ public class DangerSubstManager {
 			}
 			DBConnector.deconnect();
        }
+	}
+	
+	public void addDangerSubst(String name) throws NoSuchAlgorithmException {
+		String tableName = "Gefahrstoffe";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = con.prepareStatement("INSERT INTO "+tableName+ "(Name) VALUES(?)");
+			pstmt.setString(1, name);
+			pstmt.executeUpdate();
+			
+				
+			}catch (SQLException e) {
+				System.out.println(e.getMessage());
+				System.out.println(e.getErrorCode());
+				e.printStackTrace();
+			}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
+	
+	public void deleteDangerSubst(String name) {
+		String tableName = "Gefahrstoffe";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+		try {
+			
+			pstmt = con.prepareStatement("DELETE FROM " +tableName+ " WHERE Name ='"+name+"'");
+			con.setAutoCommit(false);
+			pstmt.execute();
+			pstmt.close();
+			con.commit();
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			}
+		finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+      }
+	}
+	
+	public void editDangerSubst(String name, String newName) throws NoSuchAlgorithmException {
+		String tableName = "Gefahrstoffe";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement("UPDATE "+tableName+" SET Name='"+newName+"' WHERE Name='"+name+"'");
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+		}
+	}
+	
+	public boolean existsDangerSubst(String name) {
+		String tableName = "Gefahrstoffe";
+		Connection con = DBConnector.connectCore();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = con.prepareStatement("SELECT * FROM "+tableName+" WHERE Name='"+name+"'");
+			rs = pstmt.executeQuery();
+			if (rs.isAfterLast()) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			DBConnector.deconnect();
+		}
 	}
 }

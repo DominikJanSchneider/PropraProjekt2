@@ -25,7 +25,7 @@ public class DBExporter {
 	}
 	
 	public AbstractStreamResource getCSVResource() {
-		DBConverter.convertToCSV();
+		//DBConverter.convertToCSV();
 		return new StreamResource("CoreDatabase.csv", this::createCSVExporter);
 	}
 	

@@ -225,8 +225,12 @@ public class DBConverter {
 				if(pstmt != null) {
 					pstmt.close();
 				}
+				fileWriter.close();
 			}
 			catch(SQLException e) {
+				e.printStackTrace();
+			} 
+			catch(IOException e) {
 				e.printStackTrace();
 			}
 			DBConnector.deconnect();

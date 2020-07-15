@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
 import com.propra.HealthAndSaftyBriefing.backend.data.Person;
 import com.propra.HealthAndSaftyBriefing.database.DBConnector;
+import com.propra.HealthAndSaftyBriefing.database.DBConverter;
 import com.propra.HealthAndSaftyBriefing.database.DBExporter;
 import com.propra.HealthAndSaftyBriefing.database.DBUploader;
 import com.vaadin.flow.component.AttachEvent;
@@ -158,6 +159,7 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 		downloadLink = new Anchor(dbExporter.getCSVResource(), "Datenbank als CSV Exportieren");
 		downloadLink.getElement().setAttribute("download", true);
 		MenuItem exportMenu = fileSubMenu.addItem(downloadLink);
+		exportMenu.addClickListener(e -> DBConverter.convertToCSV());
 		// Creating Import Database item
 		Upload upload = new Upload(dbUploader);
 		upload.setI18n(createGermanI18N());
