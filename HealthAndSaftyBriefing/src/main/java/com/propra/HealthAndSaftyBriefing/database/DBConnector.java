@@ -53,4 +53,14 @@ public class DBConnector {
 	public static void setURLCore(String path) {
 		urlCore = path;
 	}
+
+	public static String getUrlLogin() {
+		return urlLogin;
+	}
+
+	public static void setUrlLogin(String urlLogin) {
+		DBConnector.urlLogin = urlLogin;
+	}
+
+	
 }

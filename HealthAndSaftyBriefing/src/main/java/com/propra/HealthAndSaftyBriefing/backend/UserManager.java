@@ -105,7 +105,9 @@ public class UserManager {
 			con.prepareStatement("ATTACH DATABASE '"+DBConnector.getURLCore().substring(12)+"' AS p").execute(); // Attach CoreDatabase to UserDatabase
 			pstmt = con.prepareStatement("SELECT * FROM "+tableName+" u join p.Personen on u.Benutzername = p.Personen.'E-Mail Adresse' WHERE Benutzername='"+username+"';"); //join user with his person data
 			rs = pstmt.executeQuery();
+			
 			while (rs.next()) {
+				
 				person = new Person(
 							rs.getInt("ID"),
 							rs.getString("Name"),
@@ -416,4 +418,4 @@ public class UserManager {
 }
 
 
-
+//"SELECT * FROM "+tableName+" u join p.Personen on u.Benutzername = p.Personen.'E-Mail Adresse' WHERE Benutzername='"+username+"';");
