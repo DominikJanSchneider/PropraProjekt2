@@ -1,7 +1,9 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import com.propra.HealthAndSaftyBriefing.backend.PersonManager;
 import com.propra.HealthAndSaftyBriefing.backend.data.Person;
 import com.vaadin.flow.component.Component;
@@ -22,9 +24,12 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.ValidationResult;
+import com.vaadin.flow.data.binder.ValueContext;
 import com.vaadin.flow.data.selection.SelectionEvent;
 import com.vaadin.flow.data.selection.SelectionListener;
 import com.vaadin.flow.data.selection.SingleSelect;
+import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
@@ -72,15 +77,12 @@ public class PersonManagementView extends VerticalLayout {
 			addForm.setVisible(true);
 			addForm.setLName("");
 			addForm.setFName("");
-			addForm.setDate("");
 			addForm.setIfwt("");
 			addForm.setMNaF("");
 			addForm.setIntern("");
 			addForm.setExtern("");
 			addForm.setEmployment("");
 			addForm.setEmail("");
-			addForm.setBegin("");
-			addForm.setEnd("");
 			addForm.setGeneralInstruction("");
 			addForm.setLabComment("");
 			addForm.setDangerSubstComment("");
@@ -247,15 +249,15 @@ public class PersonManagementView extends VerticalLayout {
  class PersonEditForm extends FormLayout {
 		private TextField tfLName;
 		private TextField tfFName;
-		private TextField tfDate;
 		private TextField tfIfwt;
 		private TextField tfMNaF;
 		private TextField tfIntern;
 		private TextField tfExtern;
 		private TextField tfEmployment;
 		private TextField tfEmail;
-		private TextField tfBegin;
-		private TextField tfEnd;
+		private GermanDatePicker dpDate;
+		private GermanDatePicker dpBegin;
+		private GermanDatePicker dpEnd;
 		private TextArea taGenInstr;
 		private TextArea taLabComment;
 		private TextArea taDangerSubstComment;
@@ -269,15 +271,15 @@ public class PersonManagementView extends VerticalLayout {
 			this.id = 0;
 			tfLName = new TextField("Name");
 			tfFName = new TextField("Vorname");
-			tfDate = new TextField("Datum");
+			dpDate = new GermanDatePicker("Datum", LocalDate.now());
 			tfIfwt = new TextField("Ifwt");
 			tfMNaF = new TextField("MNaF");
 			tfIntern = new TextField("Intern");
 			tfExtern = new TextField("Extern");
 			tfEmployment = new TextField("Beschäftigungsverhältnis");
 			tfEmail = new TextField("E-Mail");
-			tfBegin = new TextField("Beginn");
-			tfEnd = new TextField("Ende");
+			dpBegin = new GermanDatePicker("Beginn", LocalDate.now());
+			dpEnd = new GermanDatePicker("Ende", LocalDate.now());
 			taGenInstr = new TextArea("Allgemeine Unterweisung");
 			taLabComment = new TextArea("Laboreinrichtungen (Kommentar)");
 			taDangerSubstComment = new TextArea("Gefahrstoffe (Kommentar)");
@@ -295,11 +297,31 @@ public class PersonManagementView extends VerticalLayout {
 
 			Button save = new Button("Speichern", e -> {
 				if (!tfLName.isEmpty() && !tfFName.isEmpty() && !tfEmail.isEmpty()) {
+					String lName = tfLName.getValue();
+					String fName = tfFName.getValue();
+					String date = dpDate.getDateInEuropeanFormat();
+					String begin = dpBegin.getDateInEuropeanFormat();
+					String end = dpEnd.getDateInEuropeanFormat();
+					String eMail = tfEmail.getValue();
 					try {
-						personM.editPerson(this.id, tfLName.getValue(), tfFName.getValue(),
-								tfDate.getValue(), tfIfwt.getValue(), tfMNaF.getValue(),
+						if(lName.isEmpty() || fName.isEmpty()) {
+							Notification.show("Bitte geben Sie einen Namen und Vornamen ein.");
+							return;
+						}
+						EmailValidator eMailVal = new EmailValidator("Ungültige E-Mail-Adresse!");
+						ValidationResult r = eMailVal.apply(eMail, new ValueContext(Locale.GERMAN));
+						if(r.isError()) {
+							Notification.show(r.getErrorMessage());
+							return;
+						}
+						if(!(dpBegin.getValue().isBefore(dpEnd.getValue()) || dpBegin.getValue().isEqual(dpEnd.getValue()))) {
+							Notification.show("Beginn muss vor Ende liegen!");
+							return;
+						}
+						personM.editPerson(this.id, lName, fName,
+								date, tfIfwt.getValue(), tfMNaF.getValue(),
 								tfIntern.getValue(), tfExtern.getValue(), tfEmployment.getValue(),
-								tfEmail.getValue(), tfBegin.getValue(), tfEnd.getValue(),
+								begin, end, eMail,
 								taGenInstr.getValue(), taLabComment.getValue(), taDangerSubstComment.getValue());
 
 						Notification.show("Personendaten wurden erfolgreich bearbeitet!");
@@ -327,9 +349,9 @@ public class PersonManagementView extends VerticalLayout {
 			save.setIcon(VaadinIcon.ADD_DOCK.create());
 			Button close = new Button("Schließen", e -> this.setVisible(false));
 			add( new VerticalLayout(
-						new HorizontalLayout(tfLName, tfFName, tfEmail, tfDate),
+						new HorizontalLayout(tfLName, tfFName, tfEmail, dpDate),
 						new HorizontalLayout(tfIfwt, tfMNaF, tfIntern, tfExtern),
-						new HorizontalLayout(tfEmployment, tfBegin, tfEnd),
+						new HorizontalLayout(tfEmployment, dpBegin, dpEnd),
 						new HorizontalLayout(taGenInstr, taLabComment, taDangerSubstComment),
 						new HorizontalLayout(btnDangerSubstAssignment, btnDeviceAssignment),
 						new HorizontalLayout(save, close)
@@ -338,7 +360,7 @@ public class PersonManagementView extends VerticalLayout {
 		}
 
 		public void setEnd(String end) {
-			tfEnd.setValue(end);
+			dpEnd.setDateInEuropeanFormat(end);
 		}
 		
 		public void setMnaf(String mnaf) {
@@ -346,7 +368,7 @@ public class PersonManagementView extends VerticalLayout {
 		}
 
 		public void setBegin(String begin) {
-			tfBegin.setValue(begin);
+			dpBegin.setDateInEuropeanFormat(begin);
 		}
 
 		public void setDangerSubstComment(String dangerSubstComment) {
@@ -382,7 +404,7 @@ public class PersonManagementView extends VerticalLayout {
 		}
 
 		public void setDate(String date) {
-			tfDate.setValue(date);
+			dpDate.setDateInEuropeanFormat(date);
 		}
 
 		public void setFName(String fName) {
@@ -402,15 +424,15 @@ public class PersonManagementView extends VerticalLayout {
  class PersonAddForm extends FormLayout {
 		private TextField tfLName;
 		private TextField tfFName;
-		private TextField tfDate;
 		private TextField tfIfwt;
 		private TextField tfMNaF;
 		private TextField tfIntern;
 		private TextField tfExtern;
 		private TextField tfEmployment;
 		private TextField tfEmail;
-		private TextField tfBegin;
-		private TextField tfEnd;
+		private GermanDatePicker dpDate;
+		private GermanDatePicker dpBegin;
+		private GermanDatePicker dpEnd;
 		private TextArea taGenInstr;
 		private TextArea taLabComment;
 		private TextArea taDangerSubstComment;
@@ -420,15 +442,15 @@ public class PersonManagementView extends VerticalLayout {
 			this.setVisible(true);
 			tfLName = new TextField("Name");
 			tfFName = new TextField("Vorname");
-			tfDate = new TextField("Datum");
+			dpDate = new GermanDatePicker("Datum", LocalDate.now());
 			tfIfwt = new TextField("Ifwt");
 			tfMNaF = new TextField("MNaF");
 			tfIntern = new TextField("Intern");
 			tfExtern = new TextField("Extern");
 			tfEmployment = new TextField("Beschäftigungsverhältnis");
 			tfEmail = new TextField("E-Mail");
-			tfBegin = new TextField("Beginn");
-			tfEnd = new TextField("Ende");
+			dpBegin = new GermanDatePicker("Beginn", LocalDate.now());
+			dpEnd = new GermanDatePicker("Ende", LocalDate.now());
 			taGenInstr = new TextArea("Allgemeine Unterweisung");
 			taLabComment = new TextArea("Laboreinrichtungen (Kommentar)");
 			taDangerSubstComment = new TextArea("Gefahrstoffe (Kommentar)");
@@ -445,13 +467,34 @@ public class PersonManagementView extends VerticalLayout {
 			tfEmployment.setWidth("300px");
 
 			Button save = new Button("Speichern", e -> {
+				String lName = tfLName.getValue();
+				String fName = tfFName.getValue();
+				String date = dpDate.getDateInEuropeanFormat();
+				String begin = dpBegin.getDateInEuropeanFormat();
+				String end = dpEnd.getDateInEuropeanFormat();
+				String eMail = tfEmail.getValue();
 				try {
-					personM.addPerson(tfLName.getValue(), tfFName.getValue(), tfDate.getValue(),
+					if(lName.isEmpty() || fName.isEmpty()) {
+						Notification.show("Bitte geben Sie einen Namen und Vornamen ein.");
+						return;
+					}
+					EmailValidator eMailVal = new EmailValidator("Ungültige E-Mail-Adresse!");
+					ValidationResult r = eMailVal.apply(eMail, new ValueContext(Locale.GERMAN));
+					if(r.isError()) {
+						Notification.show(r.getErrorMessage());
+						return;
+					}
+					if(!(dpBegin.getValue().isBefore(dpEnd.getValue()) || dpBegin.getValue().isEqual(dpEnd.getValue()))) {
+						Notification.show("Beginn muss vor Ende liegen!");
+						return;
+					}
+					
+					personM.addPerson(lName, fName, date,
 							tfIfwt.getValue(), tfMNaF.getValue(), tfIntern.getValue(),
-							tfExtern.getValue(), tfEmployment.getValue(), tfEmail.getValue(),
-							tfBegin.getValue(), tfEnd.getValue(), taGenInstr.getValue(),
+							tfExtern.getValue(), tfEmployment.getValue(),
+							begin, end, eMail, taGenInstr.getValue(),
 							taLabComment.getValue(), taDangerSubstComment.getValue());
-					Notification.show("Person wurde hinzugefügt!");
+					Notification.show("Person wurde hinzugefügt!");	
 				}
 				catch (NoSuchAlgorithmException ex) {
 					ex.printStackTrace();
@@ -462,21 +505,13 @@ public class PersonManagementView extends VerticalLayout {
 			save.setIcon(VaadinIcon.ADD_DOCK.create());
 			Button close = new Button("Schließen", e -> this.setVisible(false));
 			add( new VerticalLayout(
-					new HorizontalLayout(tfLName, tfFName, tfEmail, tfDate),
+					new HorizontalLayout(tfLName, tfFName, tfEmail, dpDate),
 					new HorizontalLayout(tfIfwt, tfMNaF, tfIntern, tfExtern),
-					new HorizontalLayout(tfEmployment, tfBegin, tfEnd),
+					new HorizontalLayout(tfEmployment, dpBegin, dpEnd),
 					new HorizontalLayout(taGenInstr, taLabComment, taDangerSubstComment),
 					new HorizontalLayout(save, close)
 				));
 			close.setIcon(VaadinIcon.CLOSE_CIRCLE.create());
-		}
-
-		public void setEnd(String end) {
-			tfEnd.setValue(end);
-		}
-
-		public void setBegin(String begin) {
-			tfBegin.setValue(begin);
 		}
 
 		public void setDangerSubstComment(String dangerSubstComment) {
@@ -517,10 +552,6 @@ public class PersonManagementView extends VerticalLayout {
 
 		public void setFName(String fName) {
 			tfFName.setValue(fName);
-		}
-
-		public void setDate(String date) {
-			tfDate.setValue(date);
 		}
 
 		public void setLName(String lName) {

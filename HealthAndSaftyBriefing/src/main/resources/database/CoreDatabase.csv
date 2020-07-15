@@ -50,8 +50,9 @@ ID; Name; Vorname; Datum; Ifwt; MNaF; Intern; Beschaeftigungsverhaeltnis; Beginn
 -Laborabzüge; test; test;
 12; Maurer; Fred; 20.05.2020; ; MNaF; ; Wissenschaftlicher Mitarbeiter; 01.10.2019; 01.10.2020; ; fred.maurer@beispiel-uni.de; Test; Geräte mit denen gearbeitet wird:
 -GeräteID: 2, Name: Schleifeinrichtung, Raum: BR-A 002; ; ; ;
-13; Nauen; Sina; 14.04.2020; ; ; ; Arbeiterin; sina.nauen@externe-uni.de; ; ExterneArbeiterin; ; test2; ; Gefahrstoffe mit denen gearbeitet wird:
+13; Nauen; Sina; 14.04.2020; ; ; ; Arbeiterin; ; ; ExterneArbeiterin; sina.nauen@externe-uni.de; ; ; Gefahrstoffe mit denen gearbeitet wird:
 -Laugen; ; ;
+14; test; test; 15.07.2020; ; ; ; ; 14.07.2020; 15.07.2020; ; sina.nauen@externe-uni.de; ; ; ; ; ;
 
 
 GeräteID; Name; Beschreibung; Raum;
@@ -67,7 +68,6 @@ GeräteID; Name; Beschreibung; Raum;
 10; Atom-Uboot; ; PB-A 225; 
 11; synthetische Kuh; ; BR-A 003; 
 12; Zentrifuge; ; PB-A 225; 
-13; test; test; PB-A 225; 
 
 
 Name; Beschreibung;
@@ -75,7 +75,6 @@ BR-A 001; Beispielraum 1;
 BR-A 002; Beispielraum 2;
 BR-A 003; Beispielraum 3;
 PB-A 225; ;
-TR-A 001; Testraum Bearbeitung 1;
 
 
 GeräteID; PersonenID; Nutzungszeit;
@@ -135,5 +134,5 @@ Laugen; 13;
 
 
 name; seq;
-Geräte; 13;
-Personen; 13;
+Geräte; 12;
+Personen; 14;
