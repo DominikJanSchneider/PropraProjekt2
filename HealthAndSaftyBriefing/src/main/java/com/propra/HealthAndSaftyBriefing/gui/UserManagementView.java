@@ -233,14 +233,7 @@ public class UserManagementView extends VerticalLayout{
 		editForm.setVisible(true);
 		editForm.setUserName(selectedUser.getValue().getUserName());
 		editForm.setPassword("");
-		String role = null;
-		if(selectedUser.getValue().getUserRole().equals("admin")) {
-			role = "Admin";
-		}
-		else {
-			role = "Benutzer";
-		}
-		editForm.setRole(role);
+		editForm.setRole(selectedUser.getValue().getUserRole());
 		int userId = selectedUser.getValue().getUserID();
 		editForm.setUserId(userId);
 	}
@@ -263,14 +256,7 @@ public class UserManagementView extends VerticalLayout{
 			    {
 			    	if(!tfUserName.isEmpty()){
 			    		try {
-			    			String role = null;
-		    				if(slRole.getValue() == "Admin") {
-		    					role = "Admin";
-		    				}
-		    				else {
-		    					role = "Benutzer";
-		    				}
-							userM.editUser(this.userId, tfUserName.getValue(), tfPassword.getValue(), role);
+							userM.editUser(this.userId, tfUserName.getValue(), tfPassword.getValue(), slRole.getValue());
 							Notification.show("Nutzerdaten wurden erfolgreich bearbeitet!");
 						} 
 			    		catch (NoSuchAlgorithmException ex) {
@@ -318,20 +304,13 @@ public class UserManagementView extends VerticalLayout{
 		    
 		    Button save = new Button("Speichern", e -> 
 		    {
-		    	if(!(tfUserName.isEmpty()) && !(tfPassword.isEmpty()) && !(slRole.isEmpty())) {
+		    	if(!(tfUserName.isEmpty()) && !(tfPassword.isEmpty()) && !(slRole.getValue().isEmpty())) {
 		    		try {
 		    			if(userM.existsUser(tfUserName.getValue())) {
 		    				Notification.show("Nutzer existiert bereits!");
 		    			}
 		    			else {
-		    				String role = null;
-		    				if(slRole.getValue() == "Admin") {
-		    					role = "admin";
-		    				}
-		    				else {
-		    					role = "benutzer";
-		    				}
-		    				userM.addUser(tfUserName.getValue(), tfPassword.getValue(), role);
+		    				userM.addUser(tfUserName.getValue(), tfPassword.getValue(), slRole.getValue());
 							Notification.show("Nutzer wurde hinzugefügt!");
 		    			}
 					} 
