@@ -137,7 +137,7 @@ public class PersonView extends VerticalLayout {
         			.setResizable(true)
         			.setSortable(true);
         personGrid.addColumn(Person::getEmployment)
-					.setHeader("Beschaeftigungsverh\u00e4ltnis")
+					.setHeader("Besch\u00e4ftigungsverh\u00e4ltnis")
 					.setKey("employment")
 					.setResizable(true)
 					.setSortable(true);
