@@ -78,6 +78,7 @@ public class UserView extends VerticalLayout {
 		btnLogout.setIcon(VaadinIcon.SIGN_OUT.create());
 		btnLogout.getElement().getStyle().set("margin-left", "auto");
 		btnLogout.addClickListener(e -> logout());
+		btnLogout.addClickShortcut(Key.KEY_L, KeyModifier.CONTROL);
 		
 		//label with name of current user
 		lblUser = new Label("Benutzer: "+ userData.getFName()+" "+userData.getLName());
@@ -329,15 +330,6 @@ public class UserView extends VerticalLayout {
 	private void logout() {
        accessControl.signOut();
     }
-	
-	@Override 
-	protected void onAttach(AttachEvent attachEvent) {
-		super.onAttach(attachEvent);
-		
-		// User can quickly activate logout with Ctrl+L
-		attachEvent.getUI().addShortcutListener(() -> logout(), Key.KEY_L, KeyModifier.CONTROL);
-		
-	}
 	
 	private void searchPressed() {
 		String tabName = searchTabs.getSelectedTab().getLabel();
