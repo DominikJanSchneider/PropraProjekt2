@@ -315,15 +315,17 @@ public class DeviceView extends VerticalLayout {
 			tfDescript.setWidth("300px");
 
 			Button save = new Button("Speichern", e -> {
-				try {
-					deviceM.addDevice(tfName.getValue(), tfDescript.getValue());
-					Notification.show("Person wurde hinzugefügt!");
+				if (!tfName.isEmpty()) {
+					try {
+						deviceM.addDevice(tfName.getValue(), tfDescript.getValue());
+						Notification.show("Ger\u00e4t wurde hinzugefügt!");
+					} catch (NoSuchAlgorithmException ex) {
+						ex.printStackTrace();
+					}
+					deviceView.updateDeviceGrid();
+				} else {
+					Notification.show("Bitte geben Sie einen Namen ein!");
 				}
-				catch (NoSuchAlgorithmException ex) {
-					ex.printStackTrace();
-				}
-				deviceView.updateDeviceGrid();
-
 			});
 			save.setIcon(VaadinIcon.ADD_DOCK.create());
 			
