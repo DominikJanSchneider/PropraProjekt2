@@ -1,6 +1,5 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
@@ -12,7 +11,6 @@ import com.propra.HealthAndSaftyBriefing.backend.UserManager;
 import com.propra.HealthAndSaftyBriefing.backend.data.AssignedDevice;
 import com.propra.HealthAndSaftyBriefing.backend.data.Device;
 import com.propra.HealthAndSaftyBriefing.backend.data.Person;
-import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.FocusNotifier;
