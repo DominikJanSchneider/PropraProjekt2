@@ -173,7 +173,7 @@ public class UserView extends VerticalLayout {
 						.setKey("room")
 						.setSortable(true);
 		userDeviceGrid.addColumn(AssignedDevice::getUsageTime)
-						.setHeader("Nutzungszeit")
+						.setHeader("Nutzungszeit (in Std)")
 						.setKey("usageTime")
 						.setSortable(true);
 		userDeviceGrid.setWidth("1200px");
