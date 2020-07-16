@@ -38,7 +38,10 @@ public class PrintView extends Div implements HasUrlParameter<String>{
 		Person person = personM.getPersonByID(Integer.parseInt(parameter));
 		String lName = person.getLName();
 		String fName = person.getFName();
-		String date = df.format(person.getDate());
+		String date = "";
+		if(person.getDate() != null) {
+			date = df.format(person.getDate());
+		}
 		String ifwt = person.getIfwt();
 		String mnaf = person.getMNaF();
 		String intern = person.getIntern();
