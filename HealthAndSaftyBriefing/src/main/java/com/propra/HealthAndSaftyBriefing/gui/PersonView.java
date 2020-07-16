@@ -1,5 +1,6 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -110,7 +111,7 @@ public class PersonView extends VerticalLayout {
         			.setKey("lName")
         			.setResizable(true)
         			.setSortable(true);
-        personGrid.addColumn(Person::getDate)
+        personGrid.addColumn(Person::getDateInEuropeanFormat)
 					.setHeader("Datum")
 					.setKey("date")
 					.setResizable(true)
@@ -140,12 +141,12 @@ public class PersonView extends VerticalLayout {
 					.setKey("employment")
 					.setResizable(true)
 					.setSortable(true);
-        personGrid.addColumn(Person::getBegin)
+        personGrid.addColumn(Person::getBeginInEuropeanFormat)
 					.setHeader("Beginn")
 					.setKey("begin")
 					.setResizable(true)
 					.setSortable(true);
-        personGrid.addColumn(Person::getEnd)
+        personGrid.addColumn(Person::getEndInEuropeanFormat)
 					.setHeader("Ende")
 					.setKey("end")
 					.setResizable(true)
@@ -164,10 +165,10 @@ public class PersonView extends VerticalLayout {
         });
         
         personGrid.getColumnByKey("date").setClassNameGenerator(item -> {
-        	String date = null;
+        	Date date = null;
         	int daysDiff = 0;
         	date = item.getDate();
-        	if (!item.getDate().isEmpty()) {
+        	if (date != null) {
      			//System.out.println(row);
      			//System.out.println(date);
      			daysDiff = CalcDateDiff.date(date);		// check difference between given date and actual date in CalcDateDiff-Class

@@ -5,6 +5,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -101,23 +105,39 @@ public class UserManager {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Person person = null;
+		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
 		try {
 			con.prepareStatement("ATTACH DATABASE '"+DBConnector.getURLCore().substring(12)+"' AS p").execute(); // Attach CoreDatabase to UserDatabase
 			pstmt = con.prepareStatement("SELECT * FROM "+tableName+" u join p.Personen on u.Benutzername = p.Personen.'E-Mail Adresse' WHERE Benutzername='"+username+"';"); //join user with his person data
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
+				String dateString = rs.getString("Datum");
+				Date date = null;
+				if(!(dateString == null || dateString.isEmpty())) {
+					date = df.parse(dateString);
+				}
+				String beginString = rs.getString("Beginn");
+				Date begin = null;
+				if(!(beginString == null || beginString.isEmpty())) {
+					begin = df.parse(beginString);
+				}
+				String endString = rs.getString("Ende");
+				Date end = null;
+				if(!(endString == null || endString.isEmpty())) {
+					end = df.parse(endString);
+				}
 				person = new Person(
 							rs.getInt("ID"),
 							rs.getString("Name"),
 							rs.getString("Vorname"),
-							rs.getString("Datum"),
+							date,
 							rs.getString("Ifwt"),
 							rs.getString("MNaF"),
 							rs.getString("Intern"),
 							rs.getString("Extern"),
 							rs.getString("Beschaeftigungsverhaeltnis"),
-							rs.getString("Beginn"),
-							rs.getString("Ende"),
+							begin,
+							end,
 							rs.getString("E-Mail Adresse"),
 							rs.getString("Allgemeine Unterweisung"),
 							rs.getString("Laboreinrichtungen"),
@@ -129,6 +149,10 @@ public class UserManager {
 			return person;
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
+			return person;
+		}
+		catch (ParseException e) {
 			e.printStackTrace();
 			return person;
 		}

@@ -2,6 +2,7 @@ package com.propra.HealthAndSaftyBriefing.gui;
 
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import com.propra.HealthAndSaftyBriefing.backend.PersonManager;
@@ -129,7 +130,7 @@ public class PersonManagementView extends VerticalLayout {
 						.setKey("lName")
 						.setResizable(true)
 						.setSortable(true);
-		personGrid.addColumn(Person::getDate)
+		personGrid.addColumn(Person::getDateInEuropeanFormat)
 						.setHeader("Datum")
 						.setKey("date")
 						.setResizable(true)
@@ -159,12 +160,12 @@ public class PersonManagementView extends VerticalLayout {
 						.setKey("employment")
 						.setResizable(true)
 						.setSortable(true);
-		personGrid.addColumn(Person::getBegin)
+		personGrid.addColumn(Person::getBeginInEuropeanFormat)
 						.setHeader("Beginn")
 						.setKey("begin")
 						.setResizable(true)
 						.setSortable(true);
-		personGrid.addColumn(Person::getEnd)
+		personGrid.addColumn(Person::getEndInEuropeanFormat)
 						.setHeader("Ende")
 						.setKey("end")
 						.setResizable(true)
@@ -299,9 +300,9 @@ public class PersonManagementView extends VerticalLayout {
 				if (!tfLName.isEmpty() && !tfFName.isEmpty() && !tfEmail.isEmpty()) {
 					String lName = tfLName.getValue();
 					String fName = tfFName.getValue();
-					String date = dpDate.getDateInEuropeanFormat();
-					String begin = dpBegin.getDateInEuropeanFormat();
-					String end = dpEnd.getDateInEuropeanFormat();
+					Date date = dpDate.getDate();
+					Date begin = dpBegin.getDate();
+					Date end = dpEnd.getDate();
 					String eMail = tfEmail.getValue();
 					try {
 						if(lName.isEmpty() || fName.isEmpty()) {
@@ -314,8 +315,18 @@ public class PersonManagementView extends VerticalLayout {
 							Notification.show(r.getErrorMessage());
 							return;
 						}
-						if(!(dpBegin.getValue().isBefore(dpEnd.getValue()) || dpBegin.getValue().isEqual(dpEnd.getValue()))) {
-							Notification.show("Beginn muss vor Ende liegen!");
+						if(dpBegin.getValue() != null && dpEnd.getValue() != null) {
+							if(!(dpBegin.getValue().isBefore(dpEnd.getValue()) || dpBegin.getValue().isEqual(dpEnd.getValue()))) {
+								Notification.show("Beginn muss vor Ende liegen!");
+								return;
+							}
+						}
+						else if(dpBegin.getValue() == null && dpEnd.getValue() != null) {
+							Notification.show("Beginn ist nicht festgelegt!");
+							return;
+						}
+						else if(dpBegin.getValue() != null && dpEnd.getValue() == null) {
+							Notification.show("Ende ist nicht festgelegt!");
 							return;
 						}
 						personM.editPerson(this.id, lName, fName,
@@ -359,16 +370,16 @@ public class PersonManagementView extends VerticalLayout {
 			close.setIcon(VaadinIcon.CLOSE_CIRCLE.create());
 		}
 
-		public void setEnd(String end) {
-			dpEnd.setDateInEuropeanFormat(end);
+		public void setEnd(Date end) {
+			dpEnd.setDate(end);
 		}
 		
 		public void setMnaf(String mnaf) {
 			tfMNaF.setValue(mnaf);
 		}
 
-		public void setBegin(String begin) {
-			dpBegin.setDateInEuropeanFormat(begin);
+		public void setBegin(Date begin) {
+			dpBegin.setDate(begin);
 		}
 
 		public void setDangerSubstComment(String dangerSubstComment) {
@@ -403,8 +414,8 @@ public class PersonManagementView extends VerticalLayout {
 			tfIfwt.setValue(ifwt);
 		}
 
-		public void setDate(String date) {
-			dpDate.setDateInEuropeanFormat(date);
+		public void setDate(Date date) {
+			dpDate.setDate(date);
 		}
 
 		public void setFName(String fName) {
@@ -469,9 +480,9 @@ public class PersonManagementView extends VerticalLayout {
 			Button save = new Button("Speichern", e -> {
 				String lName = tfLName.getValue();
 				String fName = tfFName.getValue();
-				String date = dpDate.getDateInEuropeanFormat();
-				String begin = dpBegin.getDateInEuropeanFormat();
-				String end = dpEnd.getDateInEuropeanFormat();
+				Date date = dpDate.getDate();
+				Date begin = dpBegin.getDate();
+				Date end = dpEnd.getDate();
 				String eMail = tfEmail.getValue();
 				try {
 					if(lName.isEmpty() || fName.isEmpty()) {
@@ -484,8 +495,18 @@ public class PersonManagementView extends VerticalLayout {
 						Notification.show(r.getErrorMessage());
 						return;
 					}
-					if(!(dpBegin.getValue().isBefore(dpEnd.getValue()) || dpBegin.getValue().isEqual(dpEnd.getValue()))) {
-						Notification.show("Beginn muss vor Ende liegen!");
+					if(dpBegin.getValue() != null && dpEnd.getValue() != null) {
+						if(!(dpBegin.getValue().isBefore(dpEnd.getValue()) || dpBegin.getValue().isEqual(dpEnd.getValue()))) {
+							Notification.show("Beginn muss vor Ende liegen!");
+							return;
+						}
+					}
+					else if(dpBegin.getValue() == null && dpEnd.getValue() != null) {
+						Notification.show("Beginn ist nicht festgelegt!");
+						return;
+					}
+					else if(dpBegin.getValue() != null && dpEnd.getValue() == null) {
+						Notification.show("Ende ist nicht festgelegt!");
 						return;
 					}
 					

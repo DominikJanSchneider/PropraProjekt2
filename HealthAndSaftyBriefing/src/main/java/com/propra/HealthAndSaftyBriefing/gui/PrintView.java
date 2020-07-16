@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import com.propra.HealthAndSaftyBriefing.backend.PersonManager;
 import com.propra.HealthAndSaftyBriefing.backend.data.Person;
@@ -32,10 +34,11 @@ public class PrintView extends Div implements HasUrlParameter<String>{
 
 	@Override
 	public void setParameter(BeforeEvent event, String parameter) {
+		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
 		Person person = personM.getPersonByID(Integer.parseInt(parameter));
 		String lName = person.getLName();
 		String fName = person.getFName();
-		String date = person.getDate();
+		String date = df.format(person.getDate());
 		String ifwt = person.getIfwt();
 		String mnaf = person.getMNaF();
 		String intern = person.getIntern();

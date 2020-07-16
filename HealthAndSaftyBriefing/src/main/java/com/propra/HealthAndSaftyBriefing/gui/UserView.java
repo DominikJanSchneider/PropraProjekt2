@@ -1,6 +1,8 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.List;
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControl;
@@ -238,14 +240,30 @@ public class UserView extends VerticalLayout {
 	}
 	
 	private void updateUserInfo() {
-		tfDate.setValue(userData.getDate());
+		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+		if(userData.getDate() == null) {
+			tfDate.setValue("");
+		}
+		else {
+			tfDate.setValue(df.format(userData.getDate()));
+		}
 		tfIfwt.setValue(userData.getIfwt());
 		tfMNaF.setValue(userData.getMNaF());
 		tfIntern.setValue(userData.getIntern());
 		tfExtern.setValue(userData.getExtern());
 		tfEmployment.setValue(userData.getEmployment());
-		tfBegin.setValue(userData.getBegin());
-		tfEnd.setValue(userData.getEnd());
+		if(userData.getBegin() == null) {
+			tfBegin.setValue("");
+		}
+		else {
+			tfBegin.setValue(df.format(userData.getBegin()));
+		}
+		if(userData.getBegin() == null) {
+			tfEnd.setValue("");
+		}
+		else {
+			tfEnd.setValue(df.format(userData.getEnd()));
+		}
 		tfEMail.setValue(userData.getEMail());
 		taGeneralInstruction.setValue(userData.getGenInstr());
 		String labComment = userData.getLabComment();
