@@ -174,8 +174,7 @@ public class DeviceManager {
 						rs.getString("Beschreibung"),
 						rs.getString("Raum"),
 						rs.getDouble("Nutzungszeit")
-
-						);
+				);
 				list.add(device);
 			}
 			return list;

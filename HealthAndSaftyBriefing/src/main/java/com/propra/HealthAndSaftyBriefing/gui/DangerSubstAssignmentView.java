@@ -226,6 +226,7 @@ public class DangerSubstAssignmentView extends VerticalLayout implements HasUrlP
 	{
 		String res = "";
 		List<AssignedDangerSubst> dangerSubsts = dangerSubstM.getAssignedDangerSubst(pID);
+		dangerSubsts.sort(Comparator.comparing(DangerSubst::getName));
 		if(!dangerSubsts.isEmpty()) {
 			res = "Gefahrstoffe mit denen gearbeitet wird:";
 			for(AssignedDangerSubst dangerSubst : dangerSubsts) {

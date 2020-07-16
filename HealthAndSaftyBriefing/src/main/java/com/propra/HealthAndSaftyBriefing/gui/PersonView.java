@@ -1,10 +1,11 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
-import java.awt.Color;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.propra.HealthAndSaftyBriefing.CalcDateDiff;
 import com.propra.HealthAndSaftyBriefing.backend.PersonManager;
 import com.propra.HealthAndSaftyBriefing.backend.data.Person;
 import com.vaadin.flow.component.BlurNotifier.BlurEvent;
@@ -26,7 +27,6 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.selection.SelectionEvent;
 import com.vaadin.flow.data.selection.SelectionListener;
-import com.propra.HealthAndSaftyBriefing.gui.CalcDateDiff;
 
 @SuppressWarnings("serial")
 public class PersonView extends VerticalLayout {
@@ -111,7 +111,7 @@ public class PersonView extends VerticalLayout {
         			.setKey("lName")
         			.setResizable(true)
         			.setSortable(true);
-        personGrid.addColumn(Person::getDate)
+        personGrid.addColumn(Person::getDateInEuropeanFormat)
 					.setHeader("Datum")
 					.setKey("date")
 					.setResizable(true)
@@ -137,16 +137,16 @@ public class PersonView extends VerticalLayout {
         			.setResizable(true)
         			.setSortable(true);
         personGrid.addColumn(Person::getEmployment)
-					.setHeader("Beschaeftigungsverh\u00e4ltnis")
+					.setHeader("Besch\u00e4ftigungsverh\u00e4ltnis")
 					.setKey("employment")
 					.setResizable(true)
 					.setSortable(true);
-        personGrid.addColumn(Person::getBegin)
+        personGrid.addColumn(Person::getBeginInEuropeanFormat)
 					.setHeader("Beginn")
 					.setKey("begin")
 					.setResizable(true)
 					.setSortable(true);
-        personGrid.addColumn(Person::getEnd)
+        personGrid.addColumn(Person::getEndInEuropeanFormat)
 					.setHeader("Ende")
 					.setKey("end")
 					.setResizable(true)
@@ -165,10 +165,10 @@ public class PersonView extends VerticalLayout {
         });
         
         personGrid.getColumnByKey("date").setClassNameGenerator(item -> {
-        	String date = null;
+        	Date date = null;
         	int daysDiff = 0;
         	date = item.getDate();
-        	if (!item.getDate().isEmpty()) {
+        	if (date != null) {
      			//System.out.println(row);
      			//System.out.println(date);
      			daysDiff = CalcDateDiff.date(date);		// check difference between given date and actual date in CalcDateDiff-Class

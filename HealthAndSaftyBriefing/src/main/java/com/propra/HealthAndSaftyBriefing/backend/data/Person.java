@@ -1,20 +1,21 @@
 package com.propra.HealthAndSaftyBriefing.backend.data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @SuppressWarnings("serial")
 public class Person implements Serializable, Cloneable {
 	private int id;
 	private String fName;
 	private String lName;
-	private String date;
+	private Date date;
 	private String ifwt;
 	private String mnaf;
 	private String intern;
 	private String extern;
 	private String employment;
-	private String begin;
-	private String end;
+	private Date begin;
+	private Date end;
 	private String eMail;
 	private String genInstr;
 	private String labSetup;
@@ -22,7 +23,7 @@ public class Person implements Serializable, Cloneable {
 	private String labComment;
 	private String dangerSubstComment;
 	
-	public Person(int id, String lName, String fName, String date, String ifwt, String mnaf, String intern, String extern, String employment, String begin, String end, String eMail, String genInstr, String labSetup, String dangerSubsts, String labComment, String dangerSubstComment) {
+	public Person(int id, String lName, String fName, Date date, String ifwt, String mnaf, String intern, String extern, String employment, Date begin, Date end, String eMail, String genInstr, String labSetup, String dangerSubsts, String labComment, String dangerSubstComment) {
 		this.setId(id);
 		this.setFName(fName);
 		this.setLName(lName);
@@ -66,14 +67,23 @@ public class Person implements Serializable, Cloneable {
 		this.id = id;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
-
+	
+	public EuropeanDate getDateInEuropeanFormat() {
+		if(date != null) {
+			return new EuropeanDate(date);
+		}
+		else {
+			return null;
+		}
+	}
+	
 	public String getIfwt() {
 		return ifwt;
 	}
@@ -114,19 +124,37 @@ public class Person implements Serializable, Cloneable {
 		this.employment = employment;
 	}
 
-	public String getBegin() {
+	public Date getBegin() {
 		return begin;
 	}
+	
+	public EuropeanDate getBeginInEuropeanFormat() {
+		if(begin != null) {
+			return new EuropeanDate(begin);
+		}
+		else {
+			return null;
+		}
+	}
 
-	public void setBegin(String begin) {
+	public void setBegin(Date begin) {
 		this.begin = begin;
 	}
 
-	public String getEnd() {
+	public Date getEnd() {
 		return end;
 	}
+	
+	public EuropeanDate getEndInEuropeanFormat() {
+		if(end != null) {
+			return new EuropeanDate(end);
+		}
+		else {
+			return null;
+		}
+	}
 
-	public void setEnd(String end) {
+	public void setEnd(Date end) {
 		this.end = end;
 	}
 
@@ -177,6 +205,4 @@ public class Person implements Serializable, Cloneable {
 	public void setDangerSubstComment(String dangerSubstComment) {
 		this.dangerSubstComment = dangerSubstComment;
 	}
-	
-	
 }

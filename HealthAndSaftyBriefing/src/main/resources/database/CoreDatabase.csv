@@ -51,8 +51,12 @@ ID; Name; Vorname; Datum; Ifwt; MNaF; Intern; Beschaeftigungsverhaeltnis; Beginn
 -Laborabzüge; test; test;
 12; Maurer; Fred; 20.05.2020; ; MNaF; ; Wissenschaftlicher Mitarbeiter; 01.10.2019; 01.10.2020; ; fred.maurer@beispiel-uni.de; Test; Geräte mit denen gearbeitet wird:
 -GeräteID: 2, Name: Schleifeinrichtung, Raum: BR-A 002; ; ; ;
-13; Nauen; Sina; 14.04.2020; ; ; ; Arbeiterin; sina.nauen@externe-uni.de; ; ExterneArbeiterin; ; test2; ; Gefahrstoffe mit denen gearbeitet wird:
+13; Nauen; Sina; 14.04.2020; ; ; ; Arbeiterin; ; ; ExterneArbeiterin; sina.nauen@externe-uni.de; test2; ; Gefahrstoffe mit denen gearbeitet wird:
 -Laugen; ; ;
+14; test; test; 16.07.2020; ; tets; testintern; testbesch; 16.07.2020; 17.07.2020; testExtern; test.test@externe-uni.de; testall; Geräte mit denen gearbeitet wird:
+-GeräteID: 6, Name: Schleifeinrichtung, Raum: PB-A 225; Gefahrstoffe mit denen gearbeitet wird:
+-Alkohol
+-Milch; ; ;
 
 
 GeräteID; Name; Beschreibung; Raum;
@@ -66,7 +70,7 @@ GeräteID; Name; Beschreibung; Raum;
 8; Ständerbohrmaschine; ; PB-A 225; 
 9; Laser; ; PB-A 225; 
 10; Atom-Uboot; ; PB-A 225; 
-11; synthetische Kuh; ; BR-A 003; 
+11; Synthetische Kuh; ; BR-A 003; 
 12; Zentrifuge; ; PB-A 225; 
 
 
@@ -79,6 +83,7 @@ TR-A 001; Testraum Bearbeitung 1;
 
 
 GeräteID; PersonenID; Nutzungszeit;
+<<<<<<< HEAD
 2; 2; 5.000000;
 1; 2; 7.000000;
 3; 2; 2.000000;
@@ -105,6 +110,34 @@ GeräteID; PersonenID; Nutzungszeit;
 1; 11; 0.000000;
 2; 12; 0.000000;
 5; 2; 3.000000;
+=======
+2; 2; 5,000000;
+1; 2; 0,000000;
+3; 2; 2,000000;
+5; 3; 6,000000;
+6; 3; 7,000000;
+7; 3; 4,000000;
+8; 5; 0,000000;
+7; 5; 0,000000;
+6; 5; 0,000000;
+5; 5; 0,000000;
+6; 8; 0,000000;
+5; 8; 0,000000;
+7; 8; 0,000000;
+1; 1; 0,000000;
+4; 2; 0,000000;
+8; 3; 0,000000;
+4; 4; 0,000000;
+9; 5; 0,000000;
+10; 6; 0,000000;
+11; 7; 0,000000;
+8; 8; 0,000000;
+12; 9; 0,000000;
+1; 10; 0,000000;
+1; 11; 0,000000;
+2; 12; 0,000000;
+6; 14; 0,000000;
+>>>>>>> branch 'master' of https://github.com/DominikJanSchneider/PropraProjekt2/
 
 
 Name;
@@ -134,8 +167,10 @@ Milch; 7;
 Säuren; 8;
 Laborabzüge; 11;
 Laugen; 13;
+Alkohol; 14;
+Milch; 14;
 
 
 name; seq;
 Geräte; 12;
-Personen; 13;
+Personen; 14;

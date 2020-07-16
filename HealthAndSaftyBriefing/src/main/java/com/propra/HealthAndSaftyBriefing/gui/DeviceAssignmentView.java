@@ -359,6 +359,7 @@ public class DeviceAssignmentView extends VerticalLayout implements HasUrlParame
 	{
 		String res = "";
 		List<AssignedDevice> devices = deviceM.getAssignedDevices(pID);
+		devices.sort(Comparator.comparing(Device::getId));
 		if(!devices.isEmpty()) {
 			res = "Ger\u00e4te mit denen gearbeitet wird:";
 			for(AssignedDevice device : devices) {
