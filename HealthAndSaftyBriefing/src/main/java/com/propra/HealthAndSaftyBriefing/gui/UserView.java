@@ -286,6 +286,7 @@ public class UserView extends VerticalLayout {
 	
 	private void updateUserDeviceGrid() {
 		List<AssignedDevice> devices = deviceM.getAssignedDevices(userData.getId());
+		devices.sort(Comparator.comparing(Device::getId));
 		userDeviceGrid.setItems(devices);
 	}
 	

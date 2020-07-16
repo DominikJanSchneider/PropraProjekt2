@@ -27,7 +27,7 @@ ID; Name; Vorname; Datum; Ifwt; MNaF; Intern; Beschaeftigungsverhaeltnis; Beginn
 -GeräteID: 5, Name: Materialtrennschneider, Raum: PB-A 225
 -GeräteID: 9, Name: Laser, Raum: PB-A 225; Gefahrstoffe mit denen gearbeitet wird:
 -Laborabzüge; 15.02.2020 Themenbezogene Unterweisung; 15.02.2020 Themenbezogene Unterweisung;
-6; Flies; Alfred; 25.12.2019; LMN; ; ; Wissenschaftlicher Mitarbeiter; ; ; ; alfred.flies@beispiel-uni.de; 25.12.2019 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; Geräte mit denen gearbeitet wird:
+6; Flies; Alfred; 25.01.2020; LMN; ; ; Wissenschaftlicher Mitarbeiter; ; ; ; alfred.flies@beispiel-uni.de; 25.01.2020 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; Geräte mit denen gearbeitet wird:
 -GeräteID: 10, Name: Atom-Uboot, Raum: PB-A 225; Gefahrstoffe mit denen gearbeitet wird:
 -Atomwaffen; 08.01.2020 Themenbezogene Unterweisung; 08.01.2020 Themenbezogene Unterweisung;
 7; Gries; Lena; 25.03.2020; LWF; ; ; Wissenschaftliche Mitarbeiterin; ; ; ; lena.gries@beispiel-uni.de; 25.03.2020 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; Geräte mit denen gearbeitet wird:
@@ -50,9 +50,12 @@ ID; Name; Vorname; Datum; Ifwt; MNaF; Intern; Beschaeftigungsverhaeltnis; Beginn
 -Laborabzüge; test; test;
 12; Maurer; Fred; 20.05.2020; ; MNaF; ; Wissenschaftlicher Mitarbeiter; 01.10.2019; 01.10.2020; ; fred.maurer@beispiel-uni.de; Test; Geräte mit denen gearbeitet wird:
 -GeräteID: 2, Name: Schleifeinrichtung, Raum: BR-A 002; ; ; ;
-13; Nauen; Sina; 14.04.2020; ; ; ; Arbeiterin; ; ; ExterneArbeiterin; sina.nauen@externe-uni.de; ; ; Gefahrstoffe mit denen gearbeitet wird:
+13; Nauen; Sina; 14.04.2020; ; ; ; Arbeiterin; ; ; ExterneArbeiterin; sina.nauen@externe-uni.de; test2; ; Gefahrstoffe mit denen gearbeitet wird:
 -Laugen; ; ;
-14; test; test; 15.07.2020; ; ; ; ; 14.07.2020; 15.07.2020; ; sina.nauen@externe-uni.de; ; ; ; ; ;
+14; test; test; 16.07.2020; ; tets; testintern; testbesch; 16.07.2020; 17.07.2020; testExtern; test.test@externe-uni.de; testall; Geräte mit denen gearbeitet wird:
+-GeräteID: 6, Name: Schleifeinrichtung, Raum: PB-A 225; Gefahrstoffe mit denen gearbeitet wird:
+-Alkohol
+-Milch; ; ;
 
 
 GeräteID; Name; Beschreibung; Raum;
@@ -66,7 +69,7 @@ GeräteID; Name; Beschreibung; Raum;
 8; Ständerbohrmaschine; ; PB-A 225; 
 9; Laser; ; PB-A 225; 
 10; Atom-Uboot; ; PB-A 225; 
-11; synthetische Kuh; ; BR-A 003; 
+11; Synthetische Kuh; ; BR-A 003; 
 12; Zentrifuge; ; PB-A 225; 
 
 
@@ -75,12 +78,13 @@ BR-A 001; Beispielraum 1;
 BR-A 002; Beispielraum 2;
 BR-A 003; Beispielraum 3;
 PB-A 225; ;
+TR-A 001; Testraum Bearbeitung 1;
 
 
 GeräteID; PersonenID; Nutzungszeit;
-2; 2; 0,000000;
+2; 2; 5,000000;
 1; 2; 0,000000;
-3; 2; 0,000000;
+3; 2; 2,000000;
 5; 3; 6,000000;
 6; 3; 7,000000;
 7; 3; 4,000000;
@@ -103,6 +107,7 @@ GeräteID; PersonenID; Nutzungszeit;
 1; 10; 0,000000;
 1; 11; 0,000000;
 2; 12; 0,000000;
+6; 14; 0,000000;
 
 
 Name;
@@ -113,6 +118,7 @@ Sprengstoff;
 Atomwaffen;
 Milch;
 Radioaktives Material;
+Alkohol;
 
 
 Gefahrstoff; PersonenID;
@@ -131,6 +137,8 @@ Milch; 7;
 Säuren; 8;
 Laborabzüge; 11;
 Laugen; 13;
+Alkohol; 14;
+Milch; 14;
 
 
 name; seq;
