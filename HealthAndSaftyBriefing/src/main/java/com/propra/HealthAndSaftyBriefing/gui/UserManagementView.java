@@ -265,10 +265,10 @@ public class UserManagementView extends VerticalLayout{
 			    		try {
 			    			String role = null;
 		    				if(slRole.getValue() == "Admin") {
-		    					role = "admin";
+		    					role = "Admin";
 		    				}
 		    				else {
-		    					role = "benutzer";
+		    					role = "Benutzer";
 		    				}
 							userM.editUser(this.userId, tfUserName.getValue(), tfPassword.getValue(), role);
 							Notification.show("Nutzerdaten wurden erfolgreich bearbeitet!");

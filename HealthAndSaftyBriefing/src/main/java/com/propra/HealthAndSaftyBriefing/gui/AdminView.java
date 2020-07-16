@@ -80,7 +80,6 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	   	configureTabs();
 	   	add(tabs);
 		add(pages);
-		System.out.println(DBConnector.getURLCore());
 	}
 	
 	

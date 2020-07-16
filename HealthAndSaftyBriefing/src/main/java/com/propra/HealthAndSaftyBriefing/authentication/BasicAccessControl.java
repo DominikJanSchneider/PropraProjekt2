@@ -27,7 +27,7 @@ public class BasicAccessControl implements AccessControl {
 	
 	@Override
 	public boolean isUserAdmin() {
-		if (userM.getRole().equals("admin")) {
+		if (userM.getRole().equals("Admin")) {
 			//Only the admin user is in the admin role
 			return true;
 		}

@@ -6,7 +6,8 @@ ID; Name; Vorname; Datum; Ifwt; MNaF; Intern; Beschaeftigungsverhaeltnis; Beginn
 -GeräteID: 2, Name: Schleifeinrichtung, Raum: BR-A 002
 -GeräteID: 1, Name: Materialtrennschneider, Raum: BR-A 001
 -GeräteID: 3, Name: Ultraschall-Reinigungsgerät, Raum: BR-A 001
--GeräteID: 4, Name: Ständerbohrmaschine, Raum: BR-A 003; Gefahrstoffe mit denen gearbeitet wird:
+-GeräteID: 4, Name: Ständerbohrmaschine, Raum: BR-A 003
+-GeräteID: 5, Name: Materialtrennschneider, Raum: PB-A 225; Gefahrstoffe mit denen gearbeitet wird:
 -Laugen
 -Säuren; 13.08.2019 Themenbezogene Unterweisung; 13.08.2019 Themenbezogene Unterweisung;
 3; Kautz; Herbert; 25.03.2019; LMW; ; ; Student; ; ; ; kautz.herbert@student.beispiel-uni.de; 25.03.2019 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; Geräte mit denen gearbeitet wird:
@@ -27,7 +28,7 @@ ID; Name; Vorname; Datum; Ifwt; MNaF; Intern; Beschaeftigungsverhaeltnis; Beginn
 -GeräteID: 5, Name: Materialtrennschneider, Raum: PB-A 225
 -GeräteID: 9, Name: Laser, Raum: PB-A 225; Gefahrstoffe mit denen gearbeitet wird:
 -Laborabzüge; 15.02.2020 Themenbezogene Unterweisung; 15.02.2020 Themenbezogene Unterweisung;
-6; Flies; Alfred; 25.12.2019; LMN; ; ; Wissenschaftlicher Mitarbeiter; ; ; ; alfred.flies@beispiel-uni.de; 25.12.2019 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; Geräte mit denen gearbeitet wird:
+6; Flies; Alfred; 25.01.2020; LMN; ; ; Wissenschaftlicher Mitarbeiter; ; ; ; alfred.flies@beispiel-uni.de; 25.01.2020 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; Geräte mit denen gearbeitet wird:
 -GeräteID: 10, Name: Atom-Uboot, Raum: PB-A 225; Gefahrstoffe mit denen gearbeitet wird:
 -Atomwaffen; 08.01.2020 Themenbezogene Unterweisung; 08.01.2020 Themenbezogene Unterweisung;
 7; Gries; Lena; 25.03.2020; LWF; ; ; Wissenschaftliche Mitarbeiterin; ; ; ; lena.gries@beispiel-uni.de; 25.03.2020 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; Geräte mit denen gearbeitet wird:
@@ -78,9 +79,9 @@ TR-A 001; Testraum Bearbeitung 1;
 
 
 GeräteID; PersonenID; Nutzungszeit;
-2; 2; 0.000000;
-1; 2; 0.000000;
-3; 2; 0.000000;
+2; 2; 5.000000;
+1; 2; 7.000000;
+3; 2; 2.000000;
 5; 3; 6.000000;
 6; 3; 7.000000;
 7; 3; 4.000000;
@@ -103,6 +104,7 @@ GeräteID; PersonenID; Nutzungszeit;
 1; 10; 0.000000;
 1; 11; 0.000000;
 2; 12; 0.000000;
+5; 2; 3.000000;
 
 
 Name;
