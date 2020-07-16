@@ -5,13 +5,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import com.propra.HealthAndSaftyBriefing.authentication.AccessControlFactory;
 import com.propra.HealthAndSaftyBriefing.backend.data.Person;
 import com.propra.HealthAndSaftyBriefing.database.DBConnector;
 import com.propra.HealthAndSaftyBriefing.database.DBConverter;
 import com.propra.HealthAndSaftyBriefing.database.DBExporter;
 import com.propra.HealthAndSaftyBriefing.database.DBUploader;
-import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
@@ -70,6 +70,7 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 		btnLogout.setIcon(VaadinIcon.SIGN_OUT.create());
 		btnLogout.getElement().getStyle().set("margin-left", "auto");
 		btnLogout.addClickListener(e -> logout());
+		btnLogout.addClickShortcut(Key.KEY_L, KeyModifier.CONTROL);
 	    add(btnLogout);
 	  	
 	    //MenuBar
@@ -229,15 +230,6 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 	private void logout() {
         AccessControlFactory.getInstance().createAccessControl().signOut();
     }
-	
-	@Override 
-	protected void onAttach(AttachEvent attachEvent) {
-		super.onAttach(attachEvent);
-		
-		// User can quickly activate logout with Ctrl+L
-		attachEvent.getUI().addShortcutListener(() -> logout(), Key.KEY_L, KeyModifier.CONTROL);
-		
-	}
 
 	private void printPressed() {
 		Person person = personView.getSelectedPerson();
