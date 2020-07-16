@@ -165,8 +165,8 @@ public class UserManagementView extends VerticalLayout{
 		});
 		
 		btnAll = new Button("Alle", e -> updateUserGrid());
-		btnAdmin = new Button("Admin", e -> updateUserGridByRole("admin"));
-		btnUser = new Button("Benutzer", e -> updateUserGridByRole("benutzer"));
+		btnAdmin = new Button("Admin", e -> updateUserGridByRole("Admin"));
+		btnUser = new Button("Benutzer", e -> updateUserGridByRole("Benutzer"));
 		
 		Tab idTab = new Tab("BenutzerID");
 		Tab nameTab = new Tab("Name");

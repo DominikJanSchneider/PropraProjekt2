@@ -3,17 +3,16 @@ ID; Name; Vorname; Datum; Ifwt; MNaF; Intern; Beschaeftigungsverhaeltnis; Beginn
 -GeräteID: 1, Name: Materialtrennschneider, Raum: BR-A 001; Gefahrstoffe mit denen gearbeitet wird:
 -Laborabzüge; Test; test;
 2; Heer; Jonatan; 03.04.2019; LMW; ; ; Masterarbeiter; ; ; ; jonatan.heer@student.beispiel-uni.de; 03.04.2019 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; Geräte mit denen gearbeitet wird:
--GeräteID: 2, Name: Schleifeinrichtung, Raum: BR-A 002
 -GeräteID: 1, Name: Materialtrennschneider, Raum: BR-A 001
+-GeräteID: 2, Name: Schleifeinrichtung, Raum: BR-A 002
 -GeräteID: 3, Name: Ultraschall-Reinigungsgerät, Raum: BR-A 001
--GeräteID: 4, Name: Ständerbohrmaschine, Raum: BR-A 003
--GeräteID: 5, Name: Materialtrennschneider, Raum: PB-A 225; Gefahrstoffe mit denen gearbeitet wird:
+-GeräteID: 4, Name: Ständerbohrmaschine, Raum: BR-A 003; Gefahrstoffe mit denen gearbeitet wird:
 -Laugen
 -Säuren; 13.08.2019 Themenbezogene Unterweisung; 13.08.2019 Themenbezogene Unterweisung;
 3; Kautz; Herbert; 25.03.2019; LMW; ; ; Student; ; ; ; kautz.herbert@student.beispiel-uni.de; 25.03.2019 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; Geräte mit denen gearbeitet wird:
+-GeräteID: 1, Name: Materialtrennschneider, Raum: BR-A 001
 -GeräteID: 5, Name: Materialtrennschneider, Raum: PB-A 225
 -GeräteID: 6, Name: Schleifeinrichtung, Raum: PB-A 225
--GeräteID: 7, Name: Ultraschall-Reinigungsgerät, Raum: PB-A 225
 -GeräteID: 8, Name: Ständerbohrmaschine, Raum: PB-A 225; Gefahrstoffe mit denen gearbeitet wird:
 -Laborabzüge
 -Sprengstoff; 14.05.2019 Themenbezogene Unterweisung; 14.05.2019 Themenbezogene Unterweisung;
@@ -22,21 +21,21 @@ ID; Name; Vorname; Datum; Ifwt; MNaF; Intern; Beschaeftigungsverhaeltnis; Beginn
 -Laugen
 -Milch; ; ;
 5; Friedrich; Helene; 05.12.2019; LMW; ; ; Technische Mitarbeiterin; ; ; ; helene.friedrich@beispiel-uni.de; 05.12.2019 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; Geräte mit denen gearbeitet wird:
--GeräteID: 8, Name: Ständerbohrmaschine, Raum: PB-A 225
--GeräteID: 7, Name: Ultraschall-Reinigungsgerät, Raum: PB-A 225
--GeräteID: 6, Name: Schleifeinrichtung, Raum: PB-A 225
 -GeräteID: 5, Name: Materialtrennschneider, Raum: PB-A 225
+-GeräteID: 6, Name: Schleifeinrichtung, Raum: PB-A 225
+-GeräteID: 7, Name: Ultraschall-Reinigungsgerät, Raum: PB-A 225
+-GeräteID: 8, Name: Ständerbohrmaschine, Raum: PB-A 225
 -GeräteID: 9, Name: Laser, Raum: PB-A 225; Gefahrstoffe mit denen gearbeitet wird:
 -Laborabzüge; 15.02.2020 Themenbezogene Unterweisung; 15.02.2020 Themenbezogene Unterweisung;
 6; Flies; Alfred; 25.01.2020; LMN; ; ; Wissenschaftlicher Mitarbeiter; ; ; ; alfred.flies@beispiel-uni.de; 25.01.2020 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; Geräte mit denen gearbeitet wird:
 -GeräteID: 10, Name: Atom-Uboot, Raum: PB-A 225; Gefahrstoffe mit denen gearbeitet wird:
 -Atomwaffen; 08.01.2020 Themenbezogene Unterweisung; 08.01.2020 Themenbezogene Unterweisung;
 7; Gries; Lena; 25.03.2020; LWF; ; ; Wissenschaftliche Mitarbeiterin; ; ; ; lena.gries@beispiel-uni.de; 25.03.2020 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; Geräte mit denen gearbeitet wird:
--GeräteID: 11, Name: synthetische Kuh, Raum: BR-A 003; Gefahrstoffe mit denen gearbeitet wird:
+-GeräteID: 11, Name: Synthetische Kuh, Raum: BR-A 003; Gefahrstoffe mit denen gearbeitet wird:
 -Milch; 25.04.2020 Themenbezogene Unterweisung; 25.04.2020 Themenbezogene Unterweisung;
 8; Hermann; Lea; 25.03.2020; LMW; ; ; Wissenschaftliche Mitarbeiterin; ; ; ; lea.mann@beispiel-uni.de; 25.03.2020 Teilnahme an der allgemeinen Sicherheitsunterweisung für den Bereich Campus Paul-Bonatz Straße und allgemeine Hinweise für den Laborbereich der Lehrstühle am lfwt.; Geräte mit denen gearbeitet wird:
--GeräteID: 6, Name: Schleifeinrichtung, Raum: PB-A 225
 -GeräteID: 5, Name: Materialtrennschneider, Raum: PB-A 225
+-GeräteID: 6, Name: Schleifeinrichtung, Raum: PB-A 225
 -GeräteID: 7, Name: Ultraschall-Reinigungsgerät, Raum: PB-A 225
 -GeräteID: 8, Name: Ständerbohrmaschine, Raum: PB-A 225; Gefahrstoffe mit denen gearbeitet wird:
 -Laugen
@@ -51,12 +50,9 @@ ID; Name; Vorname; Datum; Ifwt; MNaF; Intern; Beschaeftigungsverhaeltnis; Beginn
 -Laborabzüge; test; test;
 12; Maurer; Fred; 20.05.2020; ; MNaF; ; Wissenschaftlicher Mitarbeiter; 01.10.2019; 01.10.2020; ; fred.maurer@beispiel-uni.de; Test; Geräte mit denen gearbeitet wird:
 -GeräteID: 2, Name: Schleifeinrichtung, Raum: BR-A 002; ; ; ;
-13; Nauen; Sina; 14.04.2020; ; ; ; Arbeiterin; ; ; ExterneArbeiterin; sina.nauen@externe-uni.de; test2; ; Gefahrstoffe mit denen gearbeitet wird:
+13; Nauen; Sina; 14.04.2020; ; ; ; Arbeiterin; ; ; ExterneArbeiterin; sina.nauen@externe-uni.de; test2; Geräte mit denen gearbeitet wird:
+-GeräteID: 1, Name: Materialtrennschneider, Raum: BR-A 001; Gefahrstoffe mit denen gearbeitet wird:
 -Laugen; ; ;
-14; test; test; 16.07.2020; ; tets; testintern; testbesch; 16.07.2020; 17.07.2020; testExtern; test.test@externe-uni.de; testall; Geräte mit denen gearbeitet wird:
--GeräteID: 6, Name: Schleifeinrichtung, Raum: PB-A 225; Gefahrstoffe mit denen gearbeitet wird:
--Alkohol
--Milch; ; ;
 
 
 GeräteID; Name; Beschreibung; Raum;
@@ -83,13 +79,11 @@ TR-A 001; Testraum Bearbeitung 1;
 
 
 GeräteID; PersonenID; Nutzungszeit;
-<<<<<<< HEAD
 2; 2; 5.000000;
-1; 2; 7.000000;
+1; 2; 400.000000;
 3; 2; 2.000000;
 5; 3; 6.000000;
 6; 3; 7.000000;
-7; 3; 4.000000;
 8; 5; 0.000000;
 7; 5; 0.000000;
 6; 5; 0.000000;
@@ -109,35 +103,20 @@ GeräteID; PersonenID; Nutzungszeit;
 1; 10; 0.000000;
 1; 11; 0.000000;
 2; 12; 0.000000;
-5; 2; 3.000000;
-=======
-2; 2; 5,000000;
-1; 2; 0,000000;
-3; 2; 2,000000;
-5; 3; 6,000000;
-6; 3; 7,000000;
-7; 3; 4,000000;
-8; 5; 0,000000;
-7; 5; 0,000000;
-6; 5; 0,000000;
-5; 5; 0,000000;
-6; 8; 0,000000;
-5; 8; 0,000000;
-7; 8; 0,000000;
-1; 1; 0,000000;
-4; 2; 0,000000;
-8; 3; 0,000000;
-4; 4; 0,000000;
-9; 5; 0,000000;
-10; 6; 0,000000;
-11; 7; 0,000000;
-8; 8; 0,000000;
-12; 9; 0,000000;
-1; 10; 0,000000;
-1; 11; 0,000000;
-2; 12; 0,000000;
-6; 14; 0,000000;
->>>>>>> branch 'master' of https://github.com/DominikJanSchneider/PropraProjekt2/
+6; 14; 7.000000;
+1; 13; 200.000000;
+2; 14; 0.000000;
+4; 14; 0.000000;
+3; 14; 0.000000;
+5; 14; 0.000000;
+7; 14; 0.000000;
+8; 14; 0.000000;
+9; 14; 0.000000;
+11; 14; 0.000000;
+10; 14; 0.000000;
+12; 14; 0.000000;
+1; 14; 0.000000;
+1; 3; 0.000000;
 
 
 Name;
@@ -167,10 +146,16 @@ Milch; 7;
 Säuren; 8;
 Laborabzüge; 11;
 Laugen; 13;
-Alkohol; 14;
 Milch; 14;
+Atomwaffen; 14;
+Laborabzüge; 14;
+Laugen; 14;
+Sprengstoff; 14;
+Radioaktives Material; 14;
+Säuren; 14;
+Alkohol; 14;
 
 
 name; seq;
 Geräte; 12;
-Personen; 14;
+Personen; 13;
