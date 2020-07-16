@@ -6,7 +6,7 @@ public class DBConnector {
 	private static String urlCore = "jdbc:sqlite:src/main/resources/database/CoreDatabase.db";
 	private static String urlLogin = "jdbc:sqlite:src/main/resources/database/UserDatabase.db";
 	private static Connection con = null;
-		
+	
 	public static Connection connectCore() {
 		try {
 			Class.forName("org.sqlite.JDBC");

@@ -3,8 +3,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.propra</groupId>
     <artifactId>HealthAndSaftyBriefing</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>My Application</name>
+    <version>1.0</version>
+    <name>HealthAndSaftyBriefing</name>
     <packaging>war</packaging>
 
     <properties>
