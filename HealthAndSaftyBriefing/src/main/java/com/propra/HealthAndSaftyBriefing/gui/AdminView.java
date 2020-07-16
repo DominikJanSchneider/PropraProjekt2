@@ -1,5 +1,6 @@
 package com.propra.HealthAndSaftyBriefing.gui;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -18,6 +19,7 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -190,15 +192,35 @@ public class AdminView extends VerticalLayout implements HasUrlParameter<String>
 		 Button btnLoadDefaultDB = new Button("Standarddatenbank Laden");
 		 btnLoadDefaultDB.addClickListener(e -> loadDefaultDBPressed());
 		 
-		 dialogLayout.add(lblHeader, lblSpace, lblSelectDB, selDatabase, btnLoadDB, btnLoadDefaultDB);
+		 Button btnDeleteDB = new Button("Datenbank Löschen");
+		 btnDeleteDB.addThemeVariants(ButtonVariant.LUMO_ERROR, ButtonVariant.LUMO_PRIMARY);
+		 btnDeleteDB.setIcon(VaadinIcon.MINUS_CIRCLE.create());
+		 btnDeleteDB.addClickListener(e -> deleteDBPressed());
+		 
+		 dialogLayout.add(lblHeader, lblSpace, lblSelectDB, selDatabase, btnLoadDB, btnLoadDefaultDB, btnDeleteDB);
 		 settingsDialog.add(dialogLayout);
 		 
 		 settingsDialog.open();
 	}
 	
+	private void deleteDBPressed() {
+		String selFile = selDatabase.getValue();
+		if (selFile == null) {
+			Notification.show("Bitte w\u00e4hlen Sie eine Datenbank aus.");
+			return;
+		}
+		File file = new File("src/main/resources/upload/"+selFile);
+		if (file.delete()) {
+			Notification.show("Ausgewählte Datenbank gelöscht.");
+		} else {
+			Notification.show("Fehler beim löschen der Datenbank!");
+		}
+		settingsDialog.close();
+	}
+	
 	private void loadDBPressed() {
 		String selFile = selDatabase.getValue();
-		if(selFile == null) {
+		if (selFile == null) {
 			Notification.show("Bitte w\u00e4hlen Sie eine Datenbank aus.");
 			return;
 		}
